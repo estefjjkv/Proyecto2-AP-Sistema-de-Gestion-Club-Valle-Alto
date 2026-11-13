@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% block titulo %}Nueva reserva{% endblock %}
+{% block contenido %}
+<div class="encabezado-pagina">
+  <h1>Nueva reserva</h1>
+  <p>Complete los datos y verifique la disponibilidad.</p>
+</div>
+
+<div class="grid-principal-lateral">
+  <div class="tarjeta">
+    <div class="tarjeta__cabecera">
+      <h2 class="tarjeta__titulo">Datos de la reserva</h2>
+    </div>
+
+    <form class="formulario" method="post" action="/reservas/" novalidate>
+      {% csrf_token %}
+      <div class="fila-campos">
+        <div class="campo">
+          <label for="id_instalacion">Instalación</label>
+          <select id="id_instalacion" name="instalacion">
+            <option value="tenis" selected>Cancha de tenis</option>
+            <option value="golf">Cancha de golf</option>
+            <option value="piscina">Piscina</option>
+            <option value="eventos">Salón de eventos</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="id_fecha">Fecha</label>
+          <input id="id_fecha" name="fecha" type="text" value="18/10/2026">
+        </div>
+      </div>
+
+      <div class="fila-campos">
+        <div class="campo">
+          <label for="id_hora_inicio">Hora de inicio</label>
+          <select id="id_hora_inicio" name="hora_inicio">
+            <option value="06:00">06:00</option>
+            <option value="08:00">08:00</option>
+            <option value="10:00" selected>10:00</option>
+            <option value="12:00">12:00</option>
+            <option value="14:00">14:00</option>
+            <option value="16:00">16:00</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="id_hora_fin">Hora de finalización</label>
+          <select id="id_hora_fin" name="hora_fin">
+            <option value="08:00">08:00</option>
+            <option value="10:00">10:00</option>
+            <option value="12:00" selected>12:00</option>
+            <option value="14:00">14:00</option>
+            <option value="16:00">16:00</option>
+            <option value="18:00">18:00</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="fila-campos" style="align-items:center">
+        <div class="campo">
+          <label for="id_personas">Número de personas</label>
+          <input id="id_personas" name="personas" type="number" min="1" max="4" value="2">
+        </div>
+        <div style="padding-top:1.15rem;color:var(--texto-suave);font-size:0.9rem">
+          Aforo máximo: 4 personas
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:0.84rem;font-weight:700;margin-bottom:0.65rem">Servicios adicionales</div>
+        <div style="display:flex;flex-wrap:wrap;gap:2.5rem;align-items:center">
+          <label style="display:inline-flex;align-items:center;gap:0.55rem;cursor:pointer;font-size:0.94rem">
+            <input type="checkbox" name="servicio_raquetas" checked style="width:18px;height:18px;accent-color:var(--verde-club)">
+            <span>Alquiler de raquetas (₡3 000)</span>
+          </label>
+          <label style="display:inline-flex;align-items:center;gap:0.55rem;cursor:pointer;font-size:0.94rem">
+            <input type="checkbox" name="servicio_bolas" style="width:18px;height:18px;accent-color:var(--verde-club)">
+            <span>Tubo de bolas (₡2 500)</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="alerta alerta--error" role="alert" style="margin-top:0.25rem">
+        El horario seleccionado se traslapa con otra reserva. Elija otro horario.
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;gap:0.85rem;margin-top:0.75rem">
+        <a href="/reservas/" class="boton boton--contorno" style="min-width:130px">Cancelar</a>
+        <button type="submit" class="boton" style="min-width:165px">Confirmar reserva</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="tarjeta">
+    <h2 class="tarjeta__titulo">Disponibilidad</h2>
+    <p class="tarjeta__subtitulo" style="margin-bottom:1.15rem">Cancha de tenis · 18/10/2026</p>
+
+    <div style="display:grid;gap:0">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:0.7rem 0;border-bottom:1px solid #EAEeea">
+        <span>06:00 - 08:00</span>
+        <span class="badge badge--exito">Disponible</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:0.7rem 0;border-bottom:1px solid #EAEeea">
+        <span>08:00 - 10:00</span>
+        <span class="badge badge--error">Ocupado</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:0.7rem 0;border-bottom:1px solid #EAEeea">
+        <span>10:00 - 12:00</span>
+        <span class="badge badge--exito">Disponible</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:0.7rem 0;border-bottom:1px solid #EAEeea">
+        <span>12:00 - 14:00</span>
+        <span class="badge badge--exito">Disponible</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:0.7rem 0;border-bottom:1px solid #EAEeea">
+        <span>14:00 - 16:00</span>
+        <span class="badge badge--error">Ocupado</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:0.7rem 0;border-bottom:1px solid #EAEeea">
+        <span>16:00 - 18:00</span>
+        <span class="badge badge--exito">Disponible</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:0.7rem 0">
+        <span>18:00 - 21:00</span>
+        <span class="badge badge--neutro">Mantenimiento</span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

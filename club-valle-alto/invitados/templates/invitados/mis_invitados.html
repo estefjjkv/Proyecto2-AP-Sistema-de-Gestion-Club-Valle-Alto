@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block titulo %}Mis invitados{% endblock %}
+{% block contenido %}
+<div class="encabezado-pagina">
+  <h1>Mis invitados</h1>
+  <p>Registre a sus invitados y consulte sus visitas.</p>
+</div>
+
+<div class="tarjeta" style="margin-bottom:1.5rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.25rem">
+  <div style="flex:1;min-width:260px">
+    <div class="kpi-etiqueta">Invitados registrados este mes</div>
+    <div style="display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap">
+      <span class="kpi-valor" style="margin:0">2 de 6</span>
+      <div class="barra-progreso" style="max-width:340px;flex:1">
+        <div class="barra-progreso__relleno" style="width:33.3%"></div>
+      </div>
+      <span style="color:var(--texto-suave);font-size:0.88rem">Límite máximo de 6 invitados por mes.</span>
+    </div>
+  </div>
+  <button type="button" class="boton" data-abrir-modal="modal-invitado">Registrar Invitado</button>
+</div>
+
+<div class="tarjeta">
+  <div class="tarjeta__cabecera">
+    <h2 class="tarjeta__titulo">Historial de invitados</h2>
+  </div>
+
+  <div class="tabla-contenedor">
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Cédula</th>
+          <th>Fecha de visita</th>
+          <th>Instalación</th>
+          <th>Relación</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Carlos Rojas Vega</td>
+          <td>2-0456-0789</td>
+          <td>20/10/2026</td>
+          <td>Piscina</td>
+          <td>Amigo</td>
+          <td><span class="badge badge--exito">Próxima</span></td>
+        </tr>
+        <tr>
+          <td>Laura Mora Castro</td>
+          <td>1-0987-0654</td>
+          <td>10/10/2026</td>
+          <td>Cancha de tenis</td>
+          <td>Familiar</td>
+          <td><span class="badge badge--neutro">Visitó</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal Registrar Invitado (abierto por defecto como en el prototipo) -->
+<div class="modal-fondo abierto" id="modal-invitado" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-invitado">
+  <div class="modal">
+    <div class="modal__cabecera">
+      <h2 class="modal__titulo" id="titulo-modal-invitado">Registrar invitado</h2>
+      <button type="button" class="modal__cerrar" data-cerrar-modal aria-label="Cerrar">✕</button>
+    </div>
+
+    <form class="formulario" method="post" action="/invitados/" novalidate>
+      {% csrf_token %}
+      <div class="campo">
+        <label for="id_inv_nombre">Nombre completo</label>
+        <input id="id_inv_nombre" name="nombre_completo" type="text" placeholder="Nombre y apellidos" required>
+      </div>
+
+      <div class="fila-campos">
+        <div class="campo">
+          <label for="id_inv_cedula">Cédula</label>
+          <input id="id_inv_cedula" name="cedula" type="text" placeholder="0-0000-0000" required>
+        </div>
+        <div class="campo">
+          <label for="id_inv_fecha">Fecha de visita</label>
+          <input id="id_inv_fecha" name="fecha_visita" type="text" placeholder="dd/mm/aaaa" required>
+        </div>
+      </div>
+
+      <div class="fila-campos">
+        <div class="campo">
+          <label for="id_inv_instalacion">Instalación</label>
+          <select id="id_inv_instalacion" name="instalacion" required>
+            <option value="">Seleccione</option>
+            <option value="golf">Cancha de golf</option>
+            <option value="tenis">Cancha de tenis</option>
+            <option value="piscina">Piscina</option>
+            <option value="eventos">Salón de eventos</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="id_inv_relacion">Relación</label>
+          <select id="id_inv_relacion" name="relacion" required>
+            <option value="">Seleccione</option>
+            <option value="familiar">Familiar</option>
+            <option value="amigo">Amigo</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="alerta alerta--error" role="alert">
+        Alcanzó el límite de 6 invitados de este mes.
+      </div>
+
+      <div class="modal__acciones">
+        <button type="button" class="boton boton--contorno" data-cerrar-modal style="min-width:130px">Cancelar</button>
+        <button type="button" class="boton" data-cerrar-modal style="min-width:140px">Registrar</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

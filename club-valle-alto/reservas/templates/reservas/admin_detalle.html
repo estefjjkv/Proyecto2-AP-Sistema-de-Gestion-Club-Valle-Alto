@@ -1,0 +1,104 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Administrar reserva{% endblock %}
+{% block categoria %}RESERVAS / DETALLE{% endblock %}
+{% block encabezado %}Administrar reserva{% endblock %}
+{% block contenido %}
+<div class="grid-principal-lateral">
+  <div class="tarjeta">
+    <div class="tarjeta__cabecera">
+      <div>
+        <h2 class="tarjeta__titulo">Detalle de la reserva</h2>
+        <p class="tarjeta__subtitulo">Solicitud R-00428 · Registrada el 15/10/2026</p>
+      </div>
+      <span class="badge badge--aviso">Pendiente</span>
+    </div>
+
+    <form class="formulario" method="post" action="/reservas/calendario/" novalidate>
+      {% csrf_token %}
+      <div class="fila-campos">
+        <div class="campo">
+          <label for="id_res_socio">Socio titular</label>
+          <input id="id_res_socio" type="text" value="Carlos Pérez">
+        </div>
+        <div class="campo">
+          <label for="id_res_inst">Instalación</label>
+          <select id="id_res_inst">
+            <option selected>Piscina</option>
+            <option>Cancha de tenis</option>
+            <option>Cancha de golf</option>
+            <option>Salón de eventos</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:1rem">
+        <div class="campo">
+          <label for="id_res_fecha">Fecha</label>
+          <input id="id_res_fecha" type="text" value="20/10/2026">
+        </div>
+        <div class="campo">
+          <label for="id_res_ini">Hora inicio</label>
+          <input id="id_res_ini" type="text" value="10:00">
+        </div>
+        <div class="campo">
+          <label for="id_res_fin">Hora fin</label>
+          <input id="id_res_fin" type="text" value="11:00">
+        </div>
+      </div>
+
+      <div class="fila-campos">
+        <div class="campo">
+          <label for="id_res_cant">Cantidad de personas</label>
+          <input id="id_res_cant" type="number" value="3">
+        </div>
+        <div class="campo">
+          <label for="id_res_serv">Servicio adicional</label>
+          <select id="id_res_serv">
+            <option selected>Ninguno</option>
+            <option>Alquiler de toallas</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="tarjeta--suave" style="margin-top:0.4rem">
+        <h3 style="font-size:0.9rem;font-weight:700;margin-bottom:0.35rem">Invitados asociados</h3>
+        <div style="color:var(--texto-suave);font-size:0.84rem">
+          Lucía Pérez · Familiar / Andrés Solano · Amigo
+        </div>
+      </div>
+
+      <p style="color:var(--verde-medio);font-size:0.82rem;font-weight:700;margin:0.4rem 0">
+        Validaciones: horario habilitado, aforo permitido y sin traslapes.
+      </p>
+
+      <div style="display:flex;flex-wrap:wrap;gap:0.85rem;margin-top:0.5rem">
+        <button type="submit" class="boton" style="min-width:165px">Confirmar reserva</button>
+        <button type="submit" class="boton boton--suave" style="min-width:155px;color:var(--verde-club)">Guardar cambios</button>
+        <a href="/reservas/calendario/" class="boton boton--suave" style="min-width:155px;color:var(--verde-club)">Cancelar reserva</a>
+      </div>
+    </form>
+  </div>
+
+  <div style="display:grid;gap:1.25rem">
+    <div class="tarjeta">
+      <h2 class="tarjeta__titulo">Disponibilidad del horario</h2>
+      <p class="tarjeta__subtitulo" style="margin-bottom:1rem">Piscina · 20 de octubre</p>
+
+      <div style="display:grid;gap:0.65rem">
+        <div class="tarjeta--suave" style="padding:0.75rem 1rem;font-size:0.84rem">09:00 – 10:00 Disponible</div>
+        <div class="tarjeta--suave" style="padding:0.75rem 1rem;font-size:0.84rem">10:00 – 11:00 Solicitada</div>
+        <div class="tarjeta--suave" style="padding:0.75rem 1rem;font-size:0.84rem">11:00 – 12:00 Disponible</div>
+      </div>
+    </div>
+
+    <div class="tarjeta">
+      <h2 class="tarjeta__titulo" style="margin-bottom:0.85rem">Registro de cambios</h2>
+      <div style="color:var(--verde-medio);font-size:0.8rem;font-weight:700;margin-bottom:0.2rem">15/10/2026</div>
+      <div style="font-size:0.86rem;margin-bottom:1.25rem">Reserva creada por el socio.</div>
+      <p style="color:var(--texto-suave);font-size:0.78rem;margin:0;line-height:1.45">
+        Un cambio confirmado puede<br>generar un correo automático.
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

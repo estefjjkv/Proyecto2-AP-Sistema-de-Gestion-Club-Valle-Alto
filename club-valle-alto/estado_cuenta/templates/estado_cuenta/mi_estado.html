@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block titulo %}Estado de cuenta{% endblock %}
+{% block contenido %}
+<div class="encabezado-pagina">
+  <h1>Estado de cuenta</h1>
+  <p>Detalle de cuotas y cargos del periodo.</p>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.35rem">
+  <div class="campo" style="min-width:260px">
+    <select aria-label="Seleccionar periodo">
+      <option selected>Periodo: Octubre 2026</option>
+      <option>Periodo: Septiembre 2026</option>
+      <option>Periodo: Agosto 2026</option>
+    </select>
+  </div>
+  <div style="display:flex;align-items:center;gap:1.35rem">
+    <a href="/estado-cuenta/historial/" style="font-weight:600;font-size:0.92rem">Ver historial</a>
+    <a href="/estado-cuenta/?descargar=pdf" class="boton boton--contorno" style="min-width:185px">Descargar PDF</a>
+  </div>
+</div>
+
+<div class="grid-3" style="margin-bottom:1.5rem">
+  <div class="tarjeta">
+    <div class="kpi-etiqueta">Total del periodo</div>
+    <div class="kpi-valor" style="margin-bottom:0">₡93 000</div>
+  </div>
+  <div class="tarjeta">
+    <div class="kpi-etiqueta">Pagado</div>
+    <div class="kpi-valor kpi-valor--verde" style="margin-bottom:0">₡8 000</div>
+  </div>
+  <div class="tarjeta">
+    <div class="kpi-etiqueta">Pendiente</div>
+    <div class="kpi-valor kpi-valor--naranja" style="margin-bottom:0">₡85 000</div>
+  </div>
+</div>
+
+<div class="tarjeta">
+  <div class="tarjeta__cabecera">
+    <h2 class="tarjeta__titulo">Rubros del periodo</h2>
+  </div>
+
+  <div class="tabla-contenedor">
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th>Concepto</th>
+          <th>Fecha límite</th>
+          <th>Monto</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cuota de membresía Familiar - Octubre</td>
+          <td>30/10/2026</td>
+          <td>₡45 000</td>
+          <td><span class="badge badge--aviso">Pendiente</span></td>
+        </tr>
+        <tr>
+          <td>Alquiler de raquetas - Reserva #R-1024</td>
+          <td>30/10/2026</td>
+          <td>₡3 000</td>
+          <td><span class="badge badge--aviso">Pendiente</span></td>
+        </tr>
+        <tr>
+          <td>Montaje de mobiliario - Reserva #R-1031</td>
+          <td>15/10/2026</td>
+          <td>₡37 000</td>
+          <td><span class="badge badge--error">Vencido</span></td>
+        </tr>
+        <tr>
+          <td>Alquiler de toallas - Reserva #R-1019</td>
+          <td>10/10/2026</td>
+          <td>₡8 000</td>
+          <td><span class="badge badge--exito">Pagado</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

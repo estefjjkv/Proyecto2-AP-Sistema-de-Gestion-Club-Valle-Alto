@@ -1,0 +1,154 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Centro de notificaciones{% endblock %}
+{% block categoria %}NOTIFICACIONES{% endblock %}
+{% block encabezado %}Centro de notificaciones{% endblock %}
+{% block contenido %}
+<div class="tarjeta">
+  <div class="tarjeta__cabecera">
+    <div>
+      <h2 class="tarjeta__titulo">Historial y plantillas</h2>
+      <p class="tarjeta__subtitulo">Mensajes automáticos por correo electrónico</p>
+    </div>
+    <button type="button" class="boton" data-abrir-modal="modal-plantilla" style="min-width:210px">Editar plantillas</button>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1.8fr 1fr 0.9fr 1fr;gap:1rem;margin-bottom:1.35rem">
+    <div class="campo">
+      <label for="id_not_dest">Buscar destinatario</label>
+      <input id="id_not_dest" type="search" placeholder="Correo o nombre de socio">
+    </div>
+    <div class="campo">
+      <label for="id_not_tipo">Tipo de notificación</label>
+      <select id="id_not_tipo">
+        <option selected>Todas</option>
+        <option>Registro de socio</option>
+        <option>Confirmación de reserva</option>
+        <option>Cambios o cancelación</option>
+        <option>Estado de cuenta</option>
+        <option>Pago por vencer</option>
+      </select>
+    </div>
+    <div class="campo">
+      <label for="id_not_per">Periodo</label>
+      <select id="id_not_per">
+        <option selected>Octubre 2026</option>
+        <option>Septiembre 2026</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="tabla-contenedor" style="margin-bottom:1.75rem">
+    <table class="tabla tabla--admin">
+      <thead>
+        <tr>
+          <th>Destinatario</th>
+          <th>Motivo</th>
+          <th>Fecha y hora</th>
+          <th>Estado</th>
+          <th>Detalle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>María López</strong></td>
+          <td>Confirmación de reserva</td>
+          <td>16/10/2026 · 09:15</td>
+          <td><span class="badge badge--exito">Enviado</span></td>
+          <td><a href="#" data-abrir-modal="modal-plantilla" style="color:var(--texto)">Ver correo →</a></td>
+        </tr>
+        <tr>
+          <td><strong>Carlos Pérez</strong></td>
+          <td>Reserva modificada</td>
+          <td>15/10/2026 · 16:40</td>
+          <td><span class="badge badge--exito">Enviado</span></td>
+          <td><a href="#" data-abrir-modal="modal-plantilla" style="color:var(--texto)">Ver correo →</a></td>
+        </tr>
+        <tr>
+          <td><strong>Ana Vargas</strong></td>
+          <td>Recordatorio de pago</td>
+          <td>15/10/2026 · 08:00</td>
+          <td><span class="badge badge--exito">Enviado</span></td>
+          <td><a href="#" data-abrir-modal="modal-plantilla" style="color:var(--texto)">Ver correo →</a></td>
+        </tr>
+        <tr>
+          <td><strong>Luis Mora</strong></td>
+          <td>Nuevo estado de cuenta</td>
+          <td>14/10/2026 · 11:30</td>
+          <td><span class="badge badge--exito">Enviado</span></td>
+          <td><a href="#" data-abrir-modal="modal-plantilla" style="color:var(--texto)">Ver correo →</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tarjeta--suave">
+    <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:1rem">Plantillas disponibles para edición</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:0.85rem">
+      <div class="tarjeta" style="padding:1rem">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.65rem">
+          <span style="width:26px;height:26px;border-radius:6px;background:#E5F0EA;color:var(--verde-medio);font-size:0.68rem;font-weight:800;display:inline-flex;align-items:center;justify-content:center">RS</span>
+          <strong style="font-size:0.8rem">Registro de socio</strong>
+        </div>
+        <a href="#" data-abrir-modal="modal-plantilla" style="color:var(--verde-medio);font-size:0.78rem;font-weight:700">Editar →</a>
+      </div>
+
+      <div class="tarjeta" style="padding:1rem">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.65rem">
+          <span style="width:26px;height:26px;border-radius:6px;background:#E5F0EA;color:var(--verde-medio);font-size:0.68rem;font-weight:800;display:inline-flex;align-items:center;justify-content:center">RE</span>
+          <strong style="font-size:0.8rem">Confirmación de reserva</strong>
+        </div>
+        <a href="#" data-abrir-modal="modal-plantilla" style="color:var(--verde-medio);font-size:0.78rem;font-weight:700">Editar →</a>
+      </div>
+
+      <div class="tarjeta" style="padding:1rem">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.65rem">
+          <span style="width:26px;height:26px;border-radius:6px;background:#E5F0EA;color:var(--verde-medio);font-size:0.68rem;font-weight:800;display:inline-flex;align-items:center;justify-content:center">CA</span>
+          <strong style="font-size:0.8rem">Cambios o cancelación</strong>
+        </div>
+        <a href="#" data-abrir-modal="modal-plantilla" style="color:var(--verde-medio);font-size:0.78rem;font-weight:700">Editar →</a>
+      </div>
+
+      <div class="tarjeta" style="padding:1rem">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.65rem">
+          <span style="width:26px;height:26px;border-radius:6px;background:#E5F0EA;color:var(--verde-medio);font-size:0.68rem;font-weight:800;display:inline-flex;align-items:center;justify-content:center">EC</span>
+          <strong style="font-size:0.8rem">Estado de cuenta</strong>
+        </div>
+        <a href="#" data-abrir-modal="modal-plantilla" style="color:var(--verde-medio);font-size:0.78rem;font-weight:700">Editar →</a>
+      </div>
+
+      <div class="tarjeta" style="padding:1rem">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.65rem">
+          <span style="width:26px;height:26px;border-radius:6px;background:#E5F0EA;color:var(--verde-medio);font-size:0.68rem;font-weight:800;display:inline-flex;align-items:center;justify-content:center">PV</span>
+          <strong style="font-size:0.8rem">Pago por vencer</strong>
+        </div>
+        <a href="#" data-abrir-modal="modal-plantilla" style="color:var(--verde-medio);font-size:0.78rem;font-weight:700">Editar →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para editar plantilla de correo -->
+<div class="modal-fondo" id="modal-plantilla" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-plantilla">
+  <div class="modal">
+    <div class="modal__cabecera">
+      <h2 class="modal__titulo" id="titulo-modal-plantilla">Editar plantilla de notificación</h2>
+      <button type="button" class="modal__cerrar" data-cerrar-modal aria-label="Cerrar">✕</button>
+    </div>
+    <form class="formulario" method="post" action="/notificaciones/" novalidate>
+      {% csrf_token %}
+      <div class="campo">
+        <label for="id_pl_asunto">Asunto del correo</label>
+        <input id="id_pl_asunto" type="text" value="Club Valle Alto - Confirmación de su reserva">
+      </div>
+      <div class="campo">
+        <label for="id_pl_cuerpo">Cuerpo del mensaje</label>
+        <textarea id="id_pl_cuerpo" rows="5">Estimado(a) {{ socio }}, le confirmamos su reserva para {{ instalacion }} el día {{ fecha }} en horario {{ horario }}.</textarea>
+      </div>
+      <div class="modal__acciones">
+        <button type="button" class="boton boton--contorno" data-cerrar-modal>Cancelar</button>
+        <button type="button" class="boton" data-cerrar-modal>Guardar plantilla</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

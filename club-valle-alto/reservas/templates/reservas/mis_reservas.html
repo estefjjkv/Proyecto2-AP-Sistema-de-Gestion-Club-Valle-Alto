@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block titulo %}Mis reservas{% endblock %}
+{% block contenido %}
+<div class="encabezado-pagina">
+  <h1>Mis reservas</h1>
+  <p>Consulte, modifique o cancele sus reservas.</p>
+</div>
+
+<div class="tarjeta">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.35rem">
+    <div class="tabs" data-tab-grupo style="flex:1">
+      <button type="button" class="tabs__item activo" data-tab="activa">Activas</button>
+      <button type="button" class="tabs__item" data-tab="finalizada">Finalizadas</button>
+      <button type="button" class="tabs__item" data-tab="cancelada">Canceladas</button>
+    </div>
+    <a href="/reservas/nueva/" class="boton" style="min-width:170px">Nueva reserva</a>
+  </div>
+
+  <div class="tabla-contenedor">
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th>Instalación</th>
+          <th>Fecha</th>
+          <th>Horario</th>
+          <th>Personas</th>
+          <th>Servicios</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-fila-estado="activa">
+          <td>Cancha de tenis</td>
+          <td>18/10/2026</td>
+          <td>08:00 - 10:00</td>
+          <td>2</td>
+          <td>Alquiler de raquetas</td>
+          <td><span class="badge badge--exito">Confirmada</span></td>
+          <td><a href="/reservas/detalle/" style="font-weight:600">Ver detalle</a></td>
+        </tr>
+        <tr data-fila-estado="activa">
+          <td>Piscina</td>
+          <td>22/10/2026</td>
+          <td>14:00 - 16:00</td>
+          <td>4</td>
+          <td>Ninguno</td>
+          <td><span class="badge badge--exito">Confirmada</span></td>
+          <td><a href="/reservas/detalle/" style="font-weight:600">Ver detalle</a></td>
+        </tr>
+        <tr data-fila-estado="activa">
+          <td>Salón de eventos</td>
+          <td>02/11/2026</td>
+          <td>18:00 - 23:00</td>
+          <td>80</td>
+          <td>Montaje de mobiliario</td>
+          <td><span class="badge badge--aviso">Pendiente</span></td>
+          <td><a href="/reservas/detalle/" style="font-weight:600">Ver detalle</a></td>
+        </tr>
+        <tr data-fila-estado="finalizada" style="display:none">
+          <td>Cancha de golf</td>
+          <td>05/10/2026</td>
+          <td>07:00 - 10:00</td>
+          <td>4</td>
+          <td>Alquiler de carrito y palos</td>
+          <td><span class="badge badge--neutro">Finalizada</span></td>
+          <td><a href="/reservas/detalle/" style="font-weight:600">Ver detalle</a></td>
+        </tr>
+        <tr data-fila-estado="cancelada" style="display:none">
+          <td>Cancha de tenis</td>
+          <td>01/10/2026</td>
+          <td>16:00 - 18:00</td>
+          <td>2</td>
+          <td>Ninguno</td>
+          <td><span class="badge badge--error">Cancelada</span></td>
+          <td><a href="/reservas/detalle/" style="font-weight:600">Ver detalle</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,118 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Pagos y morosidad{% endblock %}
+{% block categoria %}COBROS / PAGOS{% endblock %}
+{% block encabezado %}Pagos y morosidad{% endblock %}
+{% block contenido %}
+<div class="subnav-admin">
+  <a href="/estado-cuenta/gestion/">Estados de cuenta por socio</a>
+  <a href="/estado-cuenta/pagos/" class="activo">Pagos y morosidad</a>
+</div>
+
+<div class="grid-principal-lateral">
+  <div class="tarjeta">
+    <div style="margin-bottom:1.35rem">
+      <h2 class="tarjeta__titulo">Registrar pago manual</h2>
+      <p class="tarjeta__subtitulo">Actualiza el estado de una cuota o cargo</p>
+    </div>
+
+    <form class="formulario" method="post" action="/estado-cuenta/pagos/" novalidate>
+      {% csrf_token %}
+      <div class="campo">
+        <label for="id_pago_socio">Socio</label>
+        <select id="id_pago_socio" name="socio">
+          <option selected>Ana Vargas</option>
+          <option>Diego Castro</option>
+          <option>Laura Salas</option>
+          <option>José Jiménez</option>
+        </select>
+      </div>
+
+      <div class="fila-campos">
+        <div class="campo">
+          <label for="id_pago_concepto">Concepto</label>
+          <select id="id_pago_concepto" name="concepto">
+            <option selected>Cuota de membresía</option>
+            <option>Servicio adicional de reserva</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="id_pago_periodo">Periodo</label>
+          <select id="id_pago_periodo" name="periodo">
+            <option selected>Octubre 2026</option>
+            <option>Septiembre 2026</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="fila-campos">
+        <div class="campo">
+          <label for="id_pago_monto">Monto registrado</label>
+          <input id="id_pago_monto" type="text" value="₡72 000">
+        </div>
+        <div class="campo">
+          <label for="id_pago_fecha">Fecha de pago</label>
+          <input id="id_pago_fecha" type="text" value="16/10/2026">
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="id_pago_ref">Referencia u observación</label>
+        <input id="id_pago_ref" type="text" value="Pago recibido por transferencia">
+      </div>
+
+      <div class="tarjeta--suave" style="margin-top:0.35rem">
+        <strong style="color:var(--verde-medio);font-size:0.82rem">
+          No se procesan pagos en línea: únicamente se registra su recepción.
+        </strong>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;margin-top:0.75rem">
+        <button type="submit" class="boton" style="min-width:190px">Registrar pago</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="tarjeta">
+    <h2 class="tarjeta__titulo">Socios morosos</h2>
+    <p class="tarjeta__subtitulo" style="margin-bottom:1.15rem">Ordenados por tiempo de atraso</p>
+
+    <div style="display:grid;gap:0.85rem">
+      <div class="tarjeta--suave">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.25rem">
+          <strong style="font-size:0.9rem">Ana Vargas</strong>
+          <span class="badge badge--error" style="font-size:0.75rem">36 días</span>
+        </div>
+        <div style="color:var(--texto-suave);font-size:0.82rem;margin-bottom:0.35rem">Saldo: ₡87 000</div>
+        <a href="/estado-cuenta/gestion/" style="color:var(--verde-medio);font-size:0.8rem;font-weight:700">Ver estado de cuenta →</a>
+      </div>
+
+      <div class="tarjeta--suave">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.25rem">
+          <strong style="font-size:0.9rem">Diego Castro</strong>
+          <span class="badge badge--error" style="font-size:0.75rem">21 días</span>
+        </div>
+        <div style="color:var(--texto-suave);font-size:0.82rem;margin-bottom:0.35rem">Saldo: ₡48 000</div>
+        <a href="/estado-cuenta/gestion/" style="color:var(--verde-medio);font-size:0.8rem;font-weight:700">Ver estado de cuenta →</a>
+      </div>
+
+      <div class="tarjeta--suave">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.25rem">
+          <strong style="font-size:0.9rem">Laura Salas</strong>
+          <span class="badge badge--error" style="font-size:0.75rem">13 días</span>
+        </div>
+        <div style="color:var(--texto-suave);font-size:0.82rem;margin-bottom:0.35rem">Saldo: ₡30 000</div>
+        <a href="/estado-cuenta/gestion/" style="color:var(--verde-medio);font-size:0.8rem;font-weight:700">Ver estado de cuenta →</a>
+      </div>
+
+      <div class="tarjeta--suave">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.25rem">
+          <strong style="font-size:0.9rem">José Jiménez</strong>
+          <span class="badge badge--error" style="font-size:0.75rem">6 días</span>
+        </div>
+        <div style="color:var(--texto-suave);font-size:0.82rem;margin-bottom:0.35rem">Saldo: ₡30 000</div>
+        <a href="/estado-cuenta/gestion/" style="color:var(--verde-medio);font-size:0.8rem;font-weight:700">Ver estado de cuenta →</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

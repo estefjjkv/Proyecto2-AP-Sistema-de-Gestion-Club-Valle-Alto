@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es-CR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Inicio{% endblock %} · Club Valle Alto</title>
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  {% block css_extra %}{% endblock %}
+</head>
+<body>
+  <div class="layout-socio">
+    <a class="saltar" href="#contenido">Saltar al contenido</a>
+    {% include 'includes/_navbar.html' %}
+    <main id="contenido" class="contenedor-socio" tabindex="-1">
+      {% include 'includes/_mensajes.html' %}
+      {% block contenido %}{% endblock %}
+    </main>
+  </div>
+  {% include 'includes/_selector_pantallas.html' %}
+  <script src="{% static 'js/main.js' %}" defer></script>
+  {% block js_extra %}{% endblock %}
+</body>
+</html>

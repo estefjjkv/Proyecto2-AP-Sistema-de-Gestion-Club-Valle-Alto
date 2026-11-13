@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es-CR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Portal Administrativo{% endblock %} · Club Valle Alto</title>
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  {% block css_extra %}{% endblock %}
+</head>
+<body>
+  <a class="saltar" href="#contenido-admin">Saltar al contenido</a>
+  <div class="layout-admin">
+    <aside class="sidebar-admin" aria-label="Menú administrativo">
+      <a class="sidebar-admin__marca" href="/administradores/panel/">
+        <span class="sidebar-admin__logo" aria-hidden="true">VA</span>
+        <span>
+          <span class="sidebar-admin__titulo">CLUB VALLE ALTO</span>
+          <span class="sidebar-admin__subtitulo">PORTAL ADMINISTRATIVO</span>
+        </span>
+      </a>
+
+      <div class="sidebar-admin__seccion">NAVEGACIÓN</div>
+      <ul class="sidebar-admin__nav">
+        <li>
+          <a href="/administradores/panel/" class="sidebar-admin__link {% if menu_admin == 'inicio' %}activo{% endif %}">
+            <span class="sidebar-admin__icono" aria-hidden="true">IN</span>
+            <span>Inicio</span>
+          </a>
+        </li>
+        <li>
+          <a href="/socios/gestion/" class="sidebar-admin__link {% if menu_admin == 'socios' %}activo{% endif %}">
+            <span class="sidebar-admin__icono" aria-hidden="true">SO</span>
+            <span>Socios</span>
+          </a>
+        </li>
+        <li>
+          <a href="/membresias/gestion/" class="sidebar-admin__link {% if menu_admin == 'membresias' %}activo{% endif %}">
+            <span class="sidebar-admin__icono" aria-hidden="true">ME</span>
+            <span>Membresías</span>
+          </a>
+        </li>
+        <li>
+          <a href="/reservas/calendario/" class="sidebar-admin__link {% if menu_admin == 'reservas' %}activo{% endif %}">
+            <span class="sidebar-admin__icono" aria-hidden="true">RE</span>
+            <span>Reservas</span>
+          </a>
+        </li>
+        <li>
+          <a href="/instalaciones/gestion/" class="sidebar-admin__link {% if menu_admin == 'instalaciones' %}activo{% endif %}">
+            <span class="sidebar-admin__icono" aria-hidden="true">ES</span>
+            <span>Instalaciones</span>
+          </a>
+        </li>
+        <li>
+          <a href="/estado-cuenta/gestion/" class="sidebar-admin__link {% if menu_admin == 'cobros' %}activo{% endif %}">
+            <span class="sidebar-admin__icono" aria-hidden="true">CO</span>
+            <span>Cobros</span>
+          </a>
+        </li>
+        <li>
+          <a href="/notificaciones/" class="sidebar-admin__link {% if menu_admin == 'notificaciones' %}activo{% endif %}">
+            <span class="sidebar-admin__icono" aria-hidden="true">NO</span>
+            <span>Notificaciones</span>
+          </a>
+        </li>
+        <li>
+          <a href="/administradores/" class="sidebar-admin__link {% if menu_admin == 'administradores' %}activo{% endif %}">
+            <span class="sidebar-admin__icono" aria-hidden="true">AD</span>
+            <span>Administradores</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-admin__pie">
+        <div class="sidebar-admin__pie-info">
+          <span class="sidebar-admin__ag" aria-hidden="true">AG</span>
+          <div>
+            <strong style="display:block;font-size:0.84rem;line-height:1.2">Administración</strong>
+            <span style="font-size:0.72rem;color:rgba(255,255,255,0.68)">Club Valle Alto</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="admin-area">
+      <header class="topbar-admin">
+        <div>
+          <div class="topbar-admin__migas">{% block categoria %}INICIO{% endblock %}</div>
+          <h1 class="topbar-admin__titulo">{% block encabezado %}Panel administrativo{% endblock %}</h1>
+        </div>
+        <div class="topbar-admin__derecha">
+          <div class="buscador-admin">
+            <span class="buscador-admin__icono" aria-hidden="true">🔍</span>
+            <input type="search" placeholder="Buscar en el sistema" aria-label="Buscar en el sistema">
+          </div>
+          <a href="/usuarios/login/" class="admin-perfil" title="Cerrar sesión o cambiar de cuenta" style="text-decoration:none;color:inherit">
+            <span class="admin-perfil__avatar" aria-hidden="true">A</span>
+            <span>
+              <span class="admin-perfil__nombre">Administrador</span>
+              <span class="admin-perfil__estado">Sesión activa</span>
+            </span>
+          </a>
+        </div>
+      </header>
+
+      <main id="contenido-admin" class="contenedor-admin" tabindex="-1">
+        {% include 'includes/_mensajes.html' %}
+        {% block contenido %}{% endblock %}
+      </main>
+    </div>
+  </div>
+  {% include 'includes/_selector_pantallas.html' %}
+  <script src="{% static 'js/main.js' %}" defer></script>
+  {% block js_extra %}{% endblock %}
+</body>
+</html>
