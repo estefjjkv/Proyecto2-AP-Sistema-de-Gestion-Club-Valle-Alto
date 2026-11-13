@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block titulo %}Inicio{% endblock %}
+{% block contenido %}
+<div class="encabezado-pagina">
+  <h1>Hola, Juan</h1>
+  <p>Este es el resumen de su cuenta en el club.</p>
+</div>
+
+<div class="grid-3" style="margin-bottom:1.5rem">
+  <div class="tarjeta">
+    <div class="kpi-etiqueta">Membresía</div>
+    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.45rem">
+      <span class="kpi-valor" style="margin:0">Familiar</span>
+      <span class="badge badge--exito">Activa</span>
+    </div>
+    <div class="kpi-pie">
+      <span>Renovación: 15/03/2027</span>
+    </div>
+  </div>
+
+  <div class="tarjeta">
+    <div class="kpi-etiqueta">Saldo pendiente</div>
+    <div class="kpi-valor kpi-valor--naranja">₡85 000</div>
+    <div class="kpi-pie">
+      <span>Vence: 30/10/2026</span>
+      <a href="/estado-cuenta/" style="font-weight:600;color:var(--verde-club)">Ver detalle</a>
+    </div>
+  </div>
+
+  <div class="tarjeta">
+    <div class="kpi-etiqueta">Invitados este mes</div>
+    <div class="kpi-valor">2 de 6</div>
+    <div class="barra-progreso" style="margin-top:0.65rem" aria-label="2 de 6 invitados registrados este mes">
+      <div class="barra-progreso__relleno" style="width:33.3%"></div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-principal-lateral">
+  <div class="tarjeta">
+    <div class="tarjeta__cabecera">
+      <h2 class="tarjeta__titulo">Próximas reservas</h2>
+      <a href="/reservas/" style="font-size:0.88rem;font-weight:600">Ver todas</a>
+    </div>
+
+    <div class="tabla-contenedor">
+      <table class="tabla">
+        <thead>
+          <tr>
+            <th>Instalación</th>
+            <th>Fecha</th>
+            <th>Horario</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Cancha de tenis</td>
+            <td>18/10/2026</td>
+            <td>08:00 - 10:00</td>
+            <td><span class="badge badge--exito">Confirmada</span></td>
+          </tr>
+          <tr>
+            <td>Piscina</td>
+            <td>22/10/2026</td>
+            <td>14:00 - 16:00</td>
+            <td><span class="badge badge--exito">Confirmada</span></td>
+          </tr>
+          <tr>
+            <td>Salón de eventos</td>
+            <td>02/11/2026</td>
+            <td>18:00 - 23:00</td>
+            <td><span class="badge badge--aviso">Pendiente</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tarjeta">
+    <div class="tarjeta__cabecera">
+      <h2 class="tarjeta__titulo">Accesos rápidos</h2>
+    </div>
+    <div style="display:grid;gap:0.8rem">
+      <a href="/reservas/nueva/" class="boton boton--completo">Nueva Reserva</a>
+      <a href="/invitados/" class="boton boton--contorno boton--completo">Registrar Invitado</a>
+      <a href="/instalaciones/" class="boton boton--contorno boton--completo">Ver Instalaciones</a>
+      <a href="/estado-cuenta/" class="boton boton--contorno boton--completo">Ver Estado Cuenta</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

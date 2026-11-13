@@ -1,0 +1,156 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Calendario de reservas{% endblock %}
+{% block categoria %}RESERVAS{% endblock %}
+{% block encabezado %}Calendario de reservas{% endblock %}
+{% block contenido %}
+<div class="tarjeta">
+  <div style="margin-bottom:1rem">
+    <h2 class="tarjeta__titulo">Agenda por instalación</h2>
+    <p class="tarjeta__subtitulo">Consultar reservas y disponibilidad por fecha</p>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.5rem">
+    <div style="display:flex;flex-wrap:wrap;gap:1rem">
+      <div class="campo" style="min-width:240px">
+        <label for="id_cal_inst">Instalación</label>
+        <select id="id_cal_inst">
+          <option selected>Todas las instalaciones</option>
+          <option>Cancha de tenis</option>
+          <option>Cancha de golf</option>
+          <option>Piscina</option>
+          <option>Salón de eventos</option>
+        </select>
+      </div>
+      <div class="campo" style="min-width:190px">
+        <label for="id_cal_sem">Semana</label>
+        <select id="id_cal_sem">
+          <option selected>19 - 25 oct 2026</option>
+          <option>26 oct - 01 nov 2026</option>
+        </select>
+      </div>
+    </div>
+    <a href="/reservas/administrar/" class="boton" style="min-width:170px">+ Crear reserva</a>
+  </div>
+
+  <div class="tabla-contenedor" style="margin-bottom:1.25rem">
+    <table class="calendario-rejilla">
+      <thead>
+        <tr>
+          <th style="width:90px;border-top-left-radius:8px">Horario</th>
+          <th>Lunes 19</th>
+          <th>Martes 20</th>
+          <th>Miércoles 21</th>
+          <th>Jueves 22</th>
+          <th>Viernes 23</th>
+          <th style="border-top-right-radius:8px">Sábado 24</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>08:00</td>
+          <td>
+            <a href="/reservas/administrar/" class="evento-calendario">
+              <strong>Tenis</strong>
+              <span>María L.</span>
+            </a>
+          </td>
+          <td></td>
+          <td>
+            <a href="/reservas/administrar/" class="evento-calendario">
+              <strong>Golf</strong>
+              <span>Ana V.</span>
+            </a>
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>09:30</td>
+          <td></td>
+          <td>
+            <a href="/reservas/administrar/" class="evento-calendario evento-calendario--suave">
+              <strong>Piscina</strong>
+              <span>Carlos P.</span>
+            </a>
+          </td>
+          <td></td>
+          <td>
+            <a href="/reservas/administrar/" class="evento-calendario evento-calendario--suave">
+              <strong>Tenis</strong>
+              <span>Sofía R.</span>
+            </a>
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>11:00</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            <a href="/reservas/administrar/" class="evento-calendario evento-calendario--suave">
+              <strong>Golf</strong>
+              <span>Luis M.</span>
+            </a>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>12:30</td>
+          <td>
+            <a href="/reservas/administrar/" class="evento-calendario">
+              <strong>Piscina</strong>
+              <span>Diego C.</span>
+            </a>
+          </td>
+          <td></td>
+          <td>
+            <a href="/reservas/administrar/" class="evento-calendario">
+              <strong>Eventos</strong>
+              <span>Laura S.</span>
+            </a>
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>14:00</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            <a href="/reservas/administrar/" class="evento-calendario evento-calendario--suave">
+              <strong>Tenis</strong>
+              <span>Daniel C.</span>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td>15:30</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            <a href="/reservas/administrar/" class="evento-calendario evento-calendario--suave">
+              <strong>Piscina</strong>
+              <span>María L.</span>
+            </a>
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="color:var(--texto-suave);font-size:0.82rem;margin:0">
+    Selecciona una reserva para ver detalles, confirmar, modificar o cancelar.
+  </p>
+</div>
+{% endblock %}

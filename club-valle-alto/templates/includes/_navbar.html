@@ -1,0 +1,36 @@
+<header class="topbar-socio">
+  <div class="topbar-socio__contenedor">
+    {% if es_recepcion %}
+      <div style="display:flex;align-items:center;gap:2rem">
+        <a class="topbar-socio__marca" href="/invitados/recepcion/">Club Valle Alto</a>
+        <span style="color:rgba(255,255,255,0.85);font-size:0.95rem">Recepción</span>
+      </div>
+      <div class="topbar-socio__usuario">
+        <span class="usuario-chip">
+          <span class="avatar-dorado" aria-hidden="true">RC</span>
+          <span>Recepción</span>
+        </span>
+        <a class="link-salir" href="/usuarios/login/">Salir</a>
+      </div>
+    {% else %}
+      <a class="topbar-socio__marca" href="/socios/inicio/">Club Valle Alto</a>
+      <nav aria-label="Navegación del socio">
+        <ul class="topbar-socio__nav">
+          <li><a href="/socios/inicio/" class="{% if nav_activo == 'inicio' %}activo{% endif %}">Inicio</a></li>
+          <li><a href="/membresias/" class="{% if nav_activo == 'membresia' %}activo{% endif %}">Membresía</a></li>
+          <li><a href="/invitados/" class="{% if nav_activo == 'invitados' %}activo{% endif %}">Invitados</a></li>
+          <li><a href="/instalaciones/" class="{% if nav_activo == 'instalaciones' %}activo{% endif %}">Instalaciones</a></li>
+          <li><a href="/reservas/" class="{% if nav_activo == 'reservas' %}activo{% endif %}">Reservas</a></li>
+          <li><a href="/estado-cuenta/" class="{% if nav_activo == 'estado_cuenta' %}activo{% endif %}">Estado de cuenta</a></li>
+        </ul>
+      </nav>
+      <div class="topbar-socio__usuario">
+        <a href="/socios/perfil/" class="usuario-chip {% if nav_activo == 'perfil' %}activo{% endif %}">
+          <span class="avatar-dorado" aria-hidden="true">JP</span>
+          <span>Juan Pérez</span>
+        </a>
+        <a class="link-salir" href="/usuarios/login/">Salir</a>
+      </div>
+    {% endif %}
+  </div>
+</header>

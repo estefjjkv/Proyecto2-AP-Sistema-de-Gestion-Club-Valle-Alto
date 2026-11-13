@@ -1,0 +1,110 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Estados de cuenta{% endblock %}
+{% block categoria %}COBROS / ESTADOS DE CUENTA{% endblock %}
+{% block encabezado %}Estados de cuenta{% endblock %}
+{% block contenido %}
+<div class="subnav-admin">
+  <a href="/estado-cuenta/gestion/" class="activo">Estados de cuenta por socio</a>
+  <a href="/estado-cuenta/pagos/">Pagos y morosidad</a>
+</div>
+
+<div class="tarjeta">
+  <div class="tarjeta__cabecera">
+    <div>
+      <h2 class="tarjeta__titulo">Estados de cuenta por socio</h2>
+      <p class="tarjeta__subtitulo">Cuotas, servicios adicionales y vencimientos</p>
+    </div>
+    <button type="button" class="boton" style="min-width:190px">+ Generar estado</button>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1.8fr 1fr 0.8fr 1fr;gap:1rem;margin-bottom:1.35rem">
+    <div class="campo">
+      <label for="id_ec_socio">Buscar socio</label>
+      <input id="id_ec_socio" type="search" placeholder="Nombre o cédula">
+    </div>
+    <div class="campo">
+      <label for="id_ec_per">Periodo</label>
+      <select id="id_ec_per">
+        <option selected>Octubre 2026</option>
+        <option>Septiembre 2026</option>
+      </select>
+    </div>
+    <div class="campo">
+      <label for="id_ec_est">Estado</label>
+      <select id="id_ec_est">
+        <option selected>Todos</option>
+        <option>Pagado</option>
+        <option>Pendiente</option>
+        <option>Vencido</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="tabla-contenedor" style="margin-bottom:1.5rem">
+    <table class="tabla tabla--admin">
+      <thead>
+        <tr>
+          <th>Socio</th>
+          <th>Periodo</th>
+          <th>Cuota</th>
+          <th>Servicios</th>
+          <th>Total</th>
+          <th>Vencimiento</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>María López</strong></td>
+          <td>Oct 2026</td>
+          <td>₡48 000</td>
+          <td>₡8 000</td>
+          <td>₡56 000</td>
+          <td>25/10/2026</td>
+          <td><span class="badge badge--aviso">Pendiente</span></td>
+        </tr>
+        <tr>
+          <td><strong>Carlos Pérez</strong></td>
+          <td>Oct 2026</td>
+          <td>₡30 000</td>
+          <td>₡0</td>
+          <td>₡30 000</td>
+          <td>25/10/2026</td>
+          <td><span class="badge badge--exito">Pagado</span></td>
+        </tr>
+        <tr>
+          <td><strong>Ana Vargas</strong></td>
+          <td>Oct 2026</td>
+          <td>₡72 000</td>
+          <td>₡15 000</td>
+          <td>₡87 000</td>
+          <td>10/10/2026</td>
+          <td><span class="badge badge--error">Vencido</span></td>
+        </tr>
+        <tr>
+          <td><strong>Luis Mora</strong></td>
+          <td>Oct 2026</td>
+          <td>₡30 000</td>
+          <td>₡5 000</td>
+          <td>₡35 000</td>
+          <td>25/10/2026</td>
+          <td><span class="badge badge--aviso">Pendiente</span></td>
+        </tr>
+        <tr>
+          <td><strong>Sofía Rojas</strong></td>
+          <td>Oct 2026</td>
+          <td>₡0</td>
+          <td>₡0</td>
+          <td>₡0</td>
+          <td>25/10/2026</td>
+          <td><span class="badge badge--exito">Pagado</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tarjeta--suave">
+    <strong style="font-size:0.86rem">El socio podrá consultar sus periodos anteriores y descargar un resumen en PDF.</strong>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block titulo %}Invitados esperados · Recepción{% endblock %}
+{% block contenido %}
+<div class="encabezado-pagina">
+  <h1>Invitados esperados</h1>
+  <p>Control de acceso de invitados por día.</p>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.25rem">
+  <form method="get" style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;flex:1">
+    <div class="campo" style="min-width:210px">
+      <input type="text" name="fecha" value="Fecha: 20/10/2026" aria-label="Fecha de visita">
+    </div>
+    <div class="campo" style="min-width:320px">
+      <input type="search" name="q" placeholder="Buscar por nombre o cédula" aria-label="Buscar por nombre o cédula">
+    </div>
+    <button type="submit" class="boton" style="min-width:120px">Buscar</button>
+  </form>
+  <span style="color:var(--texto-suave);font-size:0.9rem">4 invitados esperados</span>
+</div>
+
+<div class="tarjeta">
+  <div class="tabla-contenedor">
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th>Invitado</th>
+          <th>Cédula</th>
+          <th>Socio responsable</th>
+          <th>Instalación</th>
+          <th>Relación</th>
+          <th>Ingreso</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Carlos Rojas Vega</td>
+          <td>2-0456-0789</td>
+          <td>Juan Pérez Mora</td>
+          <td>Piscina</td>
+          <td>Amigo</td>
+          <td>
+            <button type="button" class="boton boton--contorno boton--pequeno" data-registrar-ingreso>Registrar ingreso</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Sofía Jiménez Ruiz</td>
+          <td>1-1234-0987</td>
+          <td>Ana Vargas Solano</td>
+          <td>Cancha de golf</td>
+          <td>Familiar</td>
+          <td>
+            <span class="badge badge--exito">Ingresó</span>
+          </td>
+        </tr>
+        <tr>
+          <td>Diego Castro León</td>
+          <td>3-0321-0456</td>
+          <td>Juan Pérez Mora</td>
+          <td>Piscina</td>
+          <td>Amigo</td>
+          <td>
+            <button type="button" class="boton boton--contorno boton--pequeno" data-registrar-ingreso>Registrar ingreso</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Elena Brenes Quirós</td>
+          <td>1-0765-0432</td>
+          <td>Marco Ulate Rojas</td>
+          <td>Salón de eventos</td>
+          <td>Otro</td>
+          <td>
+            <button type="button" class="boton boton--contorno boton--pequeno" data-registrar-ingreso>Registrar ingreso</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

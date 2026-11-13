@@ -1,0 +1,95 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Detalle del socio{% endblock %}
+{% block categoria %}SOCIOS / DETALLE{% endblock %}
+{% block encabezado %}Detalle del socio{% endblock %}
+{% block contenido %}
+<div class="grid-principal-lateral">
+  <div class="tarjeta">
+    <div style="margin-bottom:1.35rem">
+      <h2 class="tarjeta__titulo">Información del socio</h2>
+      <p class="tarjeta__subtitulo">Datos registrados y asociados a la cuenta</p>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:1.15rem;margin-bottom:1.75rem">
+      <div style="width:68px;height:68px;border-radius:50%;background:#E3EFE8;color:var(--verde-club);font-weight:800;font-size:1.35rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        ML
+      </div>
+      <div>
+        <h3 style="font-size:1.45rem;font-weight:800;margin-bottom:0.35rem">María Fernanda López</h3>
+        <span class="badge badge--exito">Cuenta activa</span>
+      </div>
+    </div>
+
+    <form class="formulario" method="post" action="/socios/gestion/detalle/" novalidate>
+      {% csrf_token %}
+      <div class="fila-campos">
+        <div class="campo">
+          <label for="id_det_nombre">Nombre completo</label>
+          <input id="id_det_nombre" type="text" value="María Fernanda López">
+        </div>
+        <div class="campo">
+          <label for="id_det_cedula">Cédula</label>
+          <input id="id_det_cedula" type="text" value="1-1234-0567">
+        </div>
+      </div>
+
+      <div class="fila-campos">
+        <div class="campo">
+          <label for="id_det_correo">Correo electrónico</label>
+          <input id="id_det_correo" type="email" value="mlopez@ejemplo.com">
+        </div>
+        <div class="campo">
+          <label for="id_det_tel">Teléfono</label>
+          <input id="id_det_tel" type="tel" value="8888-1234">
+        </div>
+      </div>
+
+      <div class="fila-campos">
+        <div class="campo">
+          <label for="id_det_dir">Dirección</label>
+          <input id="id_det_dir" type="text" value="San José, Costa Rica">
+        </div>
+        <div class="campo">
+          <label for="id_det_nac">Nacimiento</label>
+          <input id="id_det_nac" type="text" value="12/05/1988">
+        </div>
+      </div>
+    </form>
+
+    <div class="tarjeta--suave" style="margin-top:1.75rem">
+      <div style="color:var(--texto-suave);font-size:0.8rem;font-weight:700;margin-bottom:0.35rem">Membresía asociada</div>
+      <div style="font-size:1rem;font-weight:700">Familiar · Activa · Renovación: 30/11/2026</div>
+    </div>
+  </div>
+
+  <div style="display:grid;gap:1.25rem">
+    <div class="tarjeta">
+      <h2 class="tarjeta__titulo">Acciones de la cuenta</h2>
+      <p class="tarjeta__subtitulo" style="margin-bottom:1.15rem">Disponibles según rol asignado</p>
+
+      <div style="display:grid;gap:0.7rem">
+        <button type="button" class="boton boton--suave boton--completo" style="color:var(--verde-club)">Activar cuenta</button>
+        <button type="button" class="boton boton--suave boton--completo" style="color:var(--verde-club)">Suspender cuenta</button>
+        <button type="button" class="boton boton--suave boton--completo" style="color:var(--verde-club)">Desactivar cuenta</button>
+        <button type="button" class="boton boton--completo">Restablecer contraseña</button>
+      </div>
+
+      <p style="color:var(--texto-suave);font-size:0.78rem;margin:1.25rem 0 0;line-height:1.45">
+        Los cambios deben registrarse<br>con identificación del administrador.
+      </p>
+    </div>
+
+    <div class="tarjeta">
+      <h2 class="tarjeta__titulo" style="margin-bottom:1rem">Historial reciente</h2>
+      <div style="margin-bottom:1rem">
+        <div style="color:var(--verde-medio);font-size:0.8rem;font-weight:700">15/10/2026</div>
+        <div style="font-size:0.86rem">Última actualización de datos</div>
+      </div>
+      <div>
+        <div style="color:var(--verde-medio);font-size:0.8rem;font-weight:700">01/10/2026</div>
+        <div style="font-size:0.86rem">Renovación de membresía</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

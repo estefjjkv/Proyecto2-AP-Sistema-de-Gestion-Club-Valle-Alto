@@ -1,0 +1,109 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Gestión de instalaciones{% endblock %}
+{% block categoria %}INSTALACIONES{% endblock %}
+{% block encabezado %}Gestión de instalaciones{% endblock %}
+{% block contenido %}
+<div class="subnav-admin">
+  <a href="/instalaciones/gestion/" class="activo">Espacios del club</a>
+  <a href="/instalaciones/bloqueos/">Bloqueo de instalaciones</a>
+  <a href="/instalaciones/ocupacion/">Control de ocupación</a>
+  <a href="/instalaciones/reportes/">Reportes de instalaciones</a>
+</div>
+
+<div class="tarjeta">
+  <div style="margin-bottom:1.35rem">
+    <h2 class="tarjeta__titulo">Espacios del club</h2>
+    <p class="tarjeta__subtitulo">Gestiona horarios, capacidad y disponibilidad</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="tarjeta" style="padding:1.35rem">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.15rem">
+        <div style="display:flex;gap:1rem">
+          <div style="width:58px;height:58px;border-radius:12px;background:#E5F0EA;color:var(--verde-medio);font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            TE
+          </div>
+          <div>
+            <h3 style="font-size:1.12rem;font-weight:700;margin-bottom:0.35rem">Cancha de tenis</h3>
+            <div style="color:var(--texto-suave);font-size:0.82rem;margin-bottom:0.2rem">Horario: 06:00 - 21:00</div>
+            <div style="color:var(--texto-suave);font-size:0.82rem">Aforo máximo: 4 personas</div>
+          </div>
+        </div>
+        <span class="badge badge--exito">Disponible</span>
+      </div>
+      <hr style="border:0;border-top:1px solid #EAEeea;margin:1rem 0 0.85rem">
+      <div style="display:flex;gap:2.25rem;font-size:0.82rem;font-weight:700">
+        <a href="/reservas/calendario/" style="color:var(--verde-medio)">Ver reservas</a>
+        <a href="/instalaciones/ocupacion/" style="color:var(--verde-medio)">Editar instalación</a>
+        <a href="/instalaciones/bloqueos/" style="color:var(--verde-medio)">Bloquear</a>
+      </div>
+    </div>
+
+    <div class="tarjeta" style="padding:1.35rem">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.15rem">
+        <div style="display:flex;gap:1rem">
+          <div style="width:58px;height:58px;border-radius:12px;background:#E5F0EA;color:var(--verde-medio);font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            GO
+          </div>
+          <div>
+            <h3 style="font-size:1.12rem;font-weight:700;margin-bottom:0.35rem">Cancha de golf</h3>
+            <div style="color:var(--texto-suave);font-size:0.82rem;margin-bottom:0.2rem">Horario: 06:00 - 18:00</div>
+            <div style="color:var(--texto-suave);font-size:0.82rem">Aforo máximo: 40 personas</div>
+          </div>
+        </div>
+        <span class="badge badge--exito">Disponible</span>
+      </div>
+      <hr style="border:0;border-top:1px solid #EAEeea;margin:1rem 0 0.85rem">
+      <div style="display:flex;gap:2.25rem;font-size:0.82rem;font-weight:700">
+        <a href="/reservas/calendario/" style="color:var(--verde-medio)">Ver reservas</a>
+        <a href="/instalaciones/ocupacion/" style="color:var(--verde-medio)">Editar instalación</a>
+        <a href="/instalaciones/bloqueos/" style="color:var(--verde-medio)">Bloquear</a>
+      </div>
+    </div>
+
+    <div class="tarjeta" style="padding:1.35rem">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.15rem">
+        <div style="display:flex;gap:1rem">
+          <div style="width:58px;height:58px;border-radius:12px;background:#E5F0EA;color:var(--verde-medio);font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            PI
+          </div>
+          <div>
+            <h3 style="font-size:1.12rem;font-weight:700;margin-bottom:0.35rem">Piscina</h3>
+            <div style="color:var(--texto-suave);font-size:0.82rem;margin-bottom:0.2rem">Horario: 07:00 - 20:00</div>
+            <div style="color:var(--texto-suave);font-size:0.82rem">Aforo máximo: 60 personas</div>
+          </div>
+        </div>
+        <span class="badge badge--exito">Disponible</span>
+      </div>
+      <hr style="border:0;border-top:1px solid #EAEeea;margin:1rem 0 0.85rem">
+      <div style="display:flex;gap:2.25rem;font-size:0.82rem;font-weight:700">
+        <a href="/reservas/calendario/" style="color:var(--verde-medio)">Ver reservas</a>
+        <a href="/instalaciones/ocupacion/" style="color:var(--verde-medio)">Editar instalación</a>
+        <a href="/instalaciones/bloqueos/" style="color:var(--verde-medio)">Bloquear</a>
+      </div>
+    </div>
+
+    <div class="tarjeta" style="padding:1.35rem">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.15rem">
+        <div style="display:flex;gap:1rem">
+          <div style="width:58px;height:58px;border-radius:12px;background:#E5F0EA;color:var(--verde-medio);font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            EV
+          </div>
+          <div>
+            <h3 style="font-size:1.12rem;font-weight:700;margin-bottom:0.35rem">Salón de eventos</h3>
+            <div style="color:var(--texto-suave);font-size:0.82rem;margin-bottom:0.2rem">Horario: 08:00 - 23:00</div>
+            <div style="color:var(--texto-suave);font-size:0.82rem">Aforo máximo: 150 personas</div>
+          </div>
+        </div>
+        <span class="badge badge--aviso">Mantenimiento</span>
+      </div>
+      <hr style="border:0;border-top:1px solid #EAEeea;margin:1rem 0 0.85rem">
+      <div style="display:flex;gap:2.25rem;font-size:0.82rem;font-weight:700">
+        <a href="/reservas/calendario/" style="color:var(--verde-medio)">Ver reservas</a>
+        <a href="/instalaciones/ocupacion/" style="color:var(--verde-medio)">Editar instalación</a>
+        <a href="/instalaciones/bloqueos/" style="color:var(--verde-medio)">Bloquear</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

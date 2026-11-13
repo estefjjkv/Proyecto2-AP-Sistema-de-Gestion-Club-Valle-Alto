@@ -1,0 +1,91 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Gestión de socios{% endblock %}
+{% block categoria %}SOCIOS{% endblock %}
+{% block encabezado %}Gestión de socios{% endblock %}
+{% block contenido %}
+<div class="tarjeta">
+  <div style="margin-bottom:1.25rem">
+    <h2 class="tarjeta__titulo">Directorio de socios</h2>
+    <p class="tarjeta__subtitulo">Administra cuentas y consulta su información</p>
+  </div>
+
+  <form method="get" class="fila-filtros">
+    <div class="campo">
+      <label for="id_buscar_socio">Buscar socio</label>
+      <input id="id_buscar_socio" name="q" type="search" placeholder="Buscar por nombre, cédula o correo...">
+    </div>
+    <div class="campo">
+      <label for="id_estado">Estado</label>
+      <select id="id_estado" name="estado">
+        <option value="">Todos</option>
+        <option value="activa">Activa</option>
+        <option value="suspendida">Suspendida</option>
+        <option value="desactivada">Desactivada</option>
+      </select>
+    </div>
+    <div class="campo">
+      <label for="id_membresia">Membresía</label>
+      <select id="id_membresia" name="membresia">
+        <option value="">Todas</option>
+        <option value="familiar">Familiar</option>
+        <option value="individual">Individual</option>
+        <option value="corporativa">Corporativa</option>
+        <option value="honoraria">Honoraria</option>
+      </select>
+    </div>
+    <button type="submit" class="boton" style="min-width:170px">Aplicar filtros</button>
+  </form>
+
+  <div class="tabla-contenedor" style="margin-bottom:2rem">
+    <table class="tabla tabla--admin">
+      <thead>
+        <tr>
+          <th>Socio</th>
+          <th>Cédula</th>
+          <th>Correo</th>
+          <th>Membresía</th>
+          <th>Estado</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>María López</strong></td>
+          <td>1-1234-0567</td>
+          <td>mlopez@ejemplo.com</td>
+          <td>Familiar</td>
+          <td><span class="badge badge--exito">Activa</span></td>
+          <td><a href="/socios/gestion/detalle/" style="color:var(--texto);font-weight:500">Ver detalle →</a></td>
+        </tr>
+        <tr>
+          <td><strong>Carlos Pérez</strong></td>
+          <td>2-0456-0879</td>
+          <td>cperez@ejemplo.com</td>
+          <td>Individual</td>
+          <td><span class="badge badge--exito">Activa</span></td>
+          <td><a href="/socios/gestion/detalle/" style="color:var(--texto);font-weight:500">Ver detalle →</a></td>
+        </tr>
+        <tr>
+          <td><strong>Daniel Castro</strong></td>
+          <td>2-0780-0361</td>
+          <td>dcastro@ejemplo.com</td>
+          <td>Familiar</td>
+          <td><span class="badge badge--exito">Activa</span></td>
+          <td><a href="/socios/gestion/detalle/" style="color:var(--texto);font-weight:500">Ver detalle →</a></td>
+        </tr>
+        <tr>
+          <td><strong>Luis Mora</strong></td>
+          <td>3-0214-0916</td>
+          <td>lmora@ejemplo.com</td>
+          <td>Individual</td>
+          <td><span class="badge badge--exito">Activa</span></td>
+          <td><a href="/socios/gestion/detalle/" style="color:var(--texto);font-weight:500">Ver detalle →</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr style="border:0;border-top:1px solid #EAEeea;margin:1rem 0">
+  <div style="color:var(--texto-suave);font-size:0.8rem">6 de 248 socios mostrados</div>
+</div>
+{% endblock %}

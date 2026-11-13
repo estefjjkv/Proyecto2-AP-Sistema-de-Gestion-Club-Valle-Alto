@@ -1,0 +1,108 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Gestión de administradores{% endblock %}
+{% block categoria %}ADMINISTRADORES{% endblock %}
+{% block encabezado %}Gestión de administradores{% endblock %}
+{% block contenido %}
+<div class="tarjeta">
+  <div class="tarjeta__cabecera">
+    <div>
+      <h2 class="tarjeta__titulo">Usuarios administradores</h2>
+      <p class="tarjeta__subtitulo">Permisos: general, instalaciones y cobros</p>
+    </div>
+    <a href="#form-admin" class="boton">+ Nuevo administrador</a>
+  </div>
+
+  <div class="tabla-contenedor" style="margin-bottom:1.75rem">
+    <table class="tabla tabla--admin">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Cédula</th>
+          <th>Correo</th>
+          <th>Rol</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Andrea Gómez</strong></td>
+          <td>1-1098-0234</td>
+          <td>agomez@clubvallealto.cr</td>
+          <td>General</td>
+          <td><span class="badge badge--exito">Activo</span></td>
+          <td>
+            <a href="#form-admin" style="color:var(--texto)">Editar</a> ·
+            <a href="#" data-abrir-modal="modal-admin-desactivado" style="color:var(--texto)">Desactivar</a>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Jorge Ramírez</strong></td>
+          <td>2-0543-0876</td>
+          <td>jramirez@clubvallealto.cr</td>
+          <td>Instalaciones</td>
+          <td><span class="badge badge--exito">Activo</span></td>
+          <td>
+            <a href="#form-admin" style="color:var(--texto)">Editar</a> ·
+            <a href="#" data-abrir-modal="modal-admin-desactivado" style="color:var(--texto)">Desactivar</a>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Elena Solís</strong></td>
+          <td>1-1432-0654</td>
+          <td>esolis@clubvallealto.cr</td>
+          <td>Cobros</td>
+          <td><span class="badge badge--exito">Activo</span></td>
+          <td>
+            <a href="#form-admin" style="color:var(--texto)">Editar</a> ·
+            <a href="#" data-abrir-modal="modal-admin-desactivado" style="color:var(--texto)">Desactivar</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tarjeta--suave" id="form-admin">
+    <h3 style="font-size:1.02rem;font-weight:700;margin-bottom:1rem">Formulario: registrar o editar administrador</h3>
+    <form method="post" action="/administradores/" style="display:grid;grid-template-columns:1.3fr 1fr 1.5fr 1.1fr auto;gap:0.85rem;align-items:end">
+      {% csrf_token %}
+      <div class="campo">
+        <label for="id_adm_nombre">Nombre completo</label>
+        <input id="id_adm_nombre" name="nombre" type="text" placeholder="Nombre y apellidos">
+      </div>
+      <div class="campo">
+        <label for="id_adm_cedula">Cédula</label>
+        <input id="id_adm_cedula" name="cedula" type="text" placeholder="0-0000-0000">
+      </div>
+      <div class="campo">
+        <label for="id_adm_correo">Correo electrónico</label>
+        <input id="id_adm_correo" name="correo" type="email" placeholder="usuario@clubvallealto.cr">
+      </div>
+      <div class="campo">
+        <label for="id_adm_rol">Rol</label>
+        <select id="id_adm_rol" name="rol">
+          <option value="">Seleccionar...</option>
+          <option value="admin_general">General</option>
+          <option value="instalaciones">Instalaciones</option>
+          <option value="cobros">Cobros</option>
+        </select>
+      </div>
+      <button type="submit" class="boton">Guardar</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Administrador desactivado (abierto por defecto como en el prototipo) -->
+<div class="modal-fondo abierto" id="modal-admin-desactivado" role="dialog" aria-modal="true" aria-labelledby="titulo-admin-desactivado">
+  <div class="modal modal--confirmacion" style="text-align:center;padding:2.25rem 2rem">
+    <div style="width:46px;height:46px;border-radius:10px;background:#E3EFE8;color:var(--verde-club);display:inline-flex;align-items:center;justify-content:center;font-size:1.35rem;font-weight:700;margin-bottom:1rem">
+      ✓
+    </div>
+    <h2 class="modal__titulo" id="titulo-admin-desactivado" style="margin-bottom:0.5rem">Administrador desactivado</h2>
+    <p style="color:var(--texto-suave);font-size:0.94rem;margin-bottom:1.5rem">
+      La cuenta administrativa se ha desactivado<br>correctamente.
+    </p>
+    <button type="button" class="boton" data-cerrar-modal style="min-width:150px">Aceptar</button>
+  </div>
+</div>
+{% endblock %}

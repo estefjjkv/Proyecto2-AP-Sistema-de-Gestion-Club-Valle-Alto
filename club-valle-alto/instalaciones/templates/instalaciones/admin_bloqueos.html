@@ -1,0 +1,95 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Bloqueo de instalaciones{% endblock %}
+{% block categoria %}INSTALACIONES / BLOQUEOS{% endblock %}
+{% block encabezado %}Bloqueo de instalaciones{% endblock %}
+{% block contenido %}
+<div class="subnav-admin">
+  <a href="/instalaciones/gestion/">Espacios del club</a>
+  <a href="/instalaciones/bloqueos/" class="activo">Bloqueo de instalaciones</a>
+  <a href="/instalaciones/ocupacion/">Control de ocupación</a>
+  <a href="/instalaciones/reportes/">Reportes de instalaciones</a>
+</div>
+
+<div class="grid-principal-lateral">
+  <div class="tarjeta">
+    <div style="margin-bottom:1.35rem">
+      <h2 class="tarjeta__titulo">Registrar bloqueo</h2>
+      <p class="tarjeta__subtitulo">Evita reservas durante mantenimiento o eventos privados</p>
+    </div>
+
+    <form class="formulario" method="post" action="/instalaciones/bloqueos/" novalidate>
+      {% csrf_token %}
+      <div class="campo">
+        <label for="id_bloq_inst">Instalación</label>
+        <select id="id_bloq_inst" name="instalacion">
+          <option selected>Salón de eventos</option>
+          <option>Cancha de tenis</option>
+          <option>Cancha de golf</option>
+          <option>Piscina</option>
+        </select>
+      </div>
+
+      <div class="fila-campos">
+        <div class="campo">
+          <label for="id_bloq_fini">Fecha inicial</label>
+          <input id="id_bloq_fini" type="text" value="19/10/2026">
+        </div>
+        <div class="campo">
+          <label for="id_bloq_ffin">Fecha final</label>
+          <input id="id_bloq_ffin" type="text" value="19/10/2026">
+        </div>
+      </div>
+
+      <div class="fila-campos">
+        <div class="campo">
+          <label for="id_bloq_hini">Hora inicial</label>
+          <input id="id_bloq_hini" type="text" value="08:00">
+        </div>
+        <div class="campo">
+          <label for="id_bloq_hfin">Hora final</label>
+          <input id="id_bloq_hfin" type="text" value="13:00">
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="id_bloq_motivo">Motivo</label>
+        <input id="id_bloq_motivo" type="text" value="Mantenimiento preventivo de infraestructura">
+      </div>
+
+      <div class="alerta alerta--aviso" role="status" style="margin-top:0.35rem">
+        <strong style="display:block;margin-bottom:0.2rem">Atención: el bloqueo no debe entrar en conflicto con reservas confirmadas.</strong>
+        Verifica el calendario antes de guardar.
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;margin-top:0.75rem">
+        <button type="submit" class="boton" style="min-width:210px">Guardar bloqueo</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="tarjeta">
+    <h2 class="tarjeta__titulo">Bloqueos programados</h2>
+    <p class="tarjeta__subtitulo" style="margin-bottom:1.15rem">Periodos de indisponibilidad</p>
+
+    <div style="display:grid;gap:0.85rem">
+      <div class="tarjeta--suave">
+        <strong style="display:block;font-size:0.9rem;margin-bottom:0.2rem">Salón de eventos</strong>
+        <div style="color:var(--texto-suave);font-size:0.8rem;margin-bottom:0.25rem">19 oct · 08:00-13:00</div>
+        <div style="color:var(--verde-medio);font-size:0.8rem;font-weight:600">Mantenimiento</div>
+      </div>
+
+      <div class="tarjeta--suave">
+        <strong style="display:block;font-size:0.9rem;margin-bottom:0.2rem">Cancha de tenis</strong>
+        <div style="color:var(--texto-suave);font-size:0.8rem;margin-bottom:0.25rem">22 oct · 14:00-18:00</div>
+        <div style="color:var(--verde-medio);font-size:0.8rem;font-weight:600">Evento privado</div>
+      </div>
+
+      <div class="tarjeta--suave">
+        <strong style="display:block;font-size:0.9rem;margin-bottom:0.2rem">Piscina</strong>
+        <div style="color:var(--texto-suave);font-size:0.8rem;margin-bottom:0.25rem">29 oct · 07:00-11:00</div>
+        <div style="color:var(--verde-medio);font-size:0.8rem;font-weight:600">Mantenimiento</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

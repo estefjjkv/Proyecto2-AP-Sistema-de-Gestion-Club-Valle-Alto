@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es-CR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Acceso{% endblock %} · Club Valle Alto</title>
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  {% block css_extra %}{% endblock %}
+</head>
+<body>
+  <a class="saltar" href="#contenido-auth">Saltar al contenido</a>
+  <div class="layout-auth">
+    <aside class="auth-panel" aria-label="Información del Club Valle Alto">
+      <div class="auth-panel__contenido">
+        <div class="logo-circulo" aria-hidden="true">VA</div>
+        <h1>Club Valle Alto</h1>
+        <p class="auth-panel__subtitulo">Su club, a un clic de distancia.</p>
+        <ul class="auth-lista">
+          <li>Reserve instalaciones en línea</li>
+          <li>Registre a sus invitados</li>
+          <li>Consulte su estado de cuenta</li>
+        </ul>
+      </div>
+      <div class="auth-panel__pie">© 2026 Club Valle Alto</div>
+    </aside>
+    <main id="contenido-auth" class="auth-cuerpo" tabindex="-1">
+      {% block contenido %}{% endblock %}
+    </main>
+  </div>
+  {% include 'includes/_selector_pantallas.html' %}
+  <script src="{% static 'js/main.js' %}" defer></script>
+  {% block js_extra %}{% endblock %}
+</body>
+</html>

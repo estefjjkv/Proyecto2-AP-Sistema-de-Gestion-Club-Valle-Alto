@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% block titulo %}Mi membresía{% endblock %}
+{% block contenido %}
+<div class="encabezado-pagina">
+  <h1>Mi membresía</h1>
+  <p>Información de su membresía y beneficiarios registrados.</p>
+</div>
+
+<div class="tarjeta" style="margin-bottom:1.5rem">
+  <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.15rem">
+    <h2 class="tarjeta__titulo">Membresía</h2>
+    <span class="badge badge--exito">Activa</span>
+  </div>
+
+  <div class="grid-4">
+    <div>
+      <div class="kpi-etiqueta">Tipo</div>
+      <div style="font-size:1.35rem;font-weight:700">Familiar</div>
+    </div>
+    <div>
+      <div class="kpi-etiqueta">Fecha de inscripción</div>
+      <div style="font-size:1.35rem;font-weight:700">15/03/2024</div>
+    </div>
+    <div>
+      <div class="kpi-etiqueta">Fecha de renovación</div>
+      <div style="font-size:1.35rem;font-weight:700">15/03/2027</div>
+    </div>
+    <div>
+      <div class="kpi-etiqueta">Cuota mensual</div>
+      <div style="font-size:1.35rem;font-weight:700">₡45 000</div>
+    </div>
+  </div>
+</div>
+
+<div class="tarjeta">
+  <div class="tarjeta__cabecera">
+    <div style="display:flex;align-items:baseline;gap:0.85rem">
+      <h2 class="tarjeta__titulo">Beneficiarios</h2>
+      <span style="color:var(--texto-suave);font-size:0.88rem">3 de 5 permitidos</span>
+    </div>
+    <button type="button" class="boton" data-abrir-modal="modal-beneficiario">Agregar Beneficiario</button>
+  </div>
+
+  <div class="tabla-contenedor">
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Cédula</th>
+          <th>Parentesco</th>
+          <th>Fecha de nacimiento</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>María Pérez Solís</td>
+          <td>1-1234-5678</td>
+          <td>Cónyuge</td>
+          <td>20/08/1987</td>
+          <td>
+            <a href="#" data-abrir-modal="modal-beneficiario" style="margin-right:1rem;font-weight:600">Editar</a>
+            <a href="#" style="color:var(--error-txt);font-weight:600">Eliminar</a>
+          </td>
+        </tr>
+        <tr>
+          <td>Ana Pérez Pérez</td>
+          <td>1-3456-7890</td>
+          <td>Hija</td>
+          <td>14/02/2012</td>
+          <td>
+            <a href="#" data-abrir-modal="modal-beneficiario" style="margin-right:1rem;font-weight:600">Editar</a>
+            <a href="#" style="color:var(--error-txt);font-weight:600">Eliminar</a>
+          </td>
+        </tr>
+        <tr>
+          <td>Luis Pérez Pérez</td>
+          <td>1-5678-9012</td>
+          <td>Hijo</td>
+          <td>05/11/2015</td>
+          <td>
+            <a href="#" data-abrir-modal="modal-beneficiario" style="margin-right:1rem;font-weight:600">Editar</a>
+            <a href="#" style="color:var(--error-txt);font-weight:600">Eliminar</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal Agregar Beneficiario (abierto por defecto como en el prototipo) -->
+<div class="modal-fondo abierto" id="modal-beneficiario" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-beneficiario">
+  <div class="modal">
+    <div class="modal__cabecera">
+      <h2 class="modal__titulo" id="titulo-modal-beneficiario">Agregar beneficiario</h2>
+      <button type="button" class="modal__cerrar" data-cerrar-modal aria-label="Cerrar">✕</button>
+    </div>
+
+    <form class="formulario" method="post" action="/membresias/" novalidate>
+      {% csrf_token %}
+      <div class="campo">
+        <label for="id_ben_nombre">Nombre completo</label>
+        <input id="id_ben_nombre" name="nombre_completo" type="text" placeholder="Nombre y apellidos" required>
+      </div>
+
+      <div class="fila-campos">
+        <div class="campo">
+          <label for="id_ben_cedula">Cédula</label>
+          <input id="id_ben_cedula" name="cedula" type="text" placeholder="0-0000-0000" required>
+        </div>
+        <div class="campo">
+          <label for="id_ben_nacimiento">Fecha de nacimiento</label>
+          <input id="id_ben_nacimiento" name="fecha_nacimiento" type="text" placeholder="dd/mm/aaaa" required>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="id_ben_parentesco">Parentesco</label>
+        <select id="id_ben_parentesco" name="parentesco" required>
+          <option value="">Seleccione una opción</option>
+          <option value="conyuge">Cónyuge</option>
+          <option value="hijo">Hijo / Hija</option>
+          <option value="padre">Padre / Madre</option>
+          <option value="otro">Otro familiar</option>
+        </select>
+      </div>
+
+      <div class="modal__acciones">
+        <button type="button" class="boton boton--contorno" data-cerrar-modal style="min-width:130px">Cancelar</button>
+        <button type="button" class="boton" data-cerrar-modal style="min-width:140px">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

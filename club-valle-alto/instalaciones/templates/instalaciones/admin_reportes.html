@@ -1,0 +1,86 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Reportes de instalaciones{% endblock %}
+{% block categoria %}INSTALACIONES / REPORTES{% endblock %}
+{% block encabezado %}Reportes de instalaciones{% endblock %}
+{% block contenido %}
+<div class="subnav-admin">
+  <a href="/instalaciones/gestion/">Espacios del club</a>
+  <a href="/instalaciones/bloqueos/">Bloqueo de instalaciones</a>
+  <a href="/instalaciones/ocupacion/">Control de ocupación</a>
+  <a href="/instalaciones/reportes/" class="activo">Reportes de instalaciones</a>
+</div>
+
+<div class="tarjeta">
+  <div style="margin-bottom:1.15rem">
+    <h2 class="tarjeta__titulo">Uso de instalaciones</h2>
+    <p class="tarjeta__subtitulo">Resumen de demanda y tendencias de reservas</p>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.5rem">
+    <div class="campo" style="min-width:240px">
+      <label for="id_rep_periodo">Periodo</label>
+      <select id="id_rep_periodo">
+        <option selected>Octubre de 2026</option>
+        <option>Septiembre de 2026</option>
+        <option>Agosto de 2026</option>
+      </select>
+    </div>
+    <button type="button" class="boton" style="min-width:190px">Generar reporte</button>
+  </div>
+
+  <div class="grid-3" style="margin-bottom:2rem">
+    <div class="tarjeta--suave">
+      <div style="color:var(--texto-suave);font-size:0.8rem;font-weight:700;margin-bottom:0.35rem">Reservas del periodo</div>
+      <div class="kpi-valor kpi-valor--grande" style="margin:0">376</div>
+    </div>
+    <div class="tarjeta--suave">
+      <div style="color:var(--texto-suave);font-size:0.8rem;font-weight:700;margin-bottom:0.35rem">Instalación con mayor demanda</div>
+      <div class="kpi-valor" style="font-size:1.65rem;font-weight:800;margin:0">Piscina</div>
+    </div>
+    <div class="tarjeta--suave">
+      <div style="color:var(--texto-suave);font-size:0.8rem;font-weight:700;margin-bottom:0.35rem">Instalación con menor demanda</div>
+      <div class="kpi-valor" style="font-size:1.65rem;font-weight:800;margin:0">Salón de eventos</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:1rem;font-weight:700;margin-bottom:1.15rem">Reservas por instalación</h3>
+
+  <div style="display:grid;gap:1.25rem;margin-bottom:2rem">
+    <div style="display:grid;grid-template-columns:160px 1fr 60px;align-items:center;gap:1.25rem">
+      <span style="font-size:0.86rem">Piscina</span>
+      <div class="barra-progreso barra-progreso--ancha" style="height:18px">
+        <div class="barra-progreso__relleno" style="width:76%"></div>
+      </div>
+      <strong style="color:var(--verde-club);font-size:0.88rem">142</strong>
+    </div>
+
+    <div style="display:grid;grid-template-columns:160px 1fr 60px;align-items:center;gap:1.25rem">
+      <span style="font-size:0.86rem">Cancha de tenis</span>
+      <div class="barra-progreso barra-progreso--ancha" style="height:18px">
+        <div class="barra-progreso__relleno" style="width:62%"></div>
+      </div>
+      <strong style="color:var(--verde-club);font-size:0.88rem">116</strong>
+    </div>
+
+    <div style="display:grid;grid-template-columns:160px 1fr 60px;align-items:center;gap:1.25rem">
+      <span style="font-size:0.86rem">Cancha de golf</span>
+      <div class="barra-progreso barra-progreso--ancha" style="height:18px">
+        <div class="barra-progreso__relleno" style="width:42%"></div>
+      </div>
+      <strong style="color:var(--verde-club);font-size:0.88rem">79</strong>
+    </div>
+
+    <div style="display:grid;grid-template-columns:160px 1fr 60px;align-items:center;gap:1.25rem">
+      <span style="font-size:0.86rem">Salón de eventos</span>
+      <div class="barra-progreso barra-progreso--ancha" style="height:18px">
+        <div class="barra-progreso__relleno" style="width:21%"></div>
+      </div>
+      <strong style="color:var(--verde-club);font-size:0.88rem">39</strong>
+    </div>
+  </div>
+
+  <p style="color:var(--texto-suave);font-size:0.82rem;margin:0">
+    Informe de ejemplo: distribución de reservas registradas en el periodo seleccionado.
+  </p>
+</div>
+{% endblock %}

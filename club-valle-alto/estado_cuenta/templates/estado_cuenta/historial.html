@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block titulo %}Historial de estados de cuenta{% endblock %}
+{% block contenido %}
+<div class="encabezado-pagina">
+  <h1>Historial de estados de cuenta</h1>
+  <p>Consulte y descargue los estados de cuenta de periodos anteriores.</p>
+</div>
+
+<div class="tarjeta">
+  <div class="tarjeta__cabecera">
+    <h2 class="tarjeta__titulo">Periodos</h2>
+    <a href="/estado-cuenta/" style="font-size:0.9rem;font-weight:600">Volver al estado actual</a>
+  </div>
+
+  <div class="tabla-contenedor">
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th>Periodo</th>
+          <th>Fecha de emisión</th>
+          <th>Total</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Octubre 2026</td>
+          <td>01/10/2026</td>
+          <td>₡93 000</td>
+          <td><span class="badge badge--aviso">Pendiente</span></td>
+          <td>
+            <a href="/estado-cuenta/" style="margin-right:1.25rem;font-weight:600">Ver</a>
+            <a href="/estado-cuenta/?descargar=pdf" style="font-weight:600">Descargar PDF</a>
+          </td>
+        </tr>
+        <tr>
+          <td>Septiembre 2026</td>
+          <td>01/09/2026</td>
+          <td>₡52 000</td>
+          <td><span class="badge badge--exito">Pagado</span></td>
+          <td>
+            <a href="/estado-cuenta/" style="margin-right:1.25rem;font-weight:600">Ver</a>
+            <a href="/estado-cuenta/?descargar=pdf" style="font-weight:600">Descargar PDF</a>
+          </td>
+        </tr>
+        <tr>
+          <td>Agosto 2026</td>
+          <td>01/08/2026</td>
+          <td>₡45 000</td>
+          <td><span class="badge badge--exito">Pagado</span></td>
+          <td>
+            <a href="/estado-cuenta/" style="margin-right:1.25rem;font-weight:600">Ver</a>
+            <a href="/estado-cuenta/?descargar=pdf" style="font-weight:600">Descargar PDF</a>
+          </td>
+        </tr>
+        <tr>
+          <td>Julio 2026</td>
+          <td>01/07/2026</td>
+          <td>₡61 000</td>
+          <td><span class="badge badge--exito">Pagado</span></td>
+          <td>
+            <a href="/estado-cuenta/" style="margin-right:1.25rem;font-weight:600">Ver</a>
+            <a href="/estado-cuenta/?descargar=pdf" style="font-weight:600">Descargar PDF</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

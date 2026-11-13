@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block titulo %}Mi perfil{% endblock %}
+{% block contenido %}
+<div class="encabezado-pagina">
+  <h1>Mi perfil</h1>
+  <p>Consulte y actualice sus datos personales.</p>
+</div>
+
+<div class="grid-principal-lateral">
+  <div>
+    <div class="tarjeta">
+      <div class="tarjeta__cabecera">
+        <h2 class="tarjeta__titulo">Datos personales</h2>
+      </div>
+
+      <form class="formulario" method="post" action="/socios/perfil/" novalidate>
+        {% csrf_token %}
+        <div class="campo">
+          <label for="id_nombre">Nombre completo</label>
+          <input id="id_nombre" name="nombre_completo" type="text" value="Juan Pérez Mora" required>
+        </div>
+
+        <div class="fila-campos">
+          <div class="campo">
+            <label for="id_cedula">Cédula</label>
+            <input id="id_cedula" name="cedula" type="text" value="1-2345-6789" readonly>
+          </div>
+          <div class="campo">
+            <label for="id_nacimiento">Fecha de nacimiento</label>
+            <input id="id_nacimiento" name="fecha_nacimiento" type="text" value="12/05/1985" required>
+          </div>
+        </div>
+
+        <div class="fila-campos">
+          <div class="campo">
+            <label for="id_correo">Correo electrónico</label>
+            <input id="id_correo" name="correo" type="email" value="juan.perez@correo.com" required>
+          </div>
+          <div class="campo">
+            <label for="id_telefono">Teléfono</label>
+            <input id="id_telefono" name="telefono" type="tel" value="8888-1234" required>
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="id_direccion">Dirección</label>
+          <input id="id_direccion" name="direccion" type="text" value="San José, Escazú, San Rafael" required>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;gap:0.85rem;margin-top:0.5rem">
+          <a href="/socios/inicio/" class="boton boton--contorno" style="min-width:140px">Cancelar</a>
+          <button type="submit" class="boton" style="min-width:180px">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="alerta alerta--exito" role="status" style="margin-top:1.15rem">
+      ✓ Sus datos se actualizaron correctamente.
+    </div>
+  </div>
+
+  <div class="tarjeta">
+    <h2 class="tarjeta__titulo" style="margin-bottom:0.6rem">Seguridad</h2>
+    <p style="color:var(--texto-suave);font-size:0.9rem;margin-bottom:1.5rem">
+      Por seguridad, cambie su contraseña periódicamente.
+    </p>
+    <a href="/usuarios/recuperar/" class="boton boton--contorno boton--completo">Cambiar contraseña</a>
+  </div>
+</div>
+{% endblock %}

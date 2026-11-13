@@ -1,0 +1,133 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Panel administrativo{% endblock %}
+{% block categoria %}INICIO{% endblock %}
+{% block encabezado %}Panel administrativo{% endblock %}
+{% block contenido %}
+<div class="grid-4" style="margin-bottom:1.5rem">
+  <div class="tarjeta">
+    <div class="kpi-admin-cabecera">
+      <span class="kpi-admin-punto" aria-hidden="true"></span>
+      <span>Socios activos</span>
+    </div>
+    <div class="kpi-valor kpi-valor--grande">248</div>
+    <div style="color:var(--texto-suave);font-size:0.8rem">12 registrados este mes</div>
+  </div>
+
+  <div class="tarjeta">
+    <div class="kpi-admin-cabecera">
+      <span class="kpi-admin-punto" aria-hidden="true"></span>
+      <span>Reservas de hoy</span>
+    </div>
+    <div class="kpi-valor kpi-valor--grande">18</div>
+    <div style="color:var(--texto-suave);font-size:0.8rem">4 por confirmar</div>
+  </div>
+
+  <div class="tarjeta">
+    <div class="kpi-admin-cabecera">
+      <span class="kpi-admin-punto" aria-hidden="true"></span>
+      <span>Pagos pendientes</span>
+    </div>
+    <div class="kpi-valor kpi-valor--grande">32</div>
+    <div style="color:var(--texto-suave);font-size:0.8rem">8 con atraso</div>
+  </div>
+
+  <div class="tarjeta">
+    <div class="kpi-admin-cabecera">
+      <span class="kpi-admin-punto" aria-hidden="true"></span>
+      <span>Instalaciones</span>
+    </div>
+    <div class="kpi-valor kpi-valor--grande">4</div>
+    <div style="color:var(--texto-suave);font-size:0.8rem">1 en mantenimiento</div>
+  </div>
+</div>
+
+<div class="grid-principal-lateral">
+  <div class="tarjeta">
+    <div class="tarjeta__cabecera">
+      <div>
+        <h2 class="tarjeta__titulo">Reservas del día</h2>
+        <p class="tarjeta__subtitulo">Agenda de las instalaciones para hoy</p>
+      </div>
+      <a href="/reservas/calendario/" class="boton boton--suave boton--pequeno" style="height:38px;padding:0 1.1rem;font-weight:700;color:var(--verde-club)">Ver calendario</a>
+    </div>
+
+    <div class="tabla-contenedor">
+      <table class="tabla tabla--admin">
+        <thead>
+          <tr>
+            <th>Instalación</th>
+            <th>Socio</th>
+            <th>Horario</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Cancha de tenis</strong></td>
+            <td>María López</td>
+            <td>08:00 - 09:30</td>
+            <td><span class="badge badge--exito">Confirmada</span></td>
+          </tr>
+          <tr>
+            <td><strong>Piscina</strong></td>
+            <td>Carlos Pérez</td>
+            <td>10:00 - 11:00</td>
+            <td><span class="badge badge--aviso">Pendiente</span></td>
+          </tr>
+          <tr>
+            <td><strong>Cancha de golf</strong></td>
+            <td>Ana Vargas</td>
+            <td>12:00 - 14:00</td>
+            <td><span class="badge badge--exito">Confirmada</span></td>
+          </tr>
+          <tr>
+            <td><strong>Salón de eventos</strong></td>
+            <td>Luis Mora</td>
+            <td>16:00 - 19:00</td>
+            <td><span class="badge badge--exito">Confirmada</span></td>
+          </tr>
+          <tr>
+            <td><strong>Cancha de tenis</strong></td>
+            <td>Sofía Rojas</td>
+            <td>17:00 - 18:00</td>
+            <td><span class="badge badge--aviso">Pendiente</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tarjeta">
+    <div style="margin-bottom:1.15rem">
+      <h2 class="tarjeta__titulo">Avisos administrativos</h2>
+      <p class="tarjeta__subtitulo">Situaciones que requieren seguimiento</p>
+    </div>
+
+    <div style="display:grid;gap:0.85rem">
+      <a href="/membresias/gestion/" class="tarjeta--suave" style="display:flex;align-items:flex-start;gap:0.75rem;text-decoration:none;color:inherit">
+        <span style="width:12px;height:12px;border-radius:50%;background:#9A5B13;margin-top:0.25rem;flex-shrink:0"></span>
+        <div>
+          <strong style="display:block;font-size:0.88rem;margin-bottom:0.2rem">5 membresías próximas a vencer</strong>
+          <span style="color:var(--texto-suave);font-size:0.8rem">Revisar fechas de renovación</span>
+        </div>
+      </a>
+
+      <a href="/estado-cuenta/pagos/" class="tarjeta--suave" style="display:flex;align-items:flex-start;gap:0.75rem;text-decoration:none;color:inherit">
+        <span style="width:12px;height:12px;border-radius:50%;background:#A8383B;margin-top:0.25rem;flex-shrink:0"></span>
+        <div>
+          <strong style="display:block;font-size:0.88rem;margin-bottom:0.2rem">8 socios con cuotas vencidas</strong>
+          <span style="color:var(--texto-suave);font-size:0.8rem">Consultar listado de morosidad</span>
+        </div>
+      </a>
+
+      <a href="/instalaciones/bloqueos/" class="tarjeta--suave" style="display:flex;align-items:flex-start;gap:0.75rem;text-decoration:none;color:inherit">
+        <span style="width:12px;height:12px;border-radius:50%;background:#486982;margin-top:0.25rem;flex-shrink:0"></span>
+        <div>
+          <strong style="display:block;font-size:0.88rem;margin-bottom:0.2rem">Cancha de tenis en revisión</strong>
+          <span style="color:var(--texto-suave);font-size:0.8rem">Mantenimiento: 19 de octubre</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

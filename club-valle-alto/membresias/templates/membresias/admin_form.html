@@ -1,0 +1,122 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Crear o modificar membresía{% endblock %}
+{% block categoria %}MEMBRESÍAS / FORMULARIO{% endblock %}
+{% block encabezado %}Crear o modificar membresía{% endblock %}
+{% block contenido %}
+<div class="grid-principal-lateral">
+  <div class="tarjeta">
+    <div style="margin-bottom:1.35rem">
+      <h2 class="tarjeta__titulo">Datos de la membresía</h2>
+      <p class="tarjeta__subtitulo">Crear o actualizar una membresía vinculada al socio</p>
+    </div>
+
+    <form class="formulario" method="post" action="/membresias/gestion/" novalidate>
+      {% csrf_token %}
+      <div class="fila-campos">
+        <div class="campo">
+          <label for="id_mem_socio">Socio titular</label>
+          <select id="id_mem_socio" name="socio">
+            <option selected>María Fernanda López</option>
+            <option>Carlos Pérez</option>
+            <option>Ana Vargas</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="id_mem_tipo">Tipo de membresía</label>
+          <select id="id_mem_tipo" name="tipo">
+            <option selected>Familiar</option>
+            <option>Individual</option>
+            <option>Corporativa</option>
+            <option>Honoraria</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="fila-campos">
+        <div class="campo">
+          <label for="id_mem_inscripcion">Fecha de inscripción</label>
+          <input id="id_mem_inscripcion" name="inscripcion" type="text" value="01/12/2024">
+        </div>
+        <div class="campo">
+          <label for="id_mem_renovacion">Fecha de renovación</label>
+          <input id="id_mem_renovacion" name="renovacion" type="text" value="30/11/2026">
+        </div>
+      </div>
+
+      <div class="fila-campos">
+        <div class="campo">
+          <label for="id_mem_cuota">Cuota mensual</label>
+          <input id="id_mem_cuota" name="cuota" type="text" value="₡48 000">
+        </div>
+        <div class="campo">
+          <label for="id_mem_estado">Estado</label>
+          <select id="id_mem_estado" name="estado">
+            <option selected>Activa</option>
+            <option>Suspendida</option>
+            <option>Vencida</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="tarjeta--suave" style="margin-top:0.5rem">
+        <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:0.5rem">Beneficiarios familiares</h3>
+        <div style="font-size:0.86rem;color:#34403A;line-height:1.7;margin-bottom:0.65rem">
+          <div>Valeria López · 1-1456-0987 · Hija · 15/04/2012</div>
+          <div>Daniel López · 1-1778-0631 · Hijo · 06/09/2015</div>
+        </div>
+        <a href="/membresias/" style="font-size:0.82rem;font-weight:700;color:var(--verde-medio)">
+          + Agregar beneficiario (respetar límite del reglamento)
+        </a>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;margin-top:1rem">
+        <button type="submit" class="boton" style="min-width:210px">Guardar membresía</button>
+      </div>
+    </form>
+  </div>
+
+  <div style="display:grid;gap:1.25rem">
+    <div class="tarjeta">
+      <h2 class="tarjeta__titulo">Historial de estados</h2>
+      <p class="tarjeta__subtitulo" style="margin-bottom:1.15rem">Seguimiento de modificaciones</p>
+
+      <div style="display:grid;gap:1rem">
+        <div style="display:flex;align-items:flex-start;gap:0.65rem">
+          <span style="width:10px;height:10px;border-radius:50%;background:var(--verde-medio);margin-top:0.35rem;flex-shrink:0"></span>
+          <div>
+            <div style="color:var(--verde-medio);font-size:0.8rem;font-weight:700">01/10/2026</div>
+            <div style="font-size:0.86rem">Renovada — Activa</div>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:flex-start;gap:0.65rem">
+          <span style="width:10px;height:10px;border-radius:50%;background:var(--verde-medio);margin-top:0.35rem;flex-shrink:0"></span>
+          <div>
+            <div style="color:var(--verde-medio);font-size:0.8rem;font-weight:700">20/09/2026</div>
+            <div style="font-size:0.86rem">Suspendida temporalmente</div>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:flex-start;gap:0.65rem">
+          <span style="width:10px;height:10px;border-radius:50%;background:var(--verde-medio);margin-top:0.35rem;flex-shrink:0"></span>
+          <div>
+            <div style="color:var(--verde-medio);font-size:0.8rem;font-weight:700">01/12/2024</div>
+            <div style="font-size:0.86rem">Creación — Activa</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tarjeta">
+      <h2 class="tarjeta__titulo" style="margin-bottom:1rem">Acciones adicionales</h2>
+      <div style="display:grid;gap:0.7rem">
+        <button type="button" class="boton boton--suave boton--completo" style="color:var(--verde-club)">Suspender membresía</button>
+        <button type="button" class="boton boton--suave boton--completo" style="color:var(--verde-club)">Dar de baja</button>
+      </div>
+      <p style="color:var(--texto-suave);font-size:0.78rem;margin:1.15rem 0 0;line-height:1.45">
+        Los cambios se reflejarán en<br>beneficios y estados de cuenta.
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}
