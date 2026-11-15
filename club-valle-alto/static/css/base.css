@@ -1314,3 +1314,43 @@ a:hover {
   background: #EAF2EE;
   color: var(--verde-club);
 }
+
+/* Formularios conectados al backend */
+.formulario-limitado { max-width: 860px; }
+.seccion { margin-top: 1.5rem; }
+.enlace-final { margin-top: 1.25rem; }
+.barra-acciones { display:flex; flex-wrap:wrap; align-items:center; gap:1rem; margin-bottom:1.25rem; }
+.ayuda-campo { font-size:.82rem; color:var(--texto-suave); line-height:1.5; }
+.ayuda-campo ul { padding-left:1.2rem; }
+.error-campo, .errorlist { color:#a22424; font-size:.9rem; }
+.errorlist { padding-left:1.2rem; }
+.campo textarea { width:100%; border:1px solid #aab5ad; border-radius:6px; padding:.7rem; font:inherit; }
+.campo input[type=checkbox] { width:1.2rem; height:1.2rem; }
+.boton-link { background:none; border:0; cursor:pointer; font:inherit; }
+.form-inline { display:inline-block; margin-left:.7rem; }
+.datos { display:grid; grid-template-columns:minmax(100px,1fr) 2fr; gap:.7rem; margin:1.5rem 0; }
+.datos dt { font-weight:600; }
+.datos dd { overflow-wrap:anywhere; }
+.grid-3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1.25rem; }
+.tabla td { overflow-wrap:anywhere; }
+@media(max-width:600px) { .datos {grid-template-columns:1fr;} .auth-caja {padding:1rem;} }
+/* El menú original era fijo: permitir navegación y formularios en pantallas pequeñas. */
+.topbar-socio { min-height:64px; height:auto; }
+.topbar-socio__contenedor { padding-top:.75rem; padding-bottom:.75rem; flex-wrap:wrap; }
+.topbar-socio__nav { flex-wrap:wrap; row-gap:.8rem; }
+.topbar-socio__usuario { flex-wrap:wrap; }
+.topbar-admin { flex-wrap:wrap; }
+.topbar-admin__derecha { flex-wrap:wrap; }
+.tarjeta, .contenedor-socio, .contenedor-admin { min-width:0; }
+@media(max-width:600px) {
+  .topbar-socio__contenedor, .contenedor-socio, .contenedor-admin, .topbar-admin { padding:1rem; }
+  .topbar-socio__marca { white-space:normal; }
+  .topbar-socio__nav a { padding:.35rem .5rem; display:inline-block; }
+  .sidebar-admin__nav { display:grid; grid-template-columns:1fr 1fr; gap:.3rem; }
+  .sidebar-admin__link { padding:.65rem; }
+  .topbar-admin__titulo { font-size:1.4rem; }
+  .tarjeta { padding:1rem; }
+  .tarjeta__cabecera { flex-wrap:wrap; gap:1rem; }
+  .tabla { min-width:540px; }
+  .barra-acciones input { max-width:100%; }
+}

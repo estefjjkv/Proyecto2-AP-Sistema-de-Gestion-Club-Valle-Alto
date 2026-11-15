@@ -9,7 +9,7 @@
 -- Las tablas NO se crean aquí: las crea "python manage.py migrate".
 -- =====================================================================
 
-CREATE ROLE club_admin WITH LOGIN PASSWORD 'valleAlto2026';
+CREATE ROLE club_admin WITH LOGIN PASSWORD 'REEMPLAZAR_POR_CLAVE_PRIVADA';
 
 CREATE DATABASE club_valle_alto
     OWNER club_admin

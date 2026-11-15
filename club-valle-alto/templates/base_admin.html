@@ -22,55 +22,14 @@
 
       <div class="sidebar-admin__seccion">NAVEGACIÓN</div>
       <ul class="sidebar-admin__nav">
-        <li>
-          <a href="/administradores/panel/" class="sidebar-admin__link {% if menu_admin == 'inicio' %}activo{% endif %}">
-            <span class="sidebar-admin__icono" aria-hidden="true">IN</span>
-            <span>Inicio</span>
-          </a>
-        </li>
-        <li>
-          <a href="/socios/gestion/" class="sidebar-admin__link {% if menu_admin == 'socios' %}activo{% endif %}">
-            <span class="sidebar-admin__icono" aria-hidden="true">SO</span>
-            <span>Socios</span>
-          </a>
-        </li>
-        <li>
-          <a href="/membresias/gestion/" class="sidebar-admin__link {% if menu_admin == 'membresias' %}activo{% endif %}">
-            <span class="sidebar-admin__icono" aria-hidden="true">ME</span>
-            <span>Membresías</span>
-          </a>
-        </li>
-        <li>
-          <a href="/reservas/calendario/" class="sidebar-admin__link {% if menu_admin == 'reservas' %}activo{% endif %}">
-            <span class="sidebar-admin__icono" aria-hidden="true">RE</span>
-            <span>Reservas</span>
-          </a>
-        </li>
-        <li>
-          <a href="/instalaciones/gestion/" class="sidebar-admin__link {% if menu_admin == 'instalaciones' %}activo{% endif %}">
-            <span class="sidebar-admin__icono" aria-hidden="true">ES</span>
-            <span>Instalaciones</span>
-          </a>
-        </li>
-        <li>
-          <a href="/estado-cuenta/gestion/" class="sidebar-admin__link {% if menu_admin == 'cobros' %}activo{% endif %}">
-            <span class="sidebar-admin__icono" aria-hidden="true">CO</span>
-            <span>Cobros</span>
-          </a>
-        </li>
-        <li>
-          <a href="/notificaciones/" class="sidebar-admin__link {% if menu_admin == 'notificaciones' %}activo{% endif %}">
-            <span class="sidebar-admin__icono" aria-hidden="true">NO</span>
-            <span>Notificaciones</span>
-          </a>
-        </li>
-        <li>
-          <a href="/administradores/" class="sidebar-admin__link {% if menu_admin == 'administradores' %}activo{% endif %}">
-            <span class="sidebar-admin__icono" aria-hidden="true">AD</span>
-            <span>Administradores</span>
-          </a>
-        </li>
-      </ul>
+<li><a class="sidebar-admin__link" href="{% url 'administradores:panel' %}">Inicio</a></li>
+{% if perms.accounts.manage_members %}<li><a class="sidebar-admin__link" href="{% url 'socios:gestion' %}">Socios</a></li>{% endif %}
+{% if perms.accounts.manage_memberships %}<li><a class="sidebar-admin__link" href="{% url 'membresias:gestion' %}">Membresías</a></li>{% endif %}
+{% if perms.accounts.view_reception %}<li><a class="sidebar-admin__link" href="{% url 'invitados:recepcion' %}">Recepción</a></li>{% endif %}
+{% if perms.accounts.manage_facilities %}<li><a class="sidebar-admin__link" href="/instalaciones/gestion/">Instalaciones</a></li><li><a class="sidebar-admin__link" href="/reservas/calendario/">Reservas</a></li>{% endif %}
+{% if perms.accounts.manage_billing %}<li><a class="sidebar-admin__link" href="/estado-cuenta/gestion/">Cobros</a></li>{% endif %}
+{% if perms.accounts.manage_administrators %}<li><a class="sidebar-admin__link" href="{% url 'administradores:gestion' %}">Administradores</a></li>{% endif %}
+</ul>
 
       <div class="sidebar-admin__pie">
         <div class="sidebar-admin__pie-info">
@@ -90,17 +49,7 @@
           <h1 class="topbar-admin__titulo">{% block encabezado %}Panel administrativo{% endblock %}</h1>
         </div>
         <div class="topbar-admin__derecha">
-          <div class="buscador-admin">
-            <span class="buscador-admin__icono" aria-hidden="true">🔍</span>
-            <input type="search" placeholder="Buscar en el sistema" aria-label="Buscar en el sistema">
-          </div>
-          <a href="/usuarios/login/" class="admin-perfil" title="Cerrar sesión o cambiar de cuenta" style="text-decoration:none;color:inherit">
-            <span class="admin-perfil__avatar" aria-hidden="true">A</span>
-            <span>
-              <span class="admin-perfil__nombre">Administrador</span>
-              <span class="admin-perfil__estado">Sesión activa</span>
-            </span>
-          </a>
+<span>{{ user.get_full_name }}</span><form method="post" action="{% url 'usuarios:salir' %}">{% csrf_token %}<button class="boton boton--contorno">Salir</button></form>
         </div>
       </header>
 
@@ -110,7 +59,7 @@
       </main>
     </div>
   </div>
-  {% include 'includes/_selector_pantallas.html' %}
+
   <script src="{% static 'js/main.js' %}" defer></script>
   {% block js_extra %}{% endblock %}
 </body>

@@ -1,0 +1,4 @@
+Hola {{ user.get_full_name }}:
+Para elegir una nueva contraseña abra este enlace (válido por una hora):
+{{ reset_url }}
+Si no solicitó el cambio, ignore el mensaje.

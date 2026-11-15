@@ -1,9 +1,9 @@
 from django.urls import path
-from . import views
-
-app_name = 'administradores'
-
+from accounts import views
+app_name = "administradores"
 urlpatterns = [
-    path('', views.gestion_view, name='gestion'),
-    path('panel/', views.panel_view, name='panel'),
+    path("", views.admin_users, name="gestion"),
+    path("<str:pk>/editar/", views.admin_users, name="editar"),
+    path("<str:pk>/clave/", views.admin_password, name="clave"),
+    path("panel/", views.dashboard, name="panel"),
 ]

@@ -1,3 +1,7 @@
+# Nota de la integración Backend 1
+
+Las migraciones originales y el SQL de esta carpeta se conservaron. Hay además migraciones de soporte del Backend 1 y core/0003 para compatibilidad del historial. Consulte ../docs/MIGRACIONES_REPOSITORIO.md antes de iniciar una base previamente instalada. El script crear_bd_y_usuario.sql es una plantilla; su contraseña se reemplazó por un marcador privado.
+
 # Base de datos - Club Valle Alto
 
 ## Enfoque
@@ -9,7 +13,7 @@ reportes. Django no puede generar todo eso desde modelos, así que:
 
 | Pieza | Qué hace |
 |---|---|
-| `core/migrations/0001_esquema_inicial.py` | Ejecuta el script SQL completo. Es la única migración que cambia la estructura. |
+| `core/migrations/0001_esquema_inicial.py` | Ejecuta el script SQL completo. Crea la estructura inicial; las migraciones posteriores del backend añaden soporte. |
 | `*/models.py` (todas las apps) | Modelos con `managed = False`, mapeados 1:1 a las tablas. Sirven para el ORM. |
 | `*/migrations/0001_initial.py` | Los genera `makemigrations`. Solo registran los modelos; no tocan la BD. |
 | `core/sql/club_valle_alto_drop.sql` | Reversa (`python manage.py migrate core zero`). |

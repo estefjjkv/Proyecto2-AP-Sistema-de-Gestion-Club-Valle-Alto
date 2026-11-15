@@ -1,13 +1,11 @@
 from django.urls import path
-from . import views
-
-app_name = 'socios'
-
+from accounts import views
+app_name = "socios"
 urlpatterns = [
-    path('', views.admin_lista_view, name='lista'),
-    path('registro/', views.registro_view, name='registro'),
-    path('inicio/', views.inicio_view, name='inicio'),
-    path('perfil/', views.perfil_view, name='perfil'),
-    path('gestion/', views.admin_lista_view, name='gestion'),
-    path('gestion/detalle/', views.admin_detalle_view, name='gestion_detalle'),
+    path("", views.member_list, name="lista"),
+    path("registro/", views.register, name="registro"),
+    path("inicio/", views.home, name="inicio"),
+    path("perfil/", views.profile, name="perfil"),
+    path("gestion/", views.member_list, name="gestion"),
+    path("gestion/<str:pk>/", views.member_detail, name="gestion_detalle"),
 ]
