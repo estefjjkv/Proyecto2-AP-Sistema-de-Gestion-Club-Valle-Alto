@@ -1,0 +1,26 @@
+{% if form.errors %}<div class="alerta alerta--error" role="alert">{% if form.non_field_errors %}{% for e in form.non_field_errors %}{{ e }}{% if not forloop.last %} {% endif %}{% endfor %}{% else %}Revise los campos indicados.{% endif %}</div>{% endif %}
+{% if form.socio %}{% include 'instalaciones/_campo.html' with field=form.socio %}{% endif %}
+<div class="fila-campos">
+  {% include 'instalaciones/_campo.html' with field=form.instalacion %}
+  {% include 'instalaciones/_campo.html' with field=form.fecha %}
+</div>
+<div class="fila-campos">
+  {% include 'instalaciones/_campo.html' with field=form.hora_inicio %}
+  {% include 'instalaciones/_campo.html' with field=form.hora_fin %}
+</div>
+<div class="fila-campos" style="align-items:center">
+  {% include 'instalaciones/_campo.html' with field=form.numero_personas %}
+  <div id="aforo-texto" style="padding-top:1.15rem;color:var(--texto-suave);font-size:0.9rem"></div>
+</div>
+<div style="margin:0.5rem 0 1.25rem">
+  <div style="font-size:0.84rem;font-weight:700;margin-bottom:0.65rem">Servicios adicionales</div>
+  <div id="lista-servicios" style="display:flex;flex-wrap:wrap;gap:0.75rem 2.5rem;align-items:center">
+    {% for casilla in form.servicios %}
+    <label data-servicio style="display:inline-flex;align-items:center;gap:0.55rem;cursor:pointer;font-size:0.94rem">
+      {{ casilla.tag }}<span>{{ casilla.choice_label }}</span>
+    </label>
+    {% endfor %}
+    <span id="sin-servicios" style="color:var(--texto-suave);font-size:0.9rem" hidden>Esta instalación no tiene servicios adicionales.</span>
+  </div>
+  {% for error in form.servicios.errors %}<p class="error-campo" role="alert">{{ error }}</p>{% endfor %}
+</div>

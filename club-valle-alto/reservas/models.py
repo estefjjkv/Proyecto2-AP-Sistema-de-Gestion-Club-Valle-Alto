@@ -72,3 +72,39 @@ class ReservaServicio(models.Model):
     @property
     def subtotal(self):
         return self.cantidad * self.precio_unitario
+
+
+class ReservaHistorial(models.Model):
+    """
+    Registro de cambios de cada reserva. Extensión propia (no está en el SQL
+    original): la crea la migración reservas/0002 y la administra Django.
+    """
+    class Accion(models.TextChoices):
+        CREADA = 'CREADA', 'Creada'
+        MODIFICADA = 'MODIFICADA', 'Modificada'
+        CONFIRMADA = 'CONFIRMADA', 'Confirmada'
+        CANCELADA = 'CANCELADA', 'Cancelada'
+        FINALIZADA = 'FINALIZADA', 'Finalizada'
+
+    class Actor(models.TextChoices):
+        SOCIO = 'SOCIO', 'Socio'
+        ADMIN = 'ADMIN', 'Administración'
+        SISTEMA = 'SISTEMA', 'Sistema'
+
+    id_historial = models.BigAutoField(primary_key=True)
+    reserva = models.ForeignKey(
+        Reserva, on_delete=models.CASCADE,
+        db_column='id_reserva', related_name='historial')
+    fecha = models.DateTimeField(default=timezone.now)
+    accion = models.CharField(max_length=20, choices=Accion.choices)
+    actor_tipo = models.CharField(max_length=10, choices=Actor.choices)
+    actor_cedula = models.CharField(max_length=20, blank=True)
+    actor_nombre = models.CharField(max_length=150, blank=True)
+    detalle = models.CharField(max_length=500, blank=True)
+
+    class Meta:
+        db_table = 'reserva_historial'
+        ordering = ['-fecha', '-id_historial']
+
+    def __str__(self):
+        return f'#{self.reserva_id} {self.accion} ({self.fecha:%Y-%m-%d %H:%M})'

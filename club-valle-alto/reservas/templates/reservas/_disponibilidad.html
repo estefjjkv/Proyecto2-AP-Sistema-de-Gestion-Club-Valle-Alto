@@ -1,0 +1,15 @@
+<div id="panel-disponibilidad" data-url="{% url 'reservas:disponibilidad' %}" data-excluir="{{ reserva.pk|default:'' }}">
+  <p class="tarjeta__subtitulo" id="disp-subtitulo" style="margin-bottom:1.15rem">
+    {% if panel.instalacion and panel.fecha %}{{ panel.instalacion.nombre }} · {{ panel.fecha|date:"d/m/Y" }}{% else %}Elija instalación y fecha{% endif %}
+  </p>
+  <div id="disp-franjas" style="display:grid;gap:0" aria-live="polite">
+    {% for f in panel.franjas %}
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:0.7rem 0;{% if not forloop.last %}border-bottom:1px solid #EAEeea{% endif %}">
+      <span>{{ f.inicio }} - {{ f.fin }}</span>
+      <span class="badge {% if f.estado == 'libre' %}badge--exito{% elif f.estado == 'pendiente' %}badge--aviso{% elif f.estado == 'ocupado' %}badge--error{% else %}badge--neutro{% endif %}">{{ f.etiqueta }}</span>
+    </div>
+    {% empty %}
+    {% if panel.instalacion and panel.fecha %}<p style="color:var(--texto-suave);font-size:0.86rem">La instalación no está disponible.</p>{% endif %}
+    {% endfor %}
+  </div>
+</div>
