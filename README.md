@@ -25,14 +25,6 @@ El sistema tiene dos portales:
 | Estados de cuenta | Cuotas mensuales, cargos por servicios, registro de pagos, socios morosos y versión imprimible |
 | Centro de notificaciones | Historial de correos enviados, reenvío y edición de plantillas |
 
-## Equipo
-
-| Integrante | Aporte |
-|---|---|
-| Estefanía Portuguez | Frontend: prototipo de las 29 pantallas |
-| Gadiel Campos Castillo | Base de datos PostgreSQL, modelos y migraciones |
-| kolbejarano | Backend de usuarios, membresías e invitados |
-| Jesus Rojas | Backend de instalaciones, reservas, estados de cuenta y notificaciones |
 
 ## Cómo ejecutarlo
 
