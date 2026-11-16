@@ -28,6 +28,7 @@
 {% if perms.accounts.view_reception %}<li><a class="sidebar-admin__link" href="{% url 'invitados:recepcion' %}">Recepción</a></li>{% endif %}
 {% if perms.accounts.manage_facilities %}<li><a class="sidebar-admin__link" href="/instalaciones/gestion/">Instalaciones</a></li><li><a class="sidebar-admin__link" href="/reservas/calendario/">Reservas</a></li>{% endif %}
 {% if perms.accounts.manage_billing %}<li><a class="sidebar-admin__link" href="/estado-cuenta/gestion/">Cobros</a></li>{% endif %}
+{% if perms.accounts.view_notifications %}<li><a class="sidebar-admin__link" href="{% url 'notificaciones:centro' %}">Notificaciones</a></li>{% endif %}
 {% if perms.accounts.manage_administrators %}<li><a class="sidebar-admin__link" href="{% url 'administradores:gestion' %}">Administradores</a></li>{% endif %}
 </ul>
 

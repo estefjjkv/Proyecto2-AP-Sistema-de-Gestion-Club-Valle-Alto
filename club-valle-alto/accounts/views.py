@@ -15,6 +15,7 @@ from .forms import RegistroSocioForm, PerfilForm, LoginForm, AdminCreateForm, Ad
 from .models import User, Administrator, AccountEvent
 from .permissions import member_only, permitted
 from .services import send_password_reset, set_member_state, audit, get_reset_user, complete_reset
+from notificaciones.services import notificar
 
 
 class ClubLoginView(LoginView):
@@ -40,6 +41,7 @@ def register(request):
             with transaction.atomic():
                 user = form.save()
                 audit(user, user, "Registro de socio")
+                notificar(user, "NUEVO_SOCIO", f"Su cuenta quedó registrada con el correo {user.email}")
         except IntegrityError:
             form.add_error(None, "El correo o la cédula ya están registrados.")
         else:
