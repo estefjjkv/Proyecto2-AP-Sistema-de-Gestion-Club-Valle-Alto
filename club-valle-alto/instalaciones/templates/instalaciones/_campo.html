@@ -1,0 +1,6 @@
+<div class="campo"{% if estilo %} style="{{ estilo }}"{% endif %}>
+  <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} *{% endif %}</label>
+  {{ field }}
+  {% if field.help_text %}<div class="ayuda-campo">{{ field.help_text }}</div>{% endif %}
+  {% for error in field.errors %}<p class="error-campo" role="alert">{{ error }}</p>{% endfor %}
+</div>

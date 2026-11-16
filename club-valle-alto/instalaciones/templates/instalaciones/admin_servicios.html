@@ -1,0 +1,38 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Servicios adicionales{% endblock %}
+{% block categoria %}INSTALACIONES / SERVICIOS{% endblock %}
+{% block encabezado %}Servicios adicionales{% endblock %}
+{% block contenido %}
+{% include 'instalaciones/_subnav.html' with activo='servicios' %}
+
+<div class="tarjeta tabla-contenedor">
+  <table class="tabla">
+    <thead><tr><th>Servicio</th><th>Tipo de instalación</th><th>Precio</th><th>Estado</th><th>Código</th><th>Acción</th></tr></thead>
+    <tbody>
+      {% for s in servicios %}
+      <tr>
+        <td>{{ s.nombre }}{% if s.descripcion %}<div style="color:var(--texto-suave);font-size:0.8rem">{{ s.descripcion }}</div>{% endif %}</td>
+        <td>{{ s.tipo_instalacion }}</td>
+        <td>₡{{ s.precio|floatformat:2 }}</td>
+        <td>{% if s.activo %}<span class="badge badge--exito">Disponible</span>{% else %}<span class="badge badge--error">Inactivo</span>{% endif %}</td>
+        <td>{{ s.codigo }}</td>
+        <td><a href="{% url 'instalaciones:servicio_editar' s.codigo %}">Editar</a></td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="6">Sin servicios adicionales registrados.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="tarjeta formulario-limitado seccion">
+  <h2>{% if servicio %}Editar {{ servicio.nombre }}{% else %}Nuevo servicio{% endif %}</h2>
+  <p class="tarjeta__subtitulo">El servicio queda disponible para todas las instalaciones del tipo elegido. Cambiar el precio no afecta reservas ya hechas.</p>
+  <form method="post" class="formulario" novalidate>
+    {% csrf_token %}
+    {% include 'includes/form_fields.html' %}
+    <button class="boton" type="submit">Guardar</button>
+  </form>
+  {% if servicio %}<a href="{% url 'instalaciones:servicios' %}">Crear otro servicio</a>{% endif %}
+</div>
+{% endblock %}

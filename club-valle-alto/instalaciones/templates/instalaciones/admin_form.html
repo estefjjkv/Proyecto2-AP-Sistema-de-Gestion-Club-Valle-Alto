@@ -1,0 +1,19 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}{% if instalacion %}Editar instalación{% else %}Nueva instalación{% endif %}{% endblock %}
+{% block categoria %}INSTALACIONES{% endblock %}
+{% block encabezado %}{% if instalacion %}Editar {{ instalacion.nombre }}{% else %}Nueva instalación{% endif %}{% endblock %}
+{% block contenido %}
+{% include 'instalaciones/_subnav.html' with activo='gestion' %}
+
+<div class="tarjeta formulario-limitado">
+  <p class="tarjeta__subtitulo" style="margin-bottom:1.15rem">
+    Si el cambio deja fuera reservas vigentes (por horario, aforo o desactivación), se rechazará y se indicarán las reservas afectadas.
+  </p>
+  <form method="post" class="formulario" novalidate>
+    {% csrf_token %}
+    {% include 'includes/form_fields.html' %}
+    <button class="boton" type="submit">Guardar</button>
+  </form>
+  <p class="enlace-final"><a href="{% url 'instalaciones:gestion' %}">Volver al listado</a></p>
+</div>
+{% endblock %}

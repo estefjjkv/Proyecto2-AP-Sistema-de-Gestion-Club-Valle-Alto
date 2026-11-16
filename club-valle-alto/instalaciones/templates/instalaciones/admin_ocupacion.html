@@ -3,86 +3,43 @@
 {% block categoria %}INSTALACIONES / OCUPACIÓN{% endblock %}
 {% block encabezado %}Control de ocupación{% endblock %}
 {% block contenido %}
-<div class="subnav-admin">
-  <a href="/instalaciones/gestion/">Espacios del club</a>
-  <a href="/instalaciones/bloqueos/">Bloqueo de instalaciones</a>
-  <a href="/instalaciones/ocupacion/" class="activo">Control de ocupación</a>
-  <a href="/instalaciones/reportes/">Reportes de instalaciones</a>
-</div>
+{% include 'instalaciones/_subnav.html' with activo='ocupacion' %}
 
 <div class="tarjeta">
   <div style="margin-bottom:1.15rem">
     <h2 class="tarjeta__titulo">Ocupación por instalación</h2>
-    <p class="tarjeta__subtitulo">Seguimiento ilustrativo por franja horaria</p>
+    <p class="tarjeta__subtitulo">Personas con reserva pendiente o confirmada en la franja elegida</p>
   </div>
 
-  <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.5rem">
+  <form method="get" style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.5rem">
     <div style="display:flex;flex-wrap:wrap;gap:1rem">
-      <div class="campo" style="min-width:220px">
-        <label for="id_ocu_fecha">Fecha</label>
-        <input id="id_ocu_fecha" type="text" value="20/10/2026">
-      </div>
-      <div class="campo" style="min-width:220px">
-        <label for="id_ocu_hora">Horario</label>
-        <select id="id_ocu_hora">
-          <option selected>09:00 - 10:00</option>
-          <option>10:00 - 11:00</option>
-          <option>11:00 - 12:00</option>
-          <option>14:00 - 15:00</option>
-        </select>
-      </div>
+      {% include 'instalaciones/_campo.html' with field=form.fecha estilo='min-width:220px' %}
+      {% include 'instalaciones/_campo.html' with field=form.hora estilo='min-width:220px' %}
     </div>
-    <button type="button" class="boton boton--suave" style="min-width:150px;color:var(--verde-club)">Actualizar</button>
-  </div>
+    <button type="submit" class="boton boton--suave" style="min-width:150px;color:var(--verde-club)">Actualizar</button>
+  </form>
 
   <div style="display:grid;gap:1rem;margin-bottom:1.5rem">
+    {% for f in filas %}
     <div class="tarjeta" style="padding:1.15rem 1.4rem;display:grid;grid-template-columns:200px 1fr 70px;align-items:center;gap:1.5rem">
       <div>
-        <strong style="display:block;font-size:0.95rem">Cancha de tenis</strong>
-        <span style="color:var(--texto-suave);font-size:0.8rem">3 de 4 personas</span>
+        <strong style="display:block;font-size:0.95rem">{{ f.instalacion.nombre }}</strong>
+        {% if f.bloqueo %}
+        <span class="badge badge--aviso">{{ f.bloqueo.motivo }}</span>
+        {% elif f.instalacion.hora_apertura > desde or f.instalacion.hora_cierre < hasta %}
+        <span style="color:var(--texto-suave);font-size:0.8rem">Fuera de horario</span>
+        {% else %}
+        <span style="color:var(--texto-suave);font-size:0.8rem">{{ f.personas }} de {{ f.instalacion.aforo_maximo }} personas</span>
+        {% endif %}
       </div>
-      <div class="barra-progreso barra-progreso--ancha">
-        <div class="barra-progreso__relleno" style="width:75%"></div>
+      <div class="barra-progreso barra-progreso--ancha" role="img" aria-label="{{ f.porcentaje }} % de ocupación">
+        <div class="barra-progreso__relleno" style="width:{% if f.porcentaje %}{{ f.porcentaje }}{% else %}1{% endif %}%"></div>
       </div>
-      <div style="text-align:right;font-weight:800;font-size:0.95rem">75 %</div>
+      <div style="text-align:right;font-weight:800;font-size:0.95rem">{{ f.porcentaje }} %</div>
     </div>
-
-    <div class="tarjeta" style="padding:1.15rem 1.4rem;display:grid;grid-template-columns:200px 1fr 70px;align-items:center;gap:1.5rem">
-      <div>
-        <strong style="display:block;font-size:0.95rem">Cancha de golf</strong>
-        <span style="color:var(--texto-suave);font-size:0.8rem">26 de 40 personas</span>
-      </div>
-      <div class="barra-progreso barra-progreso--ancha">
-        <div class="barra-progreso__relleno" style="width:65%"></div>
-      </div>
-      <div style="text-align:right;font-weight:800;font-size:0.95rem">65 %</div>
-    </div>
-
-    <div class="tarjeta" style="padding:1.15rem 1.4rem;display:grid;grid-template-columns:200px 1fr 70px;align-items:center;gap:1.5rem">
-      <div>
-        <strong style="display:block;font-size:0.95rem">Piscina</strong>
-        <span style="color:var(--texto-suave);font-size:0.8rem">42 de 60 personas</span>
-      </div>
-      <div class="barra-progreso barra-progreso--ancha">
-        <div class="barra-progreso__relleno" style="width:70%"></div>
-      </div>
-      <div style="text-align:right;font-weight:800;font-size:0.95rem">70 %</div>
-    </div>
-
-    <div class="tarjeta" style="padding:1.15rem 1.4rem;display:grid;grid-template-columns:200px 1fr 70px;align-items:center;gap:1.5rem">
-      <div>
-        <strong style="display:block;font-size:0.95rem">Salón de eventos</strong>
-        <span style="color:var(--texto-suave);font-size:0.8rem">0 de 150 personas</span>
-      </div>
-      <div class="barra-progreso barra-progreso--ancha">
-        <div class="barra-progreso__relleno" style="width:1%"></div>
-      </div>
-      <div style="text-align:right;font-weight:800;font-size:0.95rem">0 %</div>
-    </div>
+    {% empty %}
+    <p>{% if form.errors %}Revise la fecha y el horario.{% else %}No hay instalaciones activas.{% endif %}</p>
+    {% endfor %}
   </div>
-
-  <p style="color:var(--texto-suave);font-size:0.82rem;margin:0">
-    Las cifras corresponden a una vista de ejemplo; la aplicación deberá actualizar la ocupación.
-  </p>
 </div>
 {% endblock %}

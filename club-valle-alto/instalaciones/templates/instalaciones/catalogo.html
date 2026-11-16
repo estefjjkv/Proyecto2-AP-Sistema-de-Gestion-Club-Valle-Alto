@@ -7,92 +7,38 @@
 </div>
 
 <div class="grid-4">
+  {% for t in tarjetas %}
   <div class="tarjeta" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
-    <div style="height:175px;background:#DCE7E1;display:flex;align-items:center;justify-content:center;color:var(--texto-suave);font-size:0.9rem">
-      Imagen
+    <div style="height:175px;background:#DCE7E1;display:flex;align-items:center;justify-content:center;color:var(--verde-medio);font-size:2.4rem;font-weight:800" aria-hidden="true">
+      {{ t.icono }}
     </div>
     <div style="padding:1.4rem;display:flex;flex-direction:column;flex:1">
-      <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:1rem">Cancha de golf</h2>
+      <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:0.35rem">{{ t.instalacion.nombre }}</h2>
+      <div style="color:var(--texto-suave);font-size:0.82rem;margin-bottom:1rem">{{ t.instalacion.tipo }}</div>
+      {% if t.bloqueo %}
+      <div class="alerta alerta--aviso" role="status" style="margin-bottom:0.85rem">
+        {{ t.bloqueo.motivo }} hasta {{ t.bloqueo.fin|date:"d/m H:i" }}
+      </div>
+      {% endif %}
       <div style="margin-bottom:0.85rem">
         <div class="kpi-etiqueta" style="margin-bottom:0.15rem">Horario</div>
-        <div style="font-size:0.95rem">06:00 - 18:00</div>
+        <div style="font-size:0.95rem">{{ t.instalacion.hora_apertura|time:"H:i" }} - {{ t.instalacion.hora_cierre|time:"H:i" }}</div>
       </div>
       <div style="margin-bottom:0.85rem">
         <div class="kpi-etiqueta" style="margin-bottom:0.15rem">Aforo máximo</div>
-        <div style="font-size:0.95rem">8 personas</div>
+        <div style="font-size:0.95rem">{{ t.instalacion.aforo_maximo }} persona{{ t.instalacion.aforo_maximo|pluralize }}</div>
       </div>
       <div style="margin-bottom:1.35rem;flex:1">
         <div class="kpi-etiqueta" style="margin-bottom:0.15rem">Servicios adicionales</div>
-        <div style="font-size:0.95rem">Alquiler de carrito y palos</div>
+        <div style="font-size:0.95rem">
+          {% for s in t.servicios %}{{ s.nombre }} (₡{{ s.precio|floatformat:0 }}){% if not forloop.last %}, {% endif %}{% empty %}No hay servicios adicionales{% endfor %}
+        </div>
       </div>
-      <a href="/reservas/nueva/?instalacion=golf" class="boton boton--completo">Reservar</a>
+      <a href="{% url 'reservas:nueva' %}?instalacion={{ t.instalacion.codigo|urlencode }}" class="boton boton--completo">Reservar</a>
     </div>
   </div>
-
-  <div class="tarjeta" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
-    <div style="height:175px;background:#DCE7E1;display:flex;align-items:center;justify-content:center;color:var(--texto-suave);font-size:0.9rem">
-      Imagen
-    </div>
-    <div style="padding:1.4rem;display:flex;flex-direction:column;flex:1">
-      <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:1rem">Cancha de tenis</h2>
-      <div style="margin-bottom:0.85rem">
-        <div class="kpi-etiqueta" style="margin-bottom:0.15rem">Horario</div>
-        <div style="font-size:0.95rem">06:00 - 21:00</div>
-      </div>
-      <div style="margin-bottom:0.85rem">
-        <div class="kpi-etiqueta" style="margin-bottom:0.15rem">Aforo máximo</div>
-        <div style="font-size:0.95rem">4 personas</div>
-      </div>
-      <div style="margin-bottom:1.35rem;flex:1">
-        <div class="kpi-etiqueta" style="margin-bottom:0.15rem">Servicios adicionales</div>
-        <div style="font-size:0.95rem">Alquiler de raquetas</div>
-      </div>
-      <a href="/reservas/nueva/?instalacion=tenis" class="boton boton--completo">Reservar</a>
-    </div>
-  </div>
-
-  <div class="tarjeta" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
-    <div style="height:175px;background:#DCE7E1;display:flex;align-items:center;justify-content:center;color:var(--texto-suave);font-size:0.9rem">
-      Imagen
-    </div>
-    <div style="padding:1.4rem;display:flex;flex-direction:column;flex:1">
-      <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:1rem">Piscina</h2>
-      <div style="margin-bottom:0.85rem">
-        <div class="kpi-etiqueta" style="margin-bottom:0.15rem">Horario</div>
-        <div style="font-size:0.95rem">08:00 - 20:00</div>
-      </div>
-      <div style="margin-bottom:0.85rem">
-        <div class="kpi-etiqueta" style="margin-bottom:0.15rem">Aforo máximo</div>
-        <div style="font-size:0.95rem">40 personas</div>
-      </div>
-      <div style="margin-bottom:1.35rem;flex:1">
-        <div class="kpi-etiqueta" style="margin-bottom:0.15rem">Servicios adicionales</div>
-        <div style="font-size:0.95rem">Alquiler de toallas</div>
-      </div>
-      <a href="/reservas/nueva/?instalacion=piscina" class="boton boton--completo">Reservar</a>
-    </div>
-  </div>
-
-  <div class="tarjeta" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
-    <div style="height:175px;background:#DCE7E1;display:flex;align-items:center;justify-content:center;color:var(--texto-suave);font-size:0.9rem">
-      Imagen
-    </div>
-    <div style="padding:1.4rem;display:flex;flex-direction:column;flex:1">
-      <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:1rem">Salón de eventos</h2>
-      <div style="margin-bottom:0.85rem">
-        <div class="kpi-etiqueta" style="margin-bottom:0.15rem">Horario</div>
-        <div style="font-size:0.95rem">10:00 - 23:00</div>
-      </div>
-      <div style="margin-bottom:0.85rem">
-        <div class="kpi-etiqueta" style="margin-bottom:0.15rem">Aforo máximo</div>
-        <div style="font-size:0.95rem">120 personas</div>
-      </div>
-      <div style="margin-bottom:1.35rem;flex:1">
-        <div class="kpi-etiqueta" style="margin-bottom:0.15rem">Servicios adicionales</div>
-        <div style="font-size:0.95rem">Montaje de mobiliario</div>
-      </div>
-      <a href="/reservas/nueva/?instalacion=eventos" class="boton boton--completo">Reservar</a>
-    </div>
-  </div>
+  {% empty %}
+  <div class="tarjeta"><p>Por ahora no hay instalaciones disponibles para reservar.</p></div>
+  {% endfor %}
 </div>
 {% endblock %}

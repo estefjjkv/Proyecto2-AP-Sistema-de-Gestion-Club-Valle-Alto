@@ -4,6 +4,11 @@ from django.http import HttpResponseNotAllowed
 from django.shortcuts import render
 
 
+# Módulos que todavía son prototipos estáticos. Al implementar uno, se quita de
+# aquí y sus vistas se protegen con accounts.permissions (permitted/member_only).
+MODULOS_PENDIENTES = {"reservas", "estado_cuenta", "notificaciones"}
+
+
 class AccessMiddleware:
     """Protege también los prototipos del otro equipo; no implementa sus módulos."""
     def __init__(self, get_response):
@@ -15,7 +20,7 @@ class AccessMiddleware:
     def process_view(self, request, view_func, view_args, view_kwargs):
         match = request.resolver_match
         namespace = match.namespace
-        if namespace not in {"instalaciones", "reservas", "estado_cuenta", "notificaciones"}:
+        if namespace not in MODULOS_PENDIENTES:
             return None
         if not request.user.is_authenticated:
             return redirect_to_login(request.get_full_path())

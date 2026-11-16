@@ -1,0 +1,7 @@
+<div class="subnav-admin">
+  <a href="{% url 'instalaciones:gestion' %}"{% if activo == 'gestion' %} class="activo"{% endif %}>Espacios del club</a>
+  <a href="{% url 'instalaciones:servicios' %}"{% if activo == 'servicios' %} class="activo"{% endif %}>Servicios adicionales</a>
+  <a href="{% url 'instalaciones:bloqueos' %}"{% if activo == 'bloqueos' %} class="activo"{% endif %}>Bloqueo de instalaciones</a>
+  <a href="{% url 'instalaciones:ocupacion' %}"{% if activo == 'ocupacion' %} class="activo"{% endif %}>Control de ocupación</a>
+  <a href="{% url 'instalaciones:reportes' %}"{% if activo == 'reportes' %} class="activo"{% endif %}>Reportes de instalaciones</a>
+</div>
