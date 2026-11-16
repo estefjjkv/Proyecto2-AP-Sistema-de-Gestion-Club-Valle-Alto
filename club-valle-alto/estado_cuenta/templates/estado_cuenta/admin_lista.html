@@ -1,110 +1,58 @@
 {% extends 'base_admin.html' %}
+{% load cobros %}
 {% block titulo %}Estados de cuenta{% endblock %}
 {% block categoria %}COBROS / ESTADOS DE CUENTA{% endblock %}
 {% block encabezado %}Estados de cuenta{% endblock %}
 {% block contenido %}
-<div class="subnav-admin">
-  <a href="/estado-cuenta/gestion/" class="activo">Estados de cuenta por socio</a>
-  <a href="/estado-cuenta/pagos/">Pagos y morosidad</a>
-</div>
+{% include 'estado_cuenta/_subnav.html' with activo='gestion' %}
 
 <div class="tarjeta">
-  <div class="tarjeta__cabecera">
+  <div class="tarjeta__cabecera" style="flex-wrap:wrap;gap:1rem">
     <div>
       <h2 class="tarjeta__titulo">Estados de cuenta por socio</h2>
       <p class="tarjeta__subtitulo">Cuotas, servicios adicionales y vencimientos</p>
     </div>
-    <button type="button" class="boton" style="min-width:190px">+ Generar estado</button>
+    <form method="post" action="{% url 'estado_cuenta:generar' %}" style="display:flex;align-items:flex-end;gap:0.75rem">
+      {% csrf_token %}
+      <div class="campo" style="margin:0">
+        <label for="{{ generar.periodo.id_for_label }}">Periodo a generar</label>
+        {{ generar.periodo }}
+      </div>
+      <button type="submit" class="boton" style="min-width:170px">+ Generar estado</button>
+    </form>
   </div>
 
-  <div style="display:grid;grid-template-columns:1.8fr 1fr 0.8fr 1fr;gap:1rem;margin-bottom:1.35rem">
-    <div class="campo">
-      <label for="id_ec_socio">Buscar socio</label>
-      <input id="id_ec_socio" type="search" placeholder="Nombre o cédula">
-    </div>
-    <div class="campo">
-      <label for="id_ec_per">Periodo</label>
-      <select id="id_ec_per">
-        <option selected>Octubre 2026</option>
-        <option>Septiembre 2026</option>
-      </select>
-    </div>
-    <div class="campo">
-      <label for="id_ec_est">Estado</label>
-      <select id="id_ec_est">
-        <option selected>Todos</option>
-        <option>Pagado</option>
-        <option>Pendiente</option>
-        <option>Vencido</option>
-      </select>
-    </div>
-  </div>
+  <form method="get" style="display:grid;grid-template-columns:1.8fr 1fr 0.8fr auto;gap:1rem;align-items:end;margin-bottom:1.35rem">
+    {% include 'instalaciones/_campo.html' with field=form.q %}
+    {% include 'instalaciones/_campo.html' with field=form.periodo %}
+    {% include 'instalaciones/_campo.html' with field=form.estado %}
+    <button type="submit" class="boton boton--suave" style="color:var(--verde-club)">Filtrar</button>
+  </form>
 
   <div class="tabla-contenedor" style="margin-bottom:1.5rem">
     <table class="tabla tabla--admin">
-      <thead>
-        <tr>
-          <th>Socio</th>
-          <th>Periodo</th>
-          <th>Cuota</th>
-          <th>Servicios</th>
-          <th>Total</th>
-          <th>Vencimiento</th>
-          <th>Estado</th>
-        </tr>
-      </thead>
+      <thead><tr><th>Socio</th><th>Periodo</th><th>Cuota</th><th>Servicios</th><th>Total</th><th>Pendiente</th><th>Vencimiento</th><th>Estado</th></tr></thead>
       <tbody>
+        {% for f in filas %}
         <tr>
-          <td><strong>María López</strong></td>
-          <td>Oct 2026</td>
-          <td>₡48 000</td>
-          <td>₡8 000</td>
-          <td>₡56 000</td>
-          <td>25/10/2026</td>
-          <td><span class="badge badge--aviso">Pendiente</span></td>
+          <td><a href="{% url 'estado_cuenta:admin_detalle' f.cedula %}?periodo={{ periodo|date:'Y-m-d' }}"><strong>{{ f.nombre }}</strong></a><div style="color:var(--texto-suave);font-size:0.78rem">{{ f.cedula }}</div></td>
+          <td>{{ periodo|periodo }}</td>
+          <td>{{ f.cuota|colones }}</td>
+          <td>{{ f.servicios|colones }}</td>
+          <td>{{ f.resumen.total|colones }}</td>
+          <td>{{ f.saldo|colones }}</td>
+          <td>{{ f.resumen.fecha_limite_pago|date:"d/m/Y" }}</td>
+          <td>{% estado_badge f.estado %}</td>
         </tr>
-        <tr>
-          <td><strong>Carlos Pérez</strong></td>
-          <td>Oct 2026</td>
-          <td>₡30 000</td>
-          <td>₡0</td>
-          <td>₡30 000</td>
-          <td>25/10/2026</td>
-          <td><span class="badge badge--exito">Pagado</span></td>
-        </tr>
-        <tr>
-          <td><strong>Ana Vargas</strong></td>
-          <td>Oct 2026</td>
-          <td>₡72 000</td>
-          <td>₡15 000</td>
-          <td>₡87 000</td>
-          <td>10/10/2026</td>
-          <td><span class="badge badge--error">Vencido</span></td>
-        </tr>
-        <tr>
-          <td><strong>Luis Mora</strong></td>
-          <td>Oct 2026</td>
-          <td>₡30 000</td>
-          <td>₡5 000</td>
-          <td>₡35 000</td>
-          <td>25/10/2026</td>
-          <td><span class="badge badge--aviso">Pendiente</span></td>
-        </tr>
-        <tr>
-          <td><strong>Sofía Rojas</strong></td>
-          <td>Oct 2026</td>
-          <td>₡0</td>
-          <td>₡0</td>
-          <td>₡0</td>
-          <td>25/10/2026</td>
-          <td><span class="badge badge--exito">Pagado</span></td>
-        </tr>
+        {% empty %}
+        <tr><td colspan="8">No hay estados de cuenta para {{ periodo|periodo }} con esos filtros. Puede generarlos con «+ Generar estado».</td></tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>
 
   <div class="tarjeta--suave">
-    <strong style="font-size:0.86rem">El socio podrá consultar sus periodos anteriores y descargar un resumen en PDF.</strong>
+    <strong style="color:var(--verde-medio);font-size:0.84rem">Generar un periodo crea la cuota de cada membresía activa y avisa por correo al socio. Se puede repetir sin duplicar cuotas.</strong>
   </div>
 </div>
 {% endblock %}

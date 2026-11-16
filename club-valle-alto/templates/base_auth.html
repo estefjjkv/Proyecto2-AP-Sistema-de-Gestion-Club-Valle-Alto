@@ -25,10 +25,11 @@
       <div class="auth-panel__pie">© 2026 Club Valle Alto</div>
     </aside>
     <main id="contenido-auth" class="auth-cuerpo" tabindex="-1">
+      {% include 'includes/_mensajes.html' %}
       {% block contenido %}{% endblock %}
     </main>
   </div>
-  {% include 'includes/_selector_pantallas.html' %}
+
   <script src="{% static 'js/main.js' %}" defer></script>
   {% block js_extra %}{% endblock %}
 </body>

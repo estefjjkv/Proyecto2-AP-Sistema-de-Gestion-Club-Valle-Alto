@@ -4,153 +4,84 @@
 {% block encabezado %}Calendario de reservas{% endblock %}
 {% block contenido %}
 <div class="tarjeta">
-  <div style="margin-bottom:1rem">
+  <div style="margin-bottom:1.15rem">
     <h2 class="tarjeta__titulo">Agenda por instalación</h2>
-    <p class="tarjeta__subtitulo">Consultar reservas y disponibilidad por fecha</p>
+    <p class="tarjeta__subtitulo">Consultar reservas y disponibilidad por semana</p>
   </div>
 
   <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.5rem">
-    <div style="display:flex;flex-wrap:wrap;gap:1rem">
-      <div class="campo" style="min-width:240px">
+    <form method="get" style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:1rem">
+      <div class="campo" style="min-width:220px">
         <label for="id_cal_inst">Instalación</label>
-        <select id="id_cal_inst">
-          <option selected>Todas las instalaciones</option>
-          <option>Cancha de tenis</option>
-          <option>Cancha de golf</option>
-          <option>Piscina</option>
-          <option>Salón de eventos</option>
+        <select id="id_cal_inst" name="instalacion">
+          <option value="">Todas las instalaciones</option>
+          {% for i in instalaciones %}<option value="{{ i.codigo }}"{% if i.codigo == codigo %} selected{% endif %}>{{ i.nombre }}{% if not i.activa %} (inactiva){% endif %}</option>{% endfor %}
         </select>
       </div>
-      <div class="campo" style="min-width:190px">
+      <div class="campo" style="min-width:220px">
         <label for="id_cal_sem">Semana</label>
-        <select id="id_cal_sem">
-          <option selected>19 - 25 oct 2026</option>
-          <option>26 oct - 01 nov 2026</option>
+        <select id="id_cal_sem" name="semana">
+          {% for valor, texto in semanas %}<option value="{{ valor }}"{% if valor == semana %} selected{% endif %}>{{ texto }}</option>{% endfor %}
         </select>
       </div>
-    </div>
-    <a href="/reservas/administrar/" class="boton" style="min-width:170px">+ Crear reserva</a>
+      <button type="submit" class="boton boton--suave" style="color:var(--verde-club)">Ver</button>
+    </form>
+    <a href="{% url 'reservas:admin_nueva' %}{% if codigo %}?instalacion={{ codigo|urlencode }}{% endif %}" class="boton" style="min-width:170px">+ Crear reserva</a>
   </div>
 
-  <div class="tabla-contenedor" style="margin-bottom:1.25rem">
+  <div class="tabla-contenedor" style="margin-bottom:1rem">
     <table class="calendario-rejilla">
       <thead>
         <tr>
-          <th style="width:90px;border-top-left-radius:8px">Horario</th>
-          <th>Lunes 19</th>
-          <th>Martes 20</th>
-          <th>Miércoles 21</th>
-          <th>Jueves 22</th>
-          <th>Viernes 23</th>
-          <th style="border-top-right-radius:8px">Sábado 24</th>
+          <th style="width:90px">Horario</th>
+          {% for dia, texto in dias %}<th{% if dia == hoy %} style="color:var(--verde-club)"{% endif %}>{{ texto }}</th>{% endfor %}
         </tr>
       </thead>
       <tbody>
+        {% for hora, celdas in filas %}
         <tr>
-          <td>08:00</td>
+          <td>{{ hora|time:"H:i" }}</td>
+          {% for celda in celdas %}
           <td>
-            <a href="/reservas/administrar/" class="evento-calendario">
-              <strong>Tenis</strong>
-              <span>María L.</span>
+            {% for r in celda %}
+            <a href="{% url 'reservas:administrar' r.pk %}" class="evento-calendario{% if r.estado_id != 'CONFIRMADA' %} evento-calendario--suave{% endif %}" title="{{ r.instalacion.nombre }} · {{ r.socio.nombre_completo }} · {{ r.hora_inicio|time:'H:i' }}-{{ r.hora_fin|time:'H:i' }} · {{ r.estado_id|capfirst }}">
+              <strong>{{ r.instalacion.nombre }}</strong>
+              <span>{{ r.socio.nombre_completo }}</span>
+              <span>{{ r.hora_inicio|time:"H:i" }}-{{ r.hora_fin|time:"H:i" }}{% if r.estado_id == 'PENDIENTE' %} · Pendiente{% elif r.estado_id == 'FINALIZADA' %} · Finalizada{% endif %}</span>
             </a>
+            {% endfor %}
           </td>
-          <td></td>
-          <td>
-            <a href="/reservas/administrar/" class="evento-calendario">
-              <strong>Golf</strong>
-              <span>Ana V.</span>
-            </a>
-          </td>
-          <td></td>
-          <td></td>
-          <td></td>
+          {% endfor %}
         </tr>
-        <tr>
-          <td>09:30</td>
-          <td></td>
-          <td>
-            <a href="/reservas/administrar/" class="evento-calendario evento-calendario--suave">
-              <strong>Piscina</strong>
-              <span>Carlos P.</span>
-            </a>
-          </td>
-          <td></td>
-          <td>
-            <a href="/reservas/administrar/" class="evento-calendario evento-calendario--suave">
-              <strong>Tenis</strong>
-              <span>Sofía R.</span>
-            </a>
-          </td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>11:00</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>
-            <a href="/reservas/administrar/" class="evento-calendario evento-calendario--suave">
-              <strong>Golf</strong>
-              <span>Luis M.</span>
-            </a>
-          </td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>12:30</td>
-          <td>
-            <a href="/reservas/administrar/" class="evento-calendario">
-              <strong>Piscina</strong>
-              <span>Diego C.</span>
-            </a>
-          </td>
-          <td></td>
-          <td>
-            <a href="/reservas/administrar/" class="evento-calendario">
-              <strong>Eventos</strong>
-              <span>Laura S.</span>
-            </a>
-          </td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>14:00</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>
-            <a href="/reservas/administrar/" class="evento-calendario evento-calendario--suave">
-              <strong>Tenis</strong>
-              <span>Daniel C.</span>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td>15:30</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>
-            <a href="/reservas/administrar/" class="evento-calendario evento-calendario--suave">
-              <strong>Piscina</strong>
-              <span>María L.</span>
-            </a>
-          </td>
-          <td></td>
-          <td></td>
-        </tr>
+        {% empty %}
+        <tr><td colspan="8" style="text-align:center;color:var(--texto-suave)">No hay reservas en esta semana.</td></tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>
-
   <p style="color:var(--texto-suave);font-size:0.82rem;margin:0">
-    Selecciona una reserva para ver detalles, confirmar, modificar o cancelar.
+    Selecciona una reserva para ver detalles, confirmar, modificar o cancelar. Las reservas en tono suave están pendientes o finalizadas.
   </p>
+</div>
+
+<div class="tarjeta seccion">
+  <h2 class="tarjeta__titulo">Pendientes de confirmar</h2>
+  <p class="tarjeta__subtitulo" style="margin-bottom:1.15rem">Solicitudes de socios para hoy en adelante</p>
+  <div class="tabla-contenedor">
+    <table class="tabla">
+      <thead><tr><th>#</th><th>Socio</th><th>Instalación</th><th>Fecha</th><th>Horario</th><th>Personas</th><th>Acción</th></tr></thead>
+      <tbody>
+        {% for r in pendientes %}
+        <tr>
+          <td>{{ r.pk }}</td><td>{{ r.socio.nombre_completo }}</td><td>{{ r.instalacion.nombre }}</td>
+          <td>{{ r.fecha|date:"d/m/Y" }}</td><td>{{ r.hora_inicio|time:"H:i" }} - {{ r.hora_fin|time:"H:i" }}</td><td>{{ r.numero_personas }}</td>
+          <td><a href="{% url 'reservas:administrar' r.pk %}" style="color:var(--verde-medio);font-weight:700">Revisar</a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7">No hay solicitudes pendientes.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 {% endblock %}

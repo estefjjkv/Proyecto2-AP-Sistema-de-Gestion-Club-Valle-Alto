@@ -1,0 +1,1879 @@
+{
+  "columns": [
+    [
+      "administrador",
+      "cedula",
+      "character varying(20)",
+      true
+    ],
+    [
+      "administrador",
+      "nombre_completo",
+      "character varying(150)",
+      true
+    ],
+    [
+      "administrador",
+      "correo",
+      "character varying(150)",
+      true
+    ],
+    [
+      "administrador",
+      "codigo_rol",
+      "character varying(20)",
+      true
+    ],
+    [
+      "administrador",
+      "password_hash",
+      "character varying(255)",
+      true
+    ],
+    [
+      "administrador",
+      "activo",
+      "boolean",
+      true
+    ],
+    [
+      "administrador",
+      "intentos_fallidos",
+      "smallint",
+      true
+    ],
+    [
+      "administrador",
+      "bloqueado_hasta",
+      "timestamp with time zone",
+      false
+    ],
+    [
+      "administrador",
+      "fecha_creacion",
+      "timestamp with time zone",
+      true
+    ],
+    [
+      "beneficiario",
+      "cedula_titular",
+      "character varying(20)",
+      true
+    ],
+    [
+      "beneficiario",
+      "cedula_beneficiario",
+      "character varying(20)",
+      true
+    ],
+    [
+      "beneficiario",
+      "nombre_completo",
+      "character varying(150)",
+      true
+    ],
+    [
+      "beneficiario",
+      "codigo_parentesco",
+      "character varying(20)",
+      true
+    ],
+    [
+      "beneficiario",
+      "fecha_nacimiento",
+      "date",
+      true
+    ],
+    [
+      "bloqueo_instalacion",
+      "id_bloqueo",
+      "bigint",
+      true
+    ],
+    [
+      "bloqueo_instalacion",
+      "codigo_instalacion",
+      "character varying(30)",
+      true
+    ],
+    [
+      "bloqueo_instalacion",
+      "inicio",
+      "timestamp without time zone",
+      true
+    ],
+    [
+      "bloqueo_instalacion",
+      "fin",
+      "timestamp without time zone",
+      true
+    ],
+    [
+      "bloqueo_instalacion",
+      "codigo_motivo",
+      "character varying(20)",
+      true
+    ],
+    [
+      "bloqueo_instalacion",
+      "descripcion",
+      "character varying(300)",
+      false
+    ],
+    [
+      "bloqueo_instalacion",
+      "cedula_admin",
+      "character varying(20)",
+      true
+    ],
+    [
+      "bloqueo_instalacion",
+      "fecha_creacion",
+      "timestamp with time zone",
+      true
+    ],
+    [
+      "cargo",
+      "id_cargo",
+      "bigint",
+      true
+    ],
+    [
+      "cargo",
+      "cedula_socio",
+      "character varying(20)",
+      true
+    ],
+    [
+      "cargo",
+      "periodo",
+      "date",
+      true
+    ],
+    [
+      "cargo",
+      "codigo_tipo",
+      "character varying(30)",
+      true
+    ],
+    [
+      "cargo",
+      "descripcion",
+      "character varying(200)",
+      true
+    ],
+    [
+      "cargo",
+      "monto",
+      "numeric(12,2)",
+      true
+    ],
+    [
+      "cargo",
+      "fecha_limite_pago",
+      "date",
+      true
+    ],
+    [
+      "cargo",
+      "codigo_estado",
+      "character varying(20)",
+      true
+    ],
+    [
+      "cargo",
+      "fecha_pago",
+      "timestamp with time zone",
+      false
+    ],
+    [
+      "cargo",
+      "cedula_admin_pago",
+      "character varying(20)",
+      false
+    ],
+    [
+      "cargo",
+      "id_reserva",
+      "bigint",
+      false
+    ],
+    [
+      "cat_estado_cargo",
+      "codigo",
+      "character varying(20)",
+      true
+    ],
+    [
+      "cat_estado_cargo",
+      "descripcion",
+      "character varying(100)",
+      true
+    ],
+    [
+      "cat_estado_cuenta_socio",
+      "codigo",
+      "character varying(20)",
+      true
+    ],
+    [
+      "cat_estado_cuenta_socio",
+      "descripcion",
+      "character varying(100)",
+      true
+    ],
+    [
+      "cat_estado_envio",
+      "codigo",
+      "character varying(20)",
+      true
+    ],
+    [
+      "cat_estado_envio",
+      "descripcion",
+      "character varying(100)",
+      true
+    ],
+    [
+      "cat_estado_membresia",
+      "codigo",
+      "character varying(20)",
+      true
+    ],
+    [
+      "cat_estado_membresia",
+      "descripcion",
+      "character varying(100)",
+      true
+    ],
+    [
+      "cat_estado_reserva",
+      "codigo",
+      "character varying(20)",
+      true
+    ],
+    [
+      "cat_estado_reserva",
+      "descripcion",
+      "character varying(100)",
+      true
+    ],
+    [
+      "cat_motivo_bloqueo",
+      "codigo",
+      "character varying(20)",
+      true
+    ],
+    [
+      "cat_motivo_bloqueo",
+      "descripcion",
+      "character varying(100)",
+      true
+    ],
+    [
+      "cat_parentesco",
+      "codigo",
+      "character varying(20)",
+      true
+    ],
+    [
+      "cat_parentesco",
+      "descripcion",
+      "character varying(100)",
+      true
+    ],
+    [
+      "cat_permiso",
+      "codigo",
+      "character varying(40)",
+      true
+    ],
+    [
+      "cat_permiso",
+      "descripcion",
+      "character varying(150)",
+      true
+    ],
+    [
+      "cat_relacion_invitado",
+      "codigo",
+      "character varying(20)",
+      true
+    ],
+    [
+      "cat_relacion_invitado",
+      "descripcion",
+      "character varying(100)",
+      true
+    ],
+    [
+      "cat_rol_admin",
+      "codigo",
+      "character varying(20)",
+      true
+    ],
+    [
+      "cat_rol_admin",
+      "descripcion",
+      "character varying(100)",
+      true
+    ],
+    [
+      "cat_tipo_cargo",
+      "codigo",
+      "character varying(30)",
+      true
+    ],
+    [
+      "cat_tipo_cargo",
+      "descripcion",
+      "character varying(100)",
+      true
+    ],
+    [
+      "cat_tipo_instalacion",
+      "codigo",
+      "character varying(20)",
+      true
+    ],
+    [
+      "cat_tipo_instalacion",
+      "descripcion",
+      "character varying(100)",
+      true
+    ],
+    [
+      "cat_tipo_membresia",
+      "codigo",
+      "character varying(20)",
+      true
+    ],
+    [
+      "cat_tipo_membresia",
+      "descripcion",
+      "character varying(100)",
+      true
+    ],
+    [
+      "cat_tipo_membresia",
+      "cuota_base",
+      "numeric(12,2)",
+      true
+    ],
+    [
+      "cat_tipo_membresia",
+      "limite_beneficiarios",
+      "smallint",
+      true
+    ],
+    [
+      "cat_tipo_membresia",
+      "limite_invitados_mes",
+      "smallint",
+      true
+    ],
+    [
+      "cat_tipo_notificacion",
+      "codigo",
+      "character varying(40)",
+      true
+    ],
+    [
+      "cat_tipo_notificacion",
+      "descripcion",
+      "character varying(150)",
+      true
+    ],
+    [
+      "estado_cuenta",
+      "cedula_socio",
+      "character varying(20)",
+      true
+    ],
+    [
+      "estado_cuenta",
+      "periodo",
+      "date",
+      true
+    ],
+    [
+      "estado_cuenta",
+      "fecha_generacion",
+      "timestamp with time zone",
+      true
+    ],
+    [
+      "estado_cuenta",
+      "fecha_limite_pago",
+      "date",
+      true
+    ],
+    [
+      "historial_membresia",
+      "cedula_socio",
+      "character varying(20)",
+      true
+    ],
+    [
+      "historial_membresia",
+      "fecha_cambio",
+      "timestamp with time zone",
+      true
+    ],
+    [
+      "historial_membresia",
+      "estado_anterior",
+      "character varying(20)",
+      false
+    ],
+    [
+      "historial_membresia",
+      "estado_nuevo",
+      "character varying(20)",
+      true
+    ],
+    [
+      "historial_membresia",
+      "cedula_admin",
+      "character varying(20)",
+      false
+    ],
+    [
+      "historial_membresia",
+      "motivo",
+      "character varying(300)",
+      false
+    ],
+    [
+      "instalacion",
+      "codigo",
+      "character varying(30)",
+      true
+    ],
+    [
+      "instalacion",
+      "nombre",
+      "character varying(100)",
+      true
+    ],
+    [
+      "instalacion",
+      "codigo_tipo",
+      "character varying(20)",
+      true
+    ],
+    [
+      "instalacion",
+      "aforo_maximo",
+      "integer",
+      true
+    ],
+    [
+      "instalacion",
+      "hora_apertura",
+      "time without time zone",
+      true
+    ],
+    [
+      "instalacion",
+      "hora_cierre",
+      "time without time zone",
+      true
+    ],
+    [
+      "instalacion",
+      "activa",
+      "boolean",
+      true
+    ],
+    [
+      "invitacion",
+      "cedula_socio",
+      "character varying(20)",
+      true
+    ],
+    [
+      "invitacion",
+      "cedula_invitado",
+      "character varying(20)",
+      true
+    ],
+    [
+      "invitacion",
+      "fecha_visita",
+      "date",
+      true
+    ],
+    [
+      "invitacion",
+      "codigo_instalacion",
+      "character varying(30)",
+      true
+    ],
+    [
+      "invitacion",
+      "codigo_relacion",
+      "character varying(20)",
+      true
+    ],
+    [
+      "invitacion",
+      "id_reserva",
+      "bigint",
+      false
+    ],
+    [
+      "invitacion",
+      "fecha_registro",
+      "timestamp with time zone",
+      true
+    ],
+    [
+      "invitado",
+      "cedula",
+      "character varying(20)",
+      true
+    ],
+    [
+      "invitado",
+      "nombre_completo",
+      "character varying(150)",
+      true
+    ],
+    [
+      "membresia",
+      "cedula_socio",
+      "character varying(20)",
+      true
+    ],
+    [
+      "membresia",
+      "codigo_tipo",
+      "character varying(20)",
+      true
+    ],
+    [
+      "membresia",
+      "fecha_inscripcion",
+      "date",
+      true
+    ],
+    [
+      "membresia",
+      "fecha_renovacion",
+      "date",
+      true
+    ],
+    [
+      "membresia",
+      "monto_cuota",
+      "numeric(12,2)",
+      true
+    ],
+    [
+      "membresia",
+      "codigo_estado",
+      "character varying(20)",
+      true
+    ],
+    [
+      "notificacion",
+      "id_notificacion",
+      "bigint",
+      true
+    ],
+    [
+      "notificacion",
+      "cedula_socio",
+      "character varying(20)",
+      true
+    ],
+    [
+      "notificacion",
+      "codigo_tipo",
+      "character varying(40)",
+      true
+    ],
+    [
+      "notificacion",
+      "correo_destino",
+      "character varying(150)",
+      true
+    ],
+    [
+      "notificacion",
+      "asunto",
+      "character varying(200)",
+      true
+    ],
+    [
+      "notificacion",
+      "cuerpo",
+      "text",
+      true
+    ],
+    [
+      "notificacion",
+      "codigo_estado",
+      "character varying(20)",
+      true
+    ],
+    [
+      "notificacion",
+      "id_reserva",
+      "bigint",
+      false
+    ],
+    [
+      "notificacion",
+      "fecha_creacion",
+      "timestamp with time zone",
+      true
+    ],
+    [
+      "notificacion",
+      "fecha_envio",
+      "timestamp with time zone",
+      false
+    ],
+    [
+      "plantilla_notificacion",
+      "codigo_tipo",
+      "character varying(40)",
+      true
+    ],
+    [
+      "plantilla_notificacion",
+      "asunto",
+      "character varying(200)",
+      true
+    ],
+    [
+      "plantilla_notificacion",
+      "cuerpo",
+      "text",
+      true
+    ],
+    [
+      "plantilla_notificacion",
+      "cedula_admin",
+      "character varying(20)",
+      false
+    ],
+    [
+      "plantilla_notificacion",
+      "fecha_actualizacion",
+      "timestamp with time zone",
+      true
+    ],
+    [
+      "reserva",
+      "id_reserva",
+      "bigint",
+      true
+    ],
+    [
+      "reserva",
+      "cedula_socio",
+      "character varying(20)",
+      true
+    ],
+    [
+      "reserva",
+      "codigo_instalacion",
+      "character varying(30)",
+      true
+    ],
+    [
+      "reserva",
+      "fecha",
+      "date",
+      true
+    ],
+    [
+      "reserva",
+      "hora_inicio",
+      "time without time zone",
+      true
+    ],
+    [
+      "reserva",
+      "hora_fin",
+      "time without time zone",
+      true
+    ],
+    [
+      "reserva",
+      "numero_personas",
+      "integer",
+      true
+    ],
+    [
+      "reserva",
+      "codigo_estado",
+      "character varying(20)",
+      true
+    ],
+    [
+      "reserva",
+      "fecha_creacion",
+      "timestamp with time zone",
+      true
+    ],
+    [
+      "reserva",
+      "fecha_cancelacion",
+      "timestamp with time zone",
+      false
+    ],
+    [
+      "reserva",
+      "cedula_admin",
+      "character varying(20)",
+      false
+    ],
+    [
+      "reserva",
+      "rango",
+      "tsrange",
+      false
+    ],
+    [
+      "reserva_servicio",
+      "id_reserva",
+      "bigint",
+      true
+    ],
+    [
+      "reserva_servicio",
+      "codigo_servicio",
+      "character varying(30)",
+      true
+    ],
+    [
+      "reserva_servicio",
+      "cantidad",
+      "integer",
+      true
+    ],
+    [
+      "reserva_servicio",
+      "precio_unitario",
+      "numeric(12,2)",
+      true
+    ],
+    [
+      "rol_permiso",
+      "codigo_rol",
+      "character varying(20)",
+      true
+    ],
+    [
+      "rol_permiso",
+      "codigo_permiso",
+      "character varying(40)",
+      true
+    ],
+    [
+      "servicio_adicional",
+      "codigo",
+      "character varying(30)",
+      true
+    ],
+    [
+      "servicio_adicional",
+      "nombre",
+      "character varying(100)",
+      true
+    ],
+    [
+      "servicio_adicional",
+      "descripcion",
+      "character varying(300)",
+      false
+    ],
+    [
+      "servicio_adicional",
+      "codigo_tipo_instalacion",
+      "character varying(20)",
+      true
+    ],
+    [
+      "servicio_adicional",
+      "precio",
+      "numeric(12,2)",
+      true
+    ],
+    [
+      "servicio_adicional",
+      "activo",
+      "boolean",
+      true
+    ],
+    [
+      "socio",
+      "cedula",
+      "character varying(20)",
+      true
+    ],
+    [
+      "socio",
+      "nombre_completo",
+      "character varying(150)",
+      true
+    ],
+    [
+      "socio",
+      "correo",
+      "character varying(150)",
+      true
+    ],
+    [
+      "socio",
+      "telefono",
+      "character varying(20)",
+      true
+    ],
+    [
+      "socio",
+      "direccion",
+      "character varying(300)",
+      true
+    ],
+    [
+      "socio",
+      "fecha_nacimiento",
+      "date",
+      true
+    ],
+    [
+      "socio",
+      "password_hash",
+      "character varying(255)",
+      true
+    ],
+    [
+      "socio",
+      "codigo_estado",
+      "character varying(20)",
+      true
+    ],
+    [
+      "socio",
+      "intentos_fallidos",
+      "smallint",
+      true
+    ],
+    [
+      "socio",
+      "bloqueado_hasta",
+      "timestamp with time zone",
+      false
+    ],
+    [
+      "socio",
+      "fecha_registro",
+      "timestamp with time zone",
+      true
+    ],
+    [
+      "token_recuperacion",
+      "token_hash",
+      "character varying(64)",
+      true
+    ],
+    [
+      "token_recuperacion",
+      "cedula_socio",
+      "character varying(20)",
+      true
+    ],
+    [
+      "token_recuperacion",
+      "fecha_expira",
+      "timestamp with time zone",
+      true
+    ],
+    [
+      "token_recuperacion",
+      "usado",
+      "boolean",
+      true
+    ],
+    [
+      "token_recuperacion",
+      "fecha_creado",
+      "timestamp with time zone",
+      true
+    ],
+    [
+      "v_estado_cuenta_resumen",
+      "cedula_socio",
+      "character varying(20)",
+      false
+    ],
+    [
+      "v_estado_cuenta_resumen",
+      "periodo",
+      "date",
+      false
+    ],
+    [
+      "v_estado_cuenta_resumen",
+      "fecha_limite_pago",
+      "date",
+      false
+    ],
+    [
+      "v_estado_cuenta_resumen",
+      "total",
+      "numeric",
+      false
+    ],
+    [
+      "v_estado_cuenta_resumen",
+      "pagado",
+      "numeric",
+      false
+    ],
+    [
+      "v_estado_cuenta_resumen",
+      "pendiente",
+      "numeric",
+      false
+    ],
+    [
+      "v_estado_cuenta_resumen",
+      "vencido",
+      "numeric",
+      false
+    ],
+    [
+      "v_invitados_esperados",
+      "fecha_visita",
+      "date",
+      false
+    ],
+    [
+      "v_invitados_esperados",
+      "codigo_instalacion",
+      "character varying(30)",
+      false
+    ],
+    [
+      "v_invitados_esperados",
+      "cedula_invitado",
+      "character varying(20)",
+      false
+    ],
+    [
+      "v_invitados_esperados",
+      "nombre_invitado",
+      "character varying(150)",
+      false
+    ],
+    [
+      "v_invitados_esperados",
+      "codigo_relacion",
+      "character varying(20)",
+      false
+    ],
+    [
+      "v_invitados_esperados",
+      "cedula_socio",
+      "character varying(20)",
+      false
+    ],
+    [
+      "v_invitados_esperados",
+      "nombre_socio",
+      "character varying(150)",
+      false
+    ],
+    [
+      "v_ocupacion_franja",
+      "codigo_instalacion",
+      "character varying(30)",
+      false
+    ],
+    [
+      "v_ocupacion_franja",
+      "fecha",
+      "date",
+      false
+    ],
+    [
+      "v_ocupacion_franja",
+      "hora_inicio",
+      "time without time zone",
+      false
+    ],
+    [
+      "v_ocupacion_franja",
+      "hora_fin",
+      "time without time zone",
+      false
+    ],
+    [
+      "v_ocupacion_franja",
+      "numero_personas",
+      "integer",
+      false
+    ],
+    [
+      "v_ocupacion_franja",
+      "aforo_maximo",
+      "integer",
+      false
+    ],
+    [
+      "v_ocupacion_franja",
+      "porcentaje_ocupacion",
+      "numeric",
+      false
+    ],
+    [
+      "v_socios_morosos",
+      "cedula",
+      "character varying(20)",
+      false
+    ],
+    [
+      "v_socios_morosos",
+      "nombre_completo",
+      "character varying(150)",
+      false
+    ],
+    [
+      "v_socios_morosos",
+      "correo",
+      "character varying(150)",
+      false
+    ],
+    [
+      "v_socios_morosos",
+      "cargos_atrasados",
+      "bigint",
+      false
+    ],
+    [
+      "v_socios_morosos",
+      "monto_adeudado",
+      "numeric",
+      false
+    ],
+    [
+      "v_socios_morosos",
+      "dias_atraso_max",
+      "integer",
+      false
+    ],
+    [
+      "v_uso_instalaciones",
+      "codigo_instalacion",
+      "character varying(30)",
+      false
+    ],
+    [
+      "v_uso_instalaciones",
+      "periodo",
+      "date",
+      false
+    ],
+    [
+      "v_uso_instalaciones",
+      "total_reservas",
+      "bigint",
+      false
+    ],
+    [
+      "v_uso_instalaciones",
+      "horas_reservadas",
+      "numeric",
+      false
+    ],
+    [
+      "v_uso_instalaciones",
+      "total_personas",
+      "bigint",
+      false
+    ]
+  ],
+  "constraints": [
+    [
+      "administrador",
+      "administrador_codigo_rol_fkey",
+      "FOREIGN KEY (codigo_rol) REFERENCES cat_rol_admin(codigo)"
+    ],
+    [
+      "administrador",
+      "administrador_intentos_fallidos_check",
+      "CHECK ((intentos_fallidos >= 0))"
+    ],
+    [
+      "administrador",
+      "administrador_pkey",
+      "PRIMARY KEY (cedula)"
+    ],
+    [
+      "beneficiario",
+      "beneficiario_cedula_titular_fkey",
+      "FOREIGN KEY (cedula_titular) REFERENCES membresia(cedula_socio) ON DELETE CASCADE"
+    ],
+    [
+      "beneficiario",
+      "beneficiario_check",
+      "CHECK (((cedula_titular)::text <> (cedula_beneficiario)::text))"
+    ],
+    [
+      "beneficiario",
+      "beneficiario_codigo_parentesco_fkey",
+      "FOREIGN KEY (codigo_parentesco) REFERENCES cat_parentesco(codigo)"
+    ],
+    [
+      "beneficiario",
+      "beneficiario_fecha_nacimiento_check",
+      "CHECK ((fecha_nacimiento < CURRENT_DATE))"
+    ],
+    [
+      "beneficiario",
+      "beneficiario_pkey",
+      "PRIMARY KEY (cedula_titular, cedula_beneficiario)"
+    ],
+    [
+      "bloqueo_instalacion",
+      "bloqueo_instalacion_cedula_admin_fkey",
+      "FOREIGN KEY (cedula_admin) REFERENCES administrador(cedula)"
+    ],
+    [
+      "bloqueo_instalacion",
+      "bloqueo_instalacion_check",
+      "CHECK ((fin > inicio))"
+    ],
+    [
+      "bloqueo_instalacion",
+      "bloqueo_instalacion_codigo_instalacion_fkey",
+      "FOREIGN KEY (codigo_instalacion) REFERENCES instalacion(codigo)"
+    ],
+    [
+      "bloqueo_instalacion",
+      "bloqueo_instalacion_codigo_instalacion_tsrange_excl",
+      "EXCLUDE USING gist (codigo_instalacion WITH =, tsrange(inicio, fin) WITH &&)"
+    ],
+    [
+      "bloqueo_instalacion",
+      "bloqueo_instalacion_codigo_motivo_fkey",
+      "FOREIGN KEY (codigo_motivo) REFERENCES cat_motivo_bloqueo(codigo)"
+    ],
+    [
+      "bloqueo_instalacion",
+      "bloqueo_instalacion_pkey",
+      "PRIMARY KEY (id_bloqueo)"
+    ],
+    [
+      "cargo",
+      "cargo_cedula_admin_pago_fkey",
+      "FOREIGN KEY (cedula_admin_pago) REFERENCES administrador(cedula)"
+    ],
+    [
+      "cargo",
+      "cargo_cedula_socio_periodo_fkey",
+      "FOREIGN KEY (cedula_socio, periodo) REFERENCES estado_cuenta(cedula_socio, periodo)"
+    ],
+    [
+      "cargo",
+      "cargo_check",
+      "CHECK ((((codigo_estado)::text = 'PAGADO'::text) = (fecha_pago IS NOT NULL)))"
+    ],
+    [
+      "cargo",
+      "cargo_codigo_estado_fkey",
+      "FOREIGN KEY (codigo_estado) REFERENCES cat_estado_cargo(codigo)"
+    ],
+    [
+      "cargo",
+      "cargo_codigo_tipo_fkey",
+      "FOREIGN KEY (codigo_tipo) REFERENCES cat_tipo_cargo(codigo)"
+    ],
+    [
+      "cargo",
+      "cargo_id_reserva_fkey",
+      "FOREIGN KEY (id_reserva) REFERENCES reserva(id_reserva) ON DELETE SET NULL"
+    ],
+    [
+      "cargo",
+      "cargo_monto_check",
+      "CHECK ((monto >= (0)::numeric))"
+    ],
+    [
+      "cargo",
+      "cargo_pkey",
+      "PRIMARY KEY (id_cargo)"
+    ],
+    [
+      "cat_estado_cargo",
+      "cat_estado_cargo_pkey",
+      "PRIMARY KEY (codigo)"
+    ],
+    [
+      "cat_estado_cuenta_socio",
+      "cat_estado_cuenta_socio_pkey",
+      "PRIMARY KEY (codigo)"
+    ],
+    [
+      "cat_estado_envio",
+      "cat_estado_envio_pkey",
+      "PRIMARY KEY (codigo)"
+    ],
+    [
+      "cat_estado_membresia",
+      "cat_estado_membresia_pkey",
+      "PRIMARY KEY (codigo)"
+    ],
+    [
+      "cat_estado_reserva",
+      "cat_estado_reserva_pkey",
+      "PRIMARY KEY (codigo)"
+    ],
+    [
+      "cat_motivo_bloqueo",
+      "cat_motivo_bloqueo_pkey",
+      "PRIMARY KEY (codigo)"
+    ],
+    [
+      "cat_parentesco",
+      "cat_parentesco_pkey",
+      "PRIMARY KEY (codigo)"
+    ],
+    [
+      "cat_permiso",
+      "cat_permiso_pkey",
+      "PRIMARY KEY (codigo)"
+    ],
+    [
+      "cat_relacion_invitado",
+      "cat_relacion_invitado_pkey",
+      "PRIMARY KEY (codigo)"
+    ],
+    [
+      "cat_rol_admin",
+      "cat_rol_admin_pkey",
+      "PRIMARY KEY (codigo)"
+    ],
+    [
+      "cat_tipo_cargo",
+      "cat_tipo_cargo_pkey",
+      "PRIMARY KEY (codigo)"
+    ],
+    [
+      "cat_tipo_instalacion",
+      "cat_tipo_instalacion_pkey",
+      "PRIMARY KEY (codigo)"
+    ],
+    [
+      "cat_tipo_membresia",
+      "cat_tipo_membresia_cuota_base_check",
+      "CHECK ((cuota_base >= (0)::numeric))"
+    ],
+    [
+      "cat_tipo_membresia",
+      "cat_tipo_membresia_limite_beneficiarios_check",
+      "CHECK ((limite_beneficiarios >= 0))"
+    ],
+    [
+      "cat_tipo_membresia",
+      "cat_tipo_membresia_limite_invitados_mes_check",
+      "CHECK ((limite_invitados_mes >= 0))"
+    ],
+    [
+      "cat_tipo_membresia",
+      "cat_tipo_membresia_pkey",
+      "PRIMARY KEY (codigo)"
+    ],
+    [
+      "cat_tipo_notificacion",
+      "cat_tipo_notificacion_pkey",
+      "PRIMARY KEY (codigo)"
+    ],
+    [
+      "estado_cuenta",
+      "estado_cuenta_cedula_socio_fkey",
+      "FOREIGN KEY (cedula_socio) REFERENCES socio(cedula)"
+    ],
+    [
+      "estado_cuenta",
+      "estado_cuenta_periodo_check",
+      "CHECK ((EXTRACT(day FROM periodo) = (1)::numeric))"
+    ],
+    [
+      "estado_cuenta",
+      "estado_cuenta_pkey",
+      "PRIMARY KEY (cedula_socio, periodo)"
+    ],
+    [
+      "historial_membresia",
+      "historial_membresia_cedula_admin_fkey",
+      "FOREIGN KEY (cedula_admin) REFERENCES administrador(cedula)"
+    ],
+    [
+      "historial_membresia",
+      "historial_membresia_cedula_socio_fkey",
+      "FOREIGN KEY (cedula_socio) REFERENCES membresia(cedula_socio)"
+    ],
+    [
+      "historial_membresia",
+      "historial_membresia_estado_anterior_fkey",
+      "FOREIGN KEY (estado_anterior) REFERENCES cat_estado_membresia(codigo)"
+    ],
+    [
+      "historial_membresia",
+      "historial_membresia_estado_nuevo_fkey",
+      "FOREIGN KEY (estado_nuevo) REFERENCES cat_estado_membresia(codigo)"
+    ],
+    [
+      "historial_membresia",
+      "historial_membresia_pkey",
+      "PRIMARY KEY (cedula_socio, fecha_cambio)"
+    ],
+    [
+      "instalacion",
+      "instalacion_aforo_maximo_check",
+      "CHECK ((aforo_maximo > 0))"
+    ],
+    [
+      "instalacion",
+      "instalacion_check",
+      "CHECK ((hora_cierre > hora_apertura))"
+    ],
+    [
+      "instalacion",
+      "instalacion_codigo_tipo_fkey",
+      "FOREIGN KEY (codigo_tipo) REFERENCES cat_tipo_instalacion(codigo)"
+    ],
+    [
+      "instalacion",
+      "instalacion_pkey",
+      "PRIMARY KEY (codigo)"
+    ],
+    [
+      "invitacion",
+      "invitacion_cedula_invitado_fkey",
+      "FOREIGN KEY (cedula_invitado) REFERENCES invitado(cedula)"
+    ],
+    [
+      "invitacion",
+      "invitacion_cedula_socio_fkey",
+      "FOREIGN KEY (cedula_socio) REFERENCES socio(cedula)"
+    ],
+    [
+      "invitacion",
+      "invitacion_check",
+      "CHECK (((cedula_socio)::text <> (cedula_invitado)::text))"
+    ],
+    [
+      "invitacion",
+      "invitacion_codigo_instalacion_fkey",
+      "FOREIGN KEY (codigo_instalacion) REFERENCES instalacion(codigo)"
+    ],
+    [
+      "invitacion",
+      "invitacion_codigo_relacion_fkey",
+      "FOREIGN KEY (codigo_relacion) REFERENCES cat_relacion_invitado(codigo)"
+    ],
+    [
+      "invitacion",
+      "invitacion_id_reserva_fkey",
+      "FOREIGN KEY (id_reserva) REFERENCES reserva(id_reserva) ON DELETE SET NULL"
+    ],
+    [
+      "invitacion",
+      "invitacion_pkey",
+      "PRIMARY KEY (cedula_socio, cedula_invitado, fecha_visita, codigo_instalacion)"
+    ],
+    [
+      "invitado",
+      "invitado_pkey",
+      "PRIMARY KEY (cedula)"
+    ],
+    [
+      "membresia",
+      "membresia_cedula_socio_fkey",
+      "FOREIGN KEY (cedula_socio) REFERENCES socio(cedula)"
+    ],
+    [
+      "membresia",
+      "membresia_check",
+      "CHECK ((fecha_renovacion > fecha_inscripcion))"
+    ],
+    [
+      "membresia",
+      "membresia_codigo_estado_fkey",
+      "FOREIGN KEY (codigo_estado) REFERENCES cat_estado_membresia(codigo)"
+    ],
+    [
+      "membresia",
+      "membresia_codigo_tipo_fkey",
+      "FOREIGN KEY (codigo_tipo) REFERENCES cat_tipo_membresia(codigo)"
+    ],
+    [
+      "membresia",
+      "membresia_monto_cuota_check",
+      "CHECK ((monto_cuota >= (0)::numeric))"
+    ],
+    [
+      "membresia",
+      "membresia_pkey",
+      "PRIMARY KEY (cedula_socio)"
+    ],
+    [
+      "notificacion",
+      "notificacion_cedula_socio_fkey",
+      "FOREIGN KEY (cedula_socio) REFERENCES socio(cedula)"
+    ],
+    [
+      "notificacion",
+      "notificacion_codigo_estado_fkey",
+      "FOREIGN KEY (codigo_estado) REFERENCES cat_estado_envio(codigo)"
+    ],
+    [
+      "notificacion",
+      "notificacion_codigo_tipo_fkey",
+      "FOREIGN KEY (codigo_tipo) REFERENCES cat_tipo_notificacion(codigo)"
+    ],
+    [
+      "notificacion",
+      "notificacion_id_reserva_fkey",
+      "FOREIGN KEY (id_reserva) REFERENCES reserva(id_reserva) ON DELETE SET NULL"
+    ],
+    [
+      "notificacion",
+      "notificacion_pkey",
+      "PRIMARY KEY (id_notificacion)"
+    ],
+    [
+      "plantilla_notificacion",
+      "plantilla_notificacion_cedula_admin_fkey",
+      "FOREIGN KEY (cedula_admin) REFERENCES administrador(cedula)"
+    ],
+    [
+      "plantilla_notificacion",
+      "plantilla_notificacion_codigo_tipo_fkey",
+      "FOREIGN KEY (codigo_tipo) REFERENCES cat_tipo_notificacion(codigo)"
+    ],
+    [
+      "plantilla_notificacion",
+      "plantilla_notificacion_pkey",
+      "PRIMARY KEY (codigo_tipo)"
+    ],
+    [
+      "reserva",
+      "ex_reserva_sin_traslape",
+      "EXCLUDE USING gist (codigo_instalacion WITH =, rango WITH &&) WHERE (((codigo_estado)::text = ANY ((ARRAY['PENDIENTE'::character varying, 'CONFIRMADA'::character varying])::text[])))"
+    ],
+    [
+      "reserva",
+      "reserva_cedula_admin_fkey",
+      "FOREIGN KEY (cedula_admin) REFERENCES administrador(cedula)"
+    ],
+    [
+      "reserva",
+      "reserva_cedula_socio_fkey",
+      "FOREIGN KEY (cedula_socio) REFERENCES socio(cedula)"
+    ],
+    [
+      "reserva",
+      "reserva_check",
+      "CHECK ((hora_fin > hora_inicio))"
+    ],
+    [
+      "reserva",
+      "reserva_codigo_estado_fkey",
+      "FOREIGN KEY (codigo_estado) REFERENCES cat_estado_reserva(codigo)"
+    ],
+    [
+      "reserva",
+      "reserva_codigo_instalacion_fkey",
+      "FOREIGN KEY (codigo_instalacion) REFERENCES instalacion(codigo)"
+    ],
+    [
+      "reserva",
+      "reserva_numero_personas_check",
+      "CHECK ((numero_personas > 0))"
+    ],
+    [
+      "reserva",
+      "reserva_pkey",
+      "PRIMARY KEY (id_reserva)"
+    ],
+    [
+      "reserva_servicio",
+      "reserva_servicio_cantidad_check",
+      "CHECK ((cantidad > 0))"
+    ],
+    [
+      "reserva_servicio",
+      "reserva_servicio_codigo_servicio_fkey",
+      "FOREIGN KEY (codigo_servicio) REFERENCES servicio_adicional(codigo)"
+    ],
+    [
+      "reserva_servicio",
+      "reserva_servicio_id_reserva_fkey",
+      "FOREIGN KEY (id_reserva) REFERENCES reserva(id_reserva) ON DELETE CASCADE"
+    ],
+    [
+      "reserva_servicio",
+      "reserva_servicio_pkey",
+      "PRIMARY KEY (id_reserva, codigo_servicio)"
+    ],
+    [
+      "reserva_servicio",
+      "reserva_servicio_precio_unitario_check",
+      "CHECK ((precio_unitario >= (0)::numeric))"
+    ],
+    [
+      "rol_permiso",
+      "rol_permiso_codigo_permiso_fkey",
+      "FOREIGN KEY (codigo_permiso) REFERENCES cat_permiso(codigo)"
+    ],
+    [
+      "rol_permiso",
+      "rol_permiso_codigo_rol_fkey",
+      "FOREIGN KEY (codigo_rol) REFERENCES cat_rol_admin(codigo)"
+    ],
+    [
+      "rol_permiso",
+      "rol_permiso_pkey",
+      "PRIMARY KEY (codigo_rol, codigo_permiso)"
+    ],
+    [
+      "servicio_adicional",
+      "servicio_adicional_codigo_tipo_instalacion_fkey",
+      "FOREIGN KEY (codigo_tipo_instalacion) REFERENCES cat_tipo_instalacion(codigo)"
+    ],
+    [
+      "servicio_adicional",
+      "servicio_adicional_pkey",
+      "PRIMARY KEY (codigo)"
+    ],
+    [
+      "servicio_adicional",
+      "servicio_adicional_precio_check",
+      "CHECK ((precio >= (0)::numeric))"
+    ],
+    [
+      "socio",
+      "socio_codigo_estado_fkey",
+      "FOREIGN KEY (codigo_estado) REFERENCES cat_estado_cuenta_socio(codigo)"
+    ],
+    [
+      "socio",
+      "socio_fecha_nacimiento_check",
+      "CHECK ((fecha_nacimiento < CURRENT_DATE))"
+    ],
+    [
+      "socio",
+      "socio_intentos_fallidos_check",
+      "CHECK ((intentos_fallidos >= 0))"
+    ],
+    [
+      "socio",
+      "socio_pkey",
+      "PRIMARY KEY (cedula)"
+    ],
+    [
+      "token_recuperacion",
+      "token_recuperacion_cedula_socio_fkey",
+      "FOREIGN KEY (cedula_socio) REFERENCES socio(cedula) ON DELETE CASCADE"
+    ],
+    [
+      "token_recuperacion",
+      "token_recuperacion_pkey",
+      "PRIMARY KEY (token_hash)"
+    ]
+  ],
+  "triggers": [
+    [
+      "beneficiario",
+      "trg_validar_beneficiario",
+      "CREATE TRIGGER trg_validar_beneficiario BEFORE INSERT OR UPDATE ON public.beneficiario FOR EACH ROW EXECUTE FUNCTION fn_validar_beneficiario()"
+    ],
+    [
+      "invitacion",
+      "trg_validar_limite_invitados",
+      "CREATE TRIGGER trg_validar_limite_invitados BEFORE INSERT OR UPDATE OF cedula_socio, fecha_visita ON public.invitacion FOR EACH ROW EXECUTE FUNCTION fn_validar_limite_invitados()"
+    ],
+    [
+      "membresia",
+      "trg_historial_membresia",
+      "CREATE TRIGGER trg_historial_membresia AFTER INSERT OR UPDATE OF codigo_estado ON public.membresia FOR EACH ROW EXECUTE FUNCTION fn_historial_membresia()"
+    ],
+    [
+      "reserva",
+      "trg_validar_reserva",
+      "CREATE TRIGGER trg_validar_reserva BEFORE INSERT OR UPDATE ON public.reserva FOR EACH ROW EXECUTE FUNCTION fn_validar_reserva()"
+    ]
+  ],
+  "indexes": [
+    [
+      "administrador",
+      "administrador_pkey",
+      "CREATE UNIQUE INDEX administrador_pkey ON public.administrador USING btree (cedula)"
+    ],
+    [
+      "administrador",
+      "ux_administrador_correo",
+      "CREATE UNIQUE INDEX ux_administrador_correo ON public.administrador USING btree (lower((correo)::text))"
+    ],
+    [
+      "beneficiario",
+      "beneficiario_pkey",
+      "CREATE UNIQUE INDEX beneficiario_pkey ON public.beneficiario USING btree (cedula_titular, cedula_beneficiario)"
+    ],
+    [
+      "bloqueo_instalacion",
+      "bloqueo_instalacion_codigo_instalacion_tsrange_excl",
+      "CREATE INDEX bloqueo_instalacion_codigo_instalacion_tsrange_excl ON public.bloqueo_instalacion USING gist (codigo_instalacion, tsrange(inicio, fin))"
+    ],
+    [
+      "bloqueo_instalacion",
+      "bloqueo_instalacion_pkey",
+      "CREATE UNIQUE INDEX bloqueo_instalacion_pkey ON public.bloqueo_instalacion USING btree (id_bloqueo)"
+    ],
+    [
+      "cargo",
+      "cargo_pkey",
+      "CREATE UNIQUE INDEX cargo_pkey ON public.cargo USING btree (id_cargo)"
+    ],
+    [
+      "cargo",
+      "ix_cargo_estado",
+      "CREATE INDEX ix_cargo_estado ON public.cargo USING btree (codigo_estado, fecha_limite_pago)"
+    ],
+    [
+      "cargo",
+      "ix_cargo_estado_cuenta",
+      "CREATE INDEX ix_cargo_estado_cuenta ON public.cargo USING btree (cedula_socio, periodo)"
+    ],
+    [
+      "cat_estado_cargo",
+      "cat_estado_cargo_pkey",
+      "CREATE UNIQUE INDEX cat_estado_cargo_pkey ON public.cat_estado_cargo USING btree (codigo)"
+    ],
+    [
+      "cat_estado_cuenta_socio",
+      "cat_estado_cuenta_socio_pkey",
+      "CREATE UNIQUE INDEX cat_estado_cuenta_socio_pkey ON public.cat_estado_cuenta_socio USING btree (codigo)"
+    ],
+    [
+      "cat_estado_envio",
+      "cat_estado_envio_pkey",
+      "CREATE UNIQUE INDEX cat_estado_envio_pkey ON public.cat_estado_envio USING btree (codigo)"
+    ],
+    [
+      "cat_estado_membresia",
+      "cat_estado_membresia_pkey",
+      "CREATE UNIQUE INDEX cat_estado_membresia_pkey ON public.cat_estado_membresia USING btree (codigo)"
+    ],
+    [
+      "cat_estado_reserva",
+      "cat_estado_reserva_pkey",
+      "CREATE UNIQUE INDEX cat_estado_reserva_pkey ON public.cat_estado_reserva USING btree (codigo)"
+    ],
+    [
+      "cat_motivo_bloqueo",
+      "cat_motivo_bloqueo_pkey",
+      "CREATE UNIQUE INDEX cat_motivo_bloqueo_pkey ON public.cat_motivo_bloqueo USING btree (codigo)"
+    ],
+    [
+      "cat_parentesco",
+      "cat_parentesco_pkey",
+      "CREATE UNIQUE INDEX cat_parentesco_pkey ON public.cat_parentesco USING btree (codigo)"
+    ],
+    [
+      "cat_permiso",
+      "cat_permiso_pkey",
+      "CREATE UNIQUE INDEX cat_permiso_pkey ON public.cat_permiso USING btree (codigo)"
+    ],
+    [
+      "cat_relacion_invitado",
+      "cat_relacion_invitado_pkey",
+      "CREATE UNIQUE INDEX cat_relacion_invitado_pkey ON public.cat_relacion_invitado USING btree (codigo)"
+    ],
+    [
+      "cat_rol_admin",
+      "cat_rol_admin_pkey",
+      "CREATE UNIQUE INDEX cat_rol_admin_pkey ON public.cat_rol_admin USING btree (codigo)"
+    ],
+    [
+      "cat_tipo_cargo",
+      "cat_tipo_cargo_pkey",
+      "CREATE UNIQUE INDEX cat_tipo_cargo_pkey ON public.cat_tipo_cargo USING btree (codigo)"
+    ],
+    [
+      "cat_tipo_instalacion",
+      "cat_tipo_instalacion_pkey",
+      "CREATE UNIQUE INDEX cat_tipo_instalacion_pkey ON public.cat_tipo_instalacion USING btree (codigo)"
+    ],
+    [
+      "cat_tipo_membresia",
+      "cat_tipo_membresia_pkey",
+      "CREATE UNIQUE INDEX cat_tipo_membresia_pkey ON public.cat_tipo_membresia USING btree (codigo)"
+    ],
+    [
+      "cat_tipo_notificacion",
+      "cat_tipo_notificacion_pkey",
+      "CREATE UNIQUE INDEX cat_tipo_notificacion_pkey ON public.cat_tipo_notificacion USING btree (codigo)"
+    ],
+    [
+      "estado_cuenta",
+      "estado_cuenta_pkey",
+      "CREATE UNIQUE INDEX estado_cuenta_pkey ON public.estado_cuenta USING btree (cedula_socio, periodo)"
+    ],
+    [
+      "historial_membresia",
+      "historial_membresia_pkey",
+      "CREATE UNIQUE INDEX historial_membresia_pkey ON public.historial_membresia USING btree (cedula_socio, fecha_cambio)"
+    ],
+    [
+      "instalacion",
+      "instalacion_pkey",
+      "CREATE UNIQUE INDEX instalacion_pkey ON public.instalacion USING btree (codigo)"
+    ],
+    [
+      "invitacion",
+      "invitacion_pkey",
+      "CREATE UNIQUE INDEX invitacion_pkey ON public.invitacion USING btree (cedula_socio, cedula_invitado, fecha_visita, codigo_instalacion)"
+    ],
+    [
+      "invitacion",
+      "ix_invitacion_fecha",
+      "CREATE INDEX ix_invitacion_fecha ON public.invitacion USING btree (fecha_visita)"
+    ],
+    [
+      "invitado",
+      "invitado_pkey",
+      "CREATE UNIQUE INDEX invitado_pkey ON public.invitado USING btree (cedula)"
+    ],
+    [
+      "membresia",
+      "membresia_pkey",
+      "CREATE UNIQUE INDEX membresia_pkey ON public.membresia USING btree (cedula_socio)"
+    ],
+    [
+      "notificacion",
+      "ix_notificacion_socio",
+      "CREATE INDEX ix_notificacion_socio ON public.notificacion USING btree (cedula_socio, fecha_creacion DESC)"
+    ],
+    [
+      "notificacion",
+      "notificacion_pkey",
+      "CREATE UNIQUE INDEX notificacion_pkey ON public.notificacion USING btree (id_notificacion)"
+    ],
+    [
+      "plantilla_notificacion",
+      "plantilla_notificacion_pkey",
+      "CREATE UNIQUE INDEX plantilla_notificacion_pkey ON public.plantilla_notificacion USING btree (codigo_tipo)"
+    ],
+    [
+      "reserva",
+      "ex_reserva_sin_traslape",
+      "CREATE INDEX ex_reserva_sin_traslape ON public.reserva USING gist (codigo_instalacion, rango) WHERE ((codigo_estado)::text = ANY ((ARRAY['PENDIENTE'::character varying, 'CONFIRMADA'::character varying])::text[]))"
+    ],
+    [
+      "reserva",
+      "ix_reserva_instalacion_fecha",
+      "CREATE INDEX ix_reserva_instalacion_fecha ON public.reserva USING btree (codigo_instalacion, fecha)"
+    ],
+    [
+      "reserva",
+      "ix_reserva_socio",
+      "CREATE INDEX ix_reserva_socio ON public.reserva USING btree (cedula_socio, fecha)"
+    ],
+    [
+      "reserva",
+      "reserva_pkey",
+      "CREATE UNIQUE INDEX reserva_pkey ON public.reserva USING btree (id_reserva)"
+    ],
+    [
+      "reserva_servicio",
+      "reserva_servicio_pkey",
+      "CREATE UNIQUE INDEX reserva_servicio_pkey ON public.reserva_servicio USING btree (id_reserva, codigo_servicio)"
+    ],
+    [
+      "rol_permiso",
+      "rol_permiso_pkey",
+      "CREATE UNIQUE INDEX rol_permiso_pkey ON public.rol_permiso USING btree (codigo_rol, codigo_permiso)"
+    ],
+    [
+      "servicio_adicional",
+      "servicio_adicional_pkey",
+      "CREATE UNIQUE INDEX servicio_adicional_pkey ON public.servicio_adicional USING btree (codigo)"
+    ],
+    [
+      "socio",
+      "socio_pkey",
+      "CREATE UNIQUE INDEX socio_pkey ON public.socio USING btree (cedula)"
+    ],
+    [
+      "socio",
+      "ux_socio_correo",
+      "CREATE UNIQUE INDEX ux_socio_correo ON public.socio USING btree (lower((correo)::text))"
+    ],
+    [
+      "token_recuperacion",
+      "ix_token_recuperacion_socio",
+      "CREATE INDEX ix_token_recuperacion_socio ON public.token_recuperacion USING btree (cedula_socio)"
+    ],
+    [
+      "token_recuperacion",
+      "token_recuperacion_pkey",
+      "CREATE UNIQUE INDEX token_recuperacion_pkey ON public.token_recuperacion USING btree (token_hash)"
+    ]
+  ],
+  "tables": [
+    "cat_estado_cuenta_socio",
+    "cat_tipo_membresia",
+    "cat_estado_membresia",
+    "cat_parentesco",
+    "cat_relacion_invitado",
+    "cat_tipo_instalacion",
+    "cat_estado_reserva",
+    "cat_motivo_bloqueo",
+    "cat_rol_admin",
+    "cat_permiso",
+    "cat_tipo_cargo",
+    "cat_estado_cargo",
+    "cat_tipo_notificacion",
+    "cat_estado_envio",
+    "rol_permiso",
+    "administrador",
+    "socio",
+    "token_recuperacion",
+    "membresia",
+    "historial_membresia",
+    "beneficiario",
+    "instalacion",
+    "servicio_adicional",
+    "bloqueo_instalacion",
+    "reserva",
+    "reserva_servicio",
+    "invitado",
+    "invitacion",
+    "estado_cuenta",
+    "cargo",
+    "plantilla_notificacion",
+    "notificacion",
+    "v_estado_cuenta_resumen",
+    "v_socios_morosos",
+    "v_invitados_esperados",
+    "v_uso_instalaciones",
+    "v_ocupacion_franja"
+  ],
+  "functions": [
+    "fn_historial_membresia",
+    "fn_validar_beneficiario",
+    "fn_validar_reserva",
+    "fn_validar_limite_invitados",
+    "fn_marcar_cargos_vencidos"
+  ]
+}

@@ -80,13 +80,10 @@
     origen.addEventListener("input", revisar);
   });
 
-  // 5. Botón de Registrar ingreso en Recepción (cambia estado visualmente en demo)
-  document.querySelectorAll("[data-registrar-ingreso]").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      var span = document.createElement("span");
-      span.className = "badge badge--exito";
-      span.textContent = "Ingresó";
-      btn.replaceWith(span);
+  // Las acciones persisten en el servidor, no se simulan visualmente.
+  document.querySelectorAll("form[data-confirmar]").forEach(function (form) {
+    form.addEventListener("submit", function (event) {
+      if (!window.confirm(form.dataset.confirmar)) event.preventDefault();
     });
   });
 })();

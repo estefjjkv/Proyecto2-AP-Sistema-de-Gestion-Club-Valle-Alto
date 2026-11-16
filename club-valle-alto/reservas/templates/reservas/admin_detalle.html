@@ -1,104 +1,95 @@
 {% extends 'base_admin.html' %}
-{% block titulo %}Administrar reserva{% endblock %}
-{% block categoria %}RESERVAS / DETALLE{% endblock %}
-{% block encabezado %}Administrar reserva{% endblock %}
+{% load static %}
+{% block titulo %}{% if reserva %}Administrar reserva{% else %}Crear reserva{% endif %}{% endblock %}
+{% block categoria %}RESERVAS / {% if reserva %}DETALLE{% else %}NUEVA{% endif %}{% endblock %}
+{% block encabezado %}{% if reserva %}Administrar reserva{% else %}Crear reserva{% endif %}{% endblock %}
 {% block contenido %}
 <div class="grid-principal-lateral">
   <div class="tarjeta">
     <div class="tarjeta__cabecera">
       <div>
         <h2 class="tarjeta__titulo">Detalle de la reserva</h2>
-        <p class="tarjeta__subtitulo">Solicitud R-00428 · Registrada el 15/10/2026</p>
+        <p class="tarjeta__subtitulo">
+          {% if reserva %}Reserva #{{ reserva.pk }} · Registrada el {{ reserva.fecha_creacion|date:"d/m/Y" }} · Socio: {{ reserva.socio.nombre_completo }} ({{ reserva.socio_id }})
+          {% else %}La reserva creada por administración queda confirmada y se notifica al socio.{% endif %}
+        </p>
       </div>
-      <span class="badge badge--aviso">Pendiente</span>
+      {% if reserva %}{% include 'reservas/_estado.html' with estado=reserva.estado_id %}{% endif %}
     </div>
 
-    <form class="formulario" method="post" action="/reservas/calendario/" novalidate>
+    <form class="formulario" method="post" novalidate>
       {% csrf_token %}
-      <div class="fila-campos">
-        <div class="campo">
-          <label for="id_res_socio">Socio titular</label>
-          <input id="id_res_socio" type="text" value="Carlos Pérez">
-        </div>
-        <div class="campo">
-          <label for="id_res_inst">Instalación</label>
-          <select id="id_res_inst">
-            <option selected>Piscina</option>
-            <option>Cancha de tenis</option>
-            <option>Cancha de golf</option>
-            <option>Salón de eventos</option>
-          </select>
+      {% include 'reservas/_campos_reserva.html' %}
+
+      {% if reserva %}
+      <div class="tarjeta--suave" style="margin-bottom:1rem">
+        <h3 style="font-size:0.92rem;font-weight:700;margin-bottom:0.4rem">Invitados asociados</h3>
+        <div style="font-size:0.86rem">
+          {% for i in invitados %}{{ i.invitado.nombre_completo }} · {{ i.relacion }}{% if not forloop.last %} / {% endif %}{% empty %}Sin invitados registrados para esta fecha e instalación.{% endfor %}
         </div>
       </div>
+      {% endif %}
 
-      <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:1rem">
-        <div class="campo">
-          <label for="id_res_fecha">Fecha</label>
-          <input id="id_res_fecha" type="text" value="20/10/2026">
-        </div>
-        <div class="campo">
-          <label for="id_res_ini">Hora inicio</label>
-          <input id="id_res_ini" type="text" value="10:00">
-        </div>
-        <div class="campo">
-          <label for="id_res_fin">Hora fin</label>
-          <input id="id_res_fin" type="text" value="11:00">
-        </div>
+      <p style="color:var(--texto-suave);font-size:0.82rem">Validaciones: horario habilitado, aforo permitido, sin bloqueos ni traslapes y membresía vigente.</p>
+
+      {% if not reserva %}
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:0.75rem">
+        <button type="submit" class="boton">Crear reserva confirmada</button>
+        <a href="{% url 'reservas:calendario' %}" class="boton boton--suave">Volver al calendario</a>
       </div>
-
-      <div class="fila-campos">
-        <div class="campo">
-          <label for="id_res_cant">Cantidad de personas</label>
-          <input id="id_res_cant" type="number" value="3">
-        </div>
-        <div class="campo">
-          <label for="id_res_serv">Servicio adicional</label>
-          <select id="id_res_serv">
-            <option selected>Ninguno</option>
-            <option>Alquiler de toallas</option>
-          </select>
-        </div>
+      {% elif vigente %}
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:0.75rem">
+        {% if reserva.estado_id == 'PENDIENTE' %}<button type="submit" name="accion" value="confirmar" class="boton">Confirmar reserva</button>{% endif %}
+        <button type="submit" name="accion" value="guardar" class="boton boton--suave">Guardar cambios</button>
+        <button type="button" class="boton boton--suave" data-abrir-modal="modal-cancelar">Cancelar reserva</button>
+        <a href="{% url 'reservas:calendario' %}?semana={{ reserva.fecha|date:'Y-m-d' }}" class="boton boton--contorno">Volver al calendario</a>
       </div>
-
-      <div class="tarjeta--suave" style="margin-top:0.4rem">
-        <h3 style="font-size:0.9rem;font-weight:700;margin-bottom:0.35rem">Invitados asociados</h3>
-        <div style="color:var(--texto-suave);font-size:0.84rem">
-          Lucía Pérez · Familiar / Andrés Solano · Amigo
-        </div>
-      </div>
-
-      <p style="color:var(--verde-medio);font-size:0.82rem;font-weight:700;margin:0.4rem 0">
-        Validaciones: horario habilitado, aforo permitido y sin traslapes.
-      </p>
-
-      <div style="display:flex;flex-wrap:wrap;gap:0.85rem;margin-top:0.5rem">
-        <button type="submit" class="boton" style="min-width:165px">Confirmar reserva</button>
-        <button type="submit" class="boton boton--suave" style="min-width:155px;color:var(--verde-club)">Guardar cambios</button>
-        <a href="/reservas/calendario/" class="boton boton--suave" style="min-width:155px;color:var(--verde-club)">Cancelar reserva</a>
-      </div>
+      {% else %}
+      <p style="margin-top:0.75rem"><a href="{% url 'reservas:calendario' %}?semana={{ reserva.fecha|date:'Y-m-d' }}">Volver al calendario</a></p>
+      {% endif %}
     </form>
   </div>
 
-  <div style="display:grid;gap:1.25rem">
+  <div style="display:grid;gap:1.5rem;align-content:start">
     <div class="tarjeta">
       <h2 class="tarjeta__titulo">Disponibilidad del horario</h2>
-      <p class="tarjeta__subtitulo" style="margin-bottom:1rem">Piscina · 20 de octubre</p>
-
-      <div style="display:grid;gap:0.65rem">
-        <div class="tarjeta--suave" style="padding:0.75rem 1rem;font-size:0.84rem">09:00 – 10:00 Disponible</div>
-        <div class="tarjeta--suave" style="padding:0.75rem 1rem;font-size:0.84rem">10:00 – 11:00 Solicitada</div>
-        <div class="tarjeta--suave" style="padding:0.75rem 1rem;font-size:0.84rem">11:00 – 12:00 Disponible</div>
-      </div>
+      {% include 'reservas/_disponibilidad.html' %}
     </div>
 
+    {% if reserva %}
     <div class="tarjeta">
-      <h2 class="tarjeta__titulo" style="margin-bottom:0.85rem">Registro de cambios</h2>
-      <div style="color:var(--verde-medio);font-size:0.8rem;font-weight:700;margin-bottom:0.2rem">15/10/2026</div>
-      <div style="font-size:0.86rem;margin-bottom:1.25rem">Reserva creada por el socio.</div>
-      <p style="color:var(--texto-suave);font-size:0.78rem;margin:0;line-height:1.45">
-        Un cambio confirmado puede<br>generar un correo automático.
-      </p>
+      <h2 class="tarjeta__titulo" style="margin-bottom:1rem">Registro de cambios</h2>
+      {% for h in historial %}
+      <div style="margin-bottom:0.9rem">
+        <div style="color:var(--texto-suave);font-size:0.78rem">{{ h.fecha|date:"d/m/Y H:i" }} · {{ h.get_actor_tipo_display }}{% if h.actor_nombre %}: {{ h.actor_nombre }}{% endif %}</div>
+        <div style="font-size:0.88rem"><strong>{{ h.get_accion_display }}</strong>{% if h.detalle %}. {{ h.detalle }}{% endif %}</div>
+      </div>
+      {% empty %}
+      <p style="color:var(--texto-suave);font-size:0.86rem">Sin cambios registrados.</p>
+      {% endfor %}
+      <p style="color:var(--texto-suave);font-size:0.8rem;margin-top:0.5rem">Confirmar, modificar o cancelar envía un correo automático al socio.</p>
     </div>
+    {% endif %}
   </div>
 </div>
+
+{% if reserva and vigente %}
+<div class="modal-fondo" id="modal-cancelar" role="dialog" aria-modal="true" aria-labelledby="titulo-cancelar">
+  <div class="modal modal--confirmacion">
+    <h2 class="modal__titulo" id="titulo-cancelar" style="margin-bottom:0.75rem">¿Cancelar la reserva #{{ reserva.pk }}?</h2>
+    <form method="post" action="{% url 'reservas:admin_cancelar' reserva.pk %}" class="formulario">
+      {% csrf_token %}
+      <div class="campo">
+        <label for="id_motivo">Motivo (se incluye en el correo al socio)</label>
+        <input id="id_motivo" name="motivo" type="text" maxlength="200">
+      </div>
+      <div class="modal__acciones" style="margin-top:1.25rem">
+        <button type="button" class="boton boton--contorno" data-cerrar-modal>No, volver</button>
+        <button type="submit" class="boton boton--peligro">Sí, cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endif %}
 {% endblock %}
+{% block js_extra %}<script src="{% static 'reservas/reserva_form.js' %}" defer></script>{% endblock %}

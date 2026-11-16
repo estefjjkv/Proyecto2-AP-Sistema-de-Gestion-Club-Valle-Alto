@@ -1,0 +1,7 @@
+{% load cobros %}
+<form method="get" class="campo" style="min-width:260px;margin:0">
+  <select name="periodo" aria-label="Seleccionar periodo" onchange="this.form.submit()">
+    {% for r in resumenes %}<option value="{{ r.periodo|date:'Y-m-d' }}"{% if r.periodo == detalle.periodo %} selected{% endif %}>Periodo: {{ r.periodo|periodo }}</option>{% endfor %}
+  </select>
+  <noscript><button type="submit" class="boton boton--suave">Ver</button></noscript>
+</form>

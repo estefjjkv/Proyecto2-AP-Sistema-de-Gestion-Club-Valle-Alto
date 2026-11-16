@@ -8,73 +8,33 @@
 
 <div class="tarjeta">
   <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.35rem">
-    <div class="tabs" data-tab-grupo style="flex:1">
-      <button type="button" class="tabs__item activo" data-tab="activa">Activas</button>
-      <button type="button" class="tabs__item" data-tab="finalizada">Finalizadas</button>
-      <button type="button" class="tabs__item" data-tab="cancelada">Canceladas</button>
-    </div>
-    <a href="/reservas/nueva/" class="boton" style="min-width:170px">Nueva reserva</a>
+    <nav class="tabs" style="flex:1" aria-label="Estado de las reservas">
+      <a href="?estado=activas" class="tabs__item{% if pestaña == 'activas' %} activo{% endif %}"{% if pestaña == 'activas' %} aria-current="page"{% endif %}>Activas ({{ conteos.activas }})</a>
+      <a href="?estado=finalizadas" class="tabs__item{% if pestaña == 'finalizadas' %} activo{% endif %}"{% if pestaña == 'finalizadas' %} aria-current="page"{% endif %}>Finalizadas ({{ conteos.finalizadas }})</a>
+      <a href="?estado=canceladas" class="tabs__item{% if pestaña == 'canceladas' %} activo{% endif %}"{% if pestaña == 'canceladas' %} aria-current="page"{% endif %}>Canceladas ({{ conteos.canceladas }})</a>
+    </nav>
+    <a href="{% url 'reservas:nueva' %}" class="boton" style="min-width:160px">Nueva reserva</a>
   </div>
 
   <div class="tabla-contenedor">
     <table class="tabla">
       <thead>
-        <tr>
-          <th>Instalación</th>
-          <th>Fecha</th>
-          <th>Horario</th>
-          <th>Personas</th>
-          <th>Servicios</th>
-          <th>Estado</th>
-          <th>Acciones</th>
-        </tr>
+        <tr><th>Instalación</th><th>Fecha</th><th>Horario</th><th>Personas</th><th>Servicios</th><th>Estado</th><th>Acciones</th></tr>
       </thead>
       <tbody>
-        <tr data-fila-estado="activa">
-          <td>Cancha de tenis</td>
-          <td>18/10/2026</td>
-          <td>08:00 - 10:00</td>
-          <td>2</td>
-          <td>Alquiler de raquetas</td>
-          <td><span class="badge badge--exito">Confirmada</span></td>
-          <td><a href="/reservas/detalle/" style="font-weight:600">Ver detalle</a></td>
+        {% for r in reservas %}
+        <tr>
+          <td>{{ r.instalacion.nombre }}</td>
+          <td>{{ r.fecha|date:"d/m/Y" }}</td>
+          <td>{{ r.hora_inicio|time:"H:i" }} - {{ r.hora_fin|time:"H:i" }}</td>
+          <td>{{ r.numero_personas }}</td>
+          <td>{% for l in r.servicios.all %}{{ l.servicio.nombre }}{% if not forloop.last %}, {% endif %}{% empty %}Ninguno{% endfor %}</td>
+          <td>{% include 'reservas/_estado.html' with estado=r.estado_id %}</td>
+          <td><a href="{% url 'reservas:detalle' r.pk %}" style="color:var(--verde-medio);font-weight:700">Ver detalle</a></td>
         </tr>
-        <tr data-fila-estado="activa">
-          <td>Piscina</td>
-          <td>22/10/2026</td>
-          <td>14:00 - 16:00</td>
-          <td>4</td>
-          <td>Ninguno</td>
-          <td><span class="badge badge--exito">Confirmada</span></td>
-          <td><a href="/reservas/detalle/" style="font-weight:600">Ver detalle</a></td>
-        </tr>
-        <tr data-fila-estado="activa">
-          <td>Salón de eventos</td>
-          <td>02/11/2026</td>
-          <td>18:00 - 23:00</td>
-          <td>80</td>
-          <td>Montaje de mobiliario</td>
-          <td><span class="badge badge--aviso">Pendiente</span></td>
-          <td><a href="/reservas/detalle/" style="font-weight:600">Ver detalle</a></td>
-        </tr>
-        <tr data-fila-estado="finalizada" style="display:none">
-          <td>Cancha de golf</td>
-          <td>05/10/2026</td>
-          <td>07:00 - 10:00</td>
-          <td>4</td>
-          <td>Alquiler de carrito y palos</td>
-          <td><span class="badge badge--neutro">Finalizada</span></td>
-          <td><a href="/reservas/detalle/" style="font-weight:600">Ver detalle</a></td>
-        </tr>
-        <tr data-fila-estado="cancelada" style="display:none">
-          <td>Cancha de tenis</td>
-          <td>01/10/2026</td>
-          <td>16:00 - 18:00</td>
-          <td>2</td>
-          <td>Ninguno</td>
-          <td><span class="badge badge--error">Cancelada</span></td>
-          <td><a href="/reservas/detalle/" style="font-weight:600">Ver detalle</a></td>
-        </tr>
+        {% empty %}
+        <tr><td colspan="7">{% if pestaña == 'activas' %}No tiene reservas activas. <a href="{% url 'reservas:nueva' %}">Haga una nueva reserva</a>.{% else %}No hay reservas en esta categoría.{% endif %}</td></tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>

@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block titulo %}Módulo pendiente de integración{% endblock %}
+{% block encabezado %}Módulo pendiente de integración{% endblock %}
+{% block contenido %}
+
+<div class="tarjeta"><h1>{{ modulo|capfirst }}</h1><p>Este módulo corresponde al otro backend del equipo. Su pantalla original se conserva en el proyecto, pero todavía no está conectada a operaciones reales.</p><a class="boton" href="{% url 'usuarios:login' %}">Volver a mi inicio</a></div>
+
+{% endblock %}

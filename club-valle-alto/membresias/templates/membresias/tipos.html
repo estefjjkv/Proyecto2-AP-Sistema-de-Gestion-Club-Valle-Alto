@@ -1,0 +1,9 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Tipos de membresía{% endblock %}
+{% block encabezado %}Tipos de membresía{% endblock %}
+{% block contenido %}
+
+<div class="tarjeta tabla-contenedor"><table class="tabla"><thead><tr><th>Tipo</th><th>Cuota</th><th>Beneficiarios</th><th>Invitados/mes</th><th>Código</th><th>Acción</th></tr></thead><tbody>{% for tipo in tipos %}<tr><td>{{ tipo }}</td><td>₡{{ tipo.cuota }}</td><td>{{ tipo.limite_beneficiarios }}</td><td>{{ tipo.limite_invitados }}</td><td>{{ tipo.codigo }}</td><td><a href="{% url 'membresias:tipo_editar' tipo.pk %}">Editar</a></td></tr>{% empty %}<tr><td colspan="6">Sin tipos registrados.</td></tr>{% endfor %}</tbody></table></div>
+<div class="tarjeta formulario-limitado seccion"><h2>{% if editando %}Editar {{ editando }}{% else %}Nuevo tipo{% endif %}</h2><form method="post" class="formulario" novalidate>{% csrf_token %}{% include 'includes/form_fields.html' %}<button class="boton" type="submit">Guardar</button></form>{% if editando %}<a href="{% url 'membresias:tipos' %}">Crear otro tipo</a>{% endif %}</div>
+
+{% endblock %}

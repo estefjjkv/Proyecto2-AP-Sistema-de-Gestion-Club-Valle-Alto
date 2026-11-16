@@ -1,0 +1,6 @@
+{% extends 'base_auth.html' %}
+{% block titulo %}Acceso restringido{% endblock %}
+{% block encabezado %}Acceso restringido{% endblock %}
+{% block contenido %}
+<div class="auth-caja"><h2>Acceso restringido</h2><p>Su cuenta no tiene permiso para realizar esta acción.</p><a href="{% url 'usuarios:login' %}">Volver a mi inicio</a></div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Editar plantilla{% endblock %}
+{% block categoria %}NOTIFICACIONES / PLANTILLAS{% endblock %}
+{% block encabezado %}Editar plantilla de notificación{% endblock %}
+{% block contenido %}
+<div class="grid-principal-lateral">
+  <div class="tarjeta">
+    <h2 class="tarjeta__titulo">{{ plantilla.tipo }}</h2>
+    <p class="tarjeta__subtitulo" style="margin-bottom:1.15rem">
+      {% if plantilla.admin %}Última edición: {{ plantilla.admin.nombre_completo }}, {{ plantilla.fecha_actualizacion|date:"d/m/Y H:i" }}{% else %}Plantilla inicial del sistema{% endif %}
+    </p>
+    <form class="formulario" method="post" novalidate>
+      {% csrf_token %}
+      {% include 'includes/form_fields.html' %}
+      <div class="modal__acciones" style="justify-content:flex-end">
+        <a href="{% url 'notificaciones:centro' %}#plantillas" class="boton boton--contorno">Cancelar</a>
+        <button type="submit" class="boton">Guardar plantilla</button>
+      </div>
+    </form>
+  </div>
+
+  <div style="display:grid;gap:1.5rem;align-content:start">
+    <div class="tarjeta">
+      <h2 class="tarjeta__titulo" style="margin-bottom:0.75rem">Marcadores disponibles</h2>
+      <p class="tarjeta__subtitulo" style="margin-bottom:0.75rem">Se reemplazan al enviar el correo:</p>
+      {% for clave, descripcion in marcadores.items %}
+      <div style="margin-bottom:0.6rem;font-size:0.88rem"><code>{% templatetag openvariable %}{{ clave }}{% templatetag closevariable %}</code> — {{ descripcion }}</div>
+      {% endfor %}
+    </div>
+    {% if ejemplo %}
+    <div class="tarjeta">
+      <h2 class="tarjeta__titulo" style="margin-bottom:0.75rem">Vista previa</h2>
+      <div class="tarjeta--suave">
+        <div style="font-weight:700;margin-bottom:0.35rem">{{ ejemplo.0 }}</div>
+        <div style="white-space:pre-line;font-size:0.86rem">{{ ejemplo.1 }}</div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

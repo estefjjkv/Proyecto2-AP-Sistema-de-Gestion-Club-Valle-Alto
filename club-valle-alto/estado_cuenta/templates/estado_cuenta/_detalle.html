@@ -1,0 +1,40 @@
+{% load cobros %}
+<div class="grid-3" style="margin-bottom:1.5rem">
+  <div class="tarjeta">
+    <div class="kpi-etiqueta">Total del periodo</div>
+    <div class="kpi-valor" style="margin-bottom:0">{{ detalle.total|colones }}</div>
+  </div>
+  <div class="tarjeta">
+    <div class="kpi-etiqueta">Pagado</div>
+    <div class="kpi-valor kpi-valor--verde" style="margin-bottom:0">{{ detalle.pagado|colones }}</div>
+  </div>
+  <div class="tarjeta">
+    <div class="kpi-etiqueta">Pendiente</div>
+    <div class="kpi-valor kpi-valor--naranja" style="margin-bottom:0">{{ detalle.pendiente|colones }}</div>
+  </div>
+</div>
+
+<div class="tarjeta">
+  <div class="tarjeta__cabecera">
+    <h2 class="tarjeta__titulo">Rubros del periodo</h2>
+    <span style="color:var(--texto-suave);font-size:0.86rem">Fecha límite: {{ detalle.estado.fecha_limite_pago|date:"d/m/Y" }}</span>
+  </div>
+  <div class="tabla-contenedor">
+    <table class="tabla">
+      <thead><tr><th>Concepto</th><th>Fecha límite</th><th>Monto</th><th>Estado</th>{% if admin %}<th>Pago</th>{% endif %}</tr></thead>
+      <tbody>
+        {% for c in detalle.cargos %}
+        <tr>
+          <td>{{ c.descripcion }}</td>
+          <td>{{ c.fecha_limite_pago|date:"d/m/Y" }}</td>
+          <td>{{ c.monto|colones }}</td>
+          <td>{% estado_badge c.estado_mostrado %}{% if c.fecha_pago %}<div style="color:var(--texto-suave);font-size:0.78rem">{{ c.fecha_pago|date:"d/m/Y" }}</div>{% endif %}</td>
+          {% if admin %}<td style="font-size:0.84rem">{% if c.pago_detalle %}#{{ c.pago_detalle.pago_id }}{% if c.pago_detalle.pago.referencia %} · {{ c.pago_detalle.pago.referencia }}{% endif %}{% else %}—{% endif %}</td>{% endif %}
+        </tr>
+        {% empty %}
+        <tr><td colspan="{% if admin %}5{% else %}4{% endif %}">Sin rubros en este periodo.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>

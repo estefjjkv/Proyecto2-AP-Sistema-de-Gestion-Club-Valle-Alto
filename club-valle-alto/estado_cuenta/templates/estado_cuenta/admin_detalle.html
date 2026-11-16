@@ -1,0 +1,23 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Estado de cuenta de {{ socio.nombre_completo }}{% endblock %}
+{% block categoria %}COBROS / ESTADOS DE CUENTA{% endblock %}
+{% block encabezado %}{{ socio.nombre_completo }}{% endblock %}
+{% block contenido %}
+{% include 'estado_cuenta/_subnav.html' with activo='gestion' %}
+
+<p class="tarjeta__subtitulo" style="margin-bottom:1rem">Cédula {{ socio.cedula }} · {{ socio.correo }}</p>
+
+{% if detalle %}
+<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.35rem">
+  {% include 'estado_cuenta/_selector_periodo.html' %}
+  <div style="display:flex;align-items:center;gap:1rem">
+    <a href="{% url 'estado_cuenta:admin_imprimir' socio.cedula detalle.periodo|date:'Y-m' %}" class="boton boton--contorno" target="_blank" rel="noopener">Versión imprimible</a>
+    {% if detalle.pendiente %}<a href="{% url 'estado_cuenta:pagos' %}?socio={{ socio.cedula|urlencode }}" class="boton">Registrar pago</a>{% endif %}
+  </div>
+</div>
+{% include 'estado_cuenta/_detalle.html' with admin=True %}
+{% else %}
+<div class="tarjeta"><p>El socio no tiene estados de cuenta.</p></div>
+{% endif %}
+<p style="margin-top:1rem"><a href="{% url 'estado_cuenta:gestion' %}">Volver al listado</a></p>
+{% endblock %}

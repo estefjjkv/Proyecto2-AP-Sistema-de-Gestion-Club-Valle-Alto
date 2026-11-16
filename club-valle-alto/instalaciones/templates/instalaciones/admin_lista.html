@@ -3,107 +3,50 @@
 {% block categoria %}INSTALACIONES{% endblock %}
 {% block encabezado %}Gestión de instalaciones{% endblock %}
 {% block contenido %}
-<div class="subnav-admin">
-  <a href="/instalaciones/gestion/" class="activo">Espacios del club</a>
-  <a href="/instalaciones/bloqueos/">Bloqueo de instalaciones</a>
-  <a href="/instalaciones/ocupacion/">Control de ocupación</a>
-  <a href="/instalaciones/reportes/">Reportes de instalaciones</a>
-</div>
+{% include 'instalaciones/_subnav.html' with activo='gestion' %}
 
 <div class="tarjeta">
-  <div style="margin-bottom:1.35rem">
-    <h2 class="tarjeta__titulo">Espacios del club</h2>
-    <p class="tarjeta__subtitulo">Gestiona horarios, capacidad y disponibilidad</p>
+  <div style="display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.35rem">
+    <div>
+      <h2 class="tarjeta__titulo">Espacios del club</h2>
+      <p class="tarjeta__subtitulo">Gestiona horarios, capacidad y disponibilidad</p>
+    </div>
+    <a href="{% url 'instalaciones:nueva' %}" class="boton">+ Nueva instalación</a>
   </div>
 
   <div class="grid-2">
+    {% for t in tarjetas %}
     <div class="tarjeta" style="padding:1.35rem">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.15rem">
         <div style="display:flex;gap:1rem">
-          <div style="width:58px;height:58px;border-radius:12px;background:#E5F0EA;color:var(--verde-medio);font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-            TE
+          <div style="width:58px;height:58px;border-radius:12px;background:#E5F0EA;color:var(--verde-medio);font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center;flex-shrink:0" aria-hidden="true">
+            {{ t.icono }}
           </div>
           <div>
-            <h3 style="font-size:1.12rem;font-weight:700;margin-bottom:0.35rem">Cancha de tenis</h3>
-            <div style="color:var(--texto-suave);font-size:0.82rem;margin-bottom:0.2rem">Horario: 06:00 - 21:00</div>
-            <div style="color:var(--texto-suave);font-size:0.82rem">Aforo máximo: 4 personas</div>
+            <h3 style="font-size:1.12rem;font-weight:700;margin-bottom:0.35rem">{{ t.instalacion.nombre }}</h3>
+            <div style="color:var(--texto-suave);font-size:0.82rem;margin-bottom:0.2rem">{{ t.instalacion.codigo }} · {{ t.instalacion.tipo }}</div>
+            <div style="color:var(--texto-suave);font-size:0.82rem;margin-bottom:0.2rem">Horario: {{ t.instalacion.hora_apertura|time:"H:i" }} - {{ t.instalacion.hora_cierre|time:"H:i" }}</div>
+            <div style="color:var(--texto-suave);font-size:0.82rem">Aforo máximo: {{ t.instalacion.aforo_maximo }} persona{{ t.instalacion.aforo_maximo|pluralize }}</div>
           </div>
         </div>
+        {% if not t.instalacion.activa %}
+        <span class="badge badge--error">Inactiva</span>
+        {% elif t.bloqueo %}
+        <span class="badge badge--aviso">{{ t.bloqueo.motivo }}</span>
+        {% else %}
         <span class="badge badge--exito">Disponible</span>
+        {% endif %}
       </div>
       <hr style="border:0;border-top:1px solid #EAEeea;margin:1rem 0 0.85rem">
-      <div style="display:flex;gap:2.25rem;font-size:0.82rem;font-weight:700">
-        <a href="/reservas/calendario/" style="color:var(--verde-medio)">Ver reservas</a>
-        <a href="/instalaciones/ocupacion/" style="color:var(--verde-medio)">Editar instalación</a>
-        <a href="/instalaciones/bloqueos/" style="color:var(--verde-medio)">Bloquear</a>
+      <div style="display:flex;flex-wrap:wrap;gap:2.25rem;font-size:0.82rem;font-weight:700">
+        <a href="/reservas/calendario/?instalacion={{ t.instalacion.codigo|urlencode }}" style="color:var(--verde-medio)">Ver reservas</a>
+        <a href="{% url 'instalaciones:editar' t.instalacion.codigo %}" style="color:var(--verde-medio)">Editar instalación</a>
+        <a href="{% url 'instalaciones:bloqueos' %}?instalacion={{ t.instalacion.codigo|urlencode }}" style="color:var(--verde-medio)">Bloquear</a>
       </div>
     </div>
-
-    <div class="tarjeta" style="padding:1.35rem">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.15rem">
-        <div style="display:flex;gap:1rem">
-          <div style="width:58px;height:58px;border-radius:12px;background:#E5F0EA;color:var(--verde-medio);font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-            GO
-          </div>
-          <div>
-            <h3 style="font-size:1.12rem;font-weight:700;margin-bottom:0.35rem">Cancha de golf</h3>
-            <div style="color:var(--texto-suave);font-size:0.82rem;margin-bottom:0.2rem">Horario: 06:00 - 18:00</div>
-            <div style="color:var(--texto-suave);font-size:0.82rem">Aforo máximo: 40 personas</div>
-          </div>
-        </div>
-        <span class="badge badge--exito">Disponible</span>
-      </div>
-      <hr style="border:0;border-top:1px solid #EAEeea;margin:1rem 0 0.85rem">
-      <div style="display:flex;gap:2.25rem;font-size:0.82rem;font-weight:700">
-        <a href="/reservas/calendario/" style="color:var(--verde-medio)">Ver reservas</a>
-        <a href="/instalaciones/ocupacion/" style="color:var(--verde-medio)">Editar instalación</a>
-        <a href="/instalaciones/bloqueos/" style="color:var(--verde-medio)">Bloquear</a>
-      </div>
-    </div>
-
-    <div class="tarjeta" style="padding:1.35rem">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.15rem">
-        <div style="display:flex;gap:1rem">
-          <div style="width:58px;height:58px;border-radius:12px;background:#E5F0EA;color:var(--verde-medio);font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-            PI
-          </div>
-          <div>
-            <h3 style="font-size:1.12rem;font-weight:700;margin-bottom:0.35rem">Piscina</h3>
-            <div style="color:var(--texto-suave);font-size:0.82rem;margin-bottom:0.2rem">Horario: 07:00 - 20:00</div>
-            <div style="color:var(--texto-suave);font-size:0.82rem">Aforo máximo: 60 personas</div>
-          </div>
-        </div>
-        <span class="badge badge--exito">Disponible</span>
-      </div>
-      <hr style="border:0;border-top:1px solid #EAEeea;margin:1rem 0 0.85rem">
-      <div style="display:flex;gap:2.25rem;font-size:0.82rem;font-weight:700">
-        <a href="/reservas/calendario/" style="color:var(--verde-medio)">Ver reservas</a>
-        <a href="/instalaciones/ocupacion/" style="color:var(--verde-medio)">Editar instalación</a>
-        <a href="/instalaciones/bloqueos/" style="color:var(--verde-medio)">Bloquear</a>
-      </div>
-    </div>
-
-    <div class="tarjeta" style="padding:1.35rem">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.15rem">
-        <div style="display:flex;gap:1rem">
-          <div style="width:58px;height:58px;border-radius:12px;background:#E5F0EA;color:var(--verde-medio);font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-            EV
-          </div>
-          <div>
-            <h3 style="font-size:1.12rem;font-weight:700;margin-bottom:0.35rem">Salón de eventos</h3>
-            <div style="color:var(--texto-suave);font-size:0.82rem;margin-bottom:0.2rem">Horario: 08:00 - 23:00</div>
-            <div style="color:var(--texto-suave);font-size:0.82rem">Aforo máximo: 150 personas</div>
-          </div>
-        </div>
-        <span class="badge badge--aviso">Mantenimiento</span>
-      </div>
-      <hr style="border:0;border-top:1px solid #EAEeea;margin:1rem 0 0.85rem">
-      <div style="display:flex;gap:2.25rem;font-size:0.82rem;font-weight:700">
-        <a href="/reservas/calendario/" style="color:var(--verde-medio)">Ver reservas</a>
-        <a href="/instalaciones/ocupacion/" style="color:var(--verde-medio)">Editar instalación</a>
-        <a href="/instalaciones/bloqueos/" style="color:var(--verde-medio)">Bloquear</a>
-      </div>
-    </div>
+    {% empty %}
+    <p>No hay instalaciones registradas. Cree la primera con el botón «Nueva instalación».</p>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}

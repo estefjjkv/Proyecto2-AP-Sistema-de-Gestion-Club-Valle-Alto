@@ -1,0 +1,9 @@
+{% extends 'base_auth.html' %}
+{% block titulo %}Solicitud recibida{% endblock %}
+{% block encabezado %}Solicitud recibida{% endblock %}
+{% block contenido %}
+
+<div class="auth-caja"><h2>Solicitud recibida</h2><p>Si existe una cuenta activa asociada al correo indicado, recibirá un enlace para restablecer su contraseña.</p>
+<p class="enlace-final"><a href="{% url 'usuarios:login' %}">Volver al inicio de sesión</a></p></div>
+
+{% endblock %}

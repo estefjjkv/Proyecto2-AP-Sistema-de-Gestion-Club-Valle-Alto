@@ -1,0 +1,11 @@
+{% extends 'base_auth.html' %}
+{% block titulo %}Nueva contraseña{% endblock %}
+{% block encabezado %}Nueva contraseña{% endblock %}
+{% block contenido %}
+
+<div class="auth-caja"><h2>Nueva contraseña</h2>
+{% if validlink %}<form method="post" class="formulario" novalidate>{% csrf_token %}
+{% include 'includes/form_fields.html' %}<button class="boton" type="submit">Guardar contraseña</button></form>
+{% else %}<p>El enlace no es válido o ya venció.</p><a href="{% url 'usuarios:recuperar' %}">Solicitar otro enlace</a>{% endif %}</div>
+
+{% endblock %}

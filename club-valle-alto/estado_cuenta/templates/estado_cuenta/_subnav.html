@@ -1,0 +1,4 @@
+<div class="subnav-admin">
+  <a href="{% url 'estado_cuenta:gestion' %}"{% if activo == 'gestion' %} class="activo"{% endif %}>Estados de cuenta por socio</a>
+  <a href="{% url 'estado_cuenta:pagos' %}"{% if activo == 'pagos' %} class="activo"{% endif %}>Pagos y morosidad</a>
+</div>

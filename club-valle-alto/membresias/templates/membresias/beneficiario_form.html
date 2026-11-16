@@ -1,0 +1,2 @@
+{% extends base_template %}{% block titulo %}Beneficiario{% endblock %}{% block encabezado %}Beneficiario{% endblock %}{% block contenido %}<div class="tarjeta formulario-limitado"><h1>Datos del beneficiario</h1>
+<form method="post" class="formulario" novalidate>{% csrf_token %}{% include 'includes/form_fields.html' %}<button class="boton" type="submit">Guardar</button></form></div>{% endblock %}

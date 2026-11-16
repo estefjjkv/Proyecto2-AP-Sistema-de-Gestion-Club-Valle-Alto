@@ -1,0 +1,4 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Cambiar contraseña administrativa{% endblock %}
+{% block encabezado %}Cambiar contraseña administrativa{% endblock %}
+{% block contenido %}<div class="tarjeta formulario-limitado"><h2>{{ cuenta }}</h2><form method="post" class="formulario" novalidate>{% csrf_token %}{% include 'includes/form_fields.html' %}<button class="boton">Guardar contraseña</button></form><p class="enlace-final"><a href="{% url 'administradores:gestion' %}">Volver a administradores</a></p></div>{% endblock %}

@@ -1,13 +1,2 @@
-from django.shortcuts import render, redirect
-
-
-def login_view(request):
-    return render(request, 'usuarios/login.html')
-
-
-def recuperar_view(request):
-    return render(request, 'usuarios/recuperar.html')
-
-
-def salir_view(request):
-    return redirect('usuarios:login')
+from accounts.views import ClubLoginView, recover as recuperar_view, logout_view as salir_view
+login_view = ClubLoginView.as_view()

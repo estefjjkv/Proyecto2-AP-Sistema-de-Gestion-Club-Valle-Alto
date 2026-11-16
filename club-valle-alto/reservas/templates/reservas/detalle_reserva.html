@@ -3,75 +3,89 @@
 {% block contenido %}
 <div class="encabezado-pagina">
   <h1>Detalle de reserva</h1>
-  <p>Reserva #R-1024</p>
+  <p>Reserva #{{ reserva.pk }} · Registrada el {{ reserva.fecha_creacion|date:"d/m/Y" }}</p>
 </div>
 
 <div class="grid-principal-lateral">
   <div class="tarjeta">
     <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.35rem">
       <h2 class="tarjeta__titulo">Información de la reserva</h2>
-      <span class="badge badge--exito">Confirmada</span>
+      {% include 'reservas/_estado.html' with estado=reserva.estado_id %}
     </div>
 
     <div class="grid-2" style="gap:1.35rem;margin-bottom:1.5rem">
       <div>
         <div class="kpi-etiqueta">Instalación</div>
-        <div style="font-size:1.18rem;font-weight:700">Cancha de tenis</div>
+        <div style="font-size:1.18rem;font-weight:700">{{ reserva.instalacion.nombre }}</div>
       </div>
       <div>
         <div class="kpi-etiqueta">Fecha</div>
-        <div style="font-size:1.18rem;font-weight:700">18/10/2026</div>
+        <div style="font-size:1.18rem;font-weight:700">{{ reserva.fecha|date:"d/m/Y" }}</div>
       </div>
       <div>
         <div class="kpi-etiqueta">Horario</div>
-        <div style="font-size:1.18rem;font-weight:700">08:00 - 10:00</div>
+        <div style="font-size:1.18rem;font-weight:700">{{ reserva.hora_inicio|time:"H:i" }} - {{ reserva.hora_fin|time:"H:i" }}</div>
       </div>
       <div>
         <div class="kpi-etiqueta">Personas</div>
-        <div style="font-size:1.18rem;font-weight:700">2 personas</div>
+        <div style="font-size:1.18rem;font-weight:700">{{ reserva.numero_personas }} persona{{ reserva.numero_personas|pluralize }}</div>
       </div>
       <div style="grid-column:1/-1">
         <div class="kpi-etiqueta">Servicios adicionales</div>
-        <div style="font-size:1.18rem;font-weight:700">Alquiler de raquetas</div>
+        <div style="font-size:1.18rem;font-weight:700">
+          {% for l in lineas %}{{ l.servicio.nombre }} (₡{{ l.subtotal|floatformat:0 }}){% if not forloop.last %}, {% endif %}{% empty %}Ninguno{% endfor %}
+        </div>
+        {% if total_servicios %}<div style="color:var(--texto-suave);font-size:0.86rem;margin-top:0.25rem">Se cargarán ₡{{ total_servicios|floatformat:0 }} a su estado de cuenta.</div>{% endif %}
       </div>
     </div>
 
     <hr style="border:0;border-top:1px solid #E5EAE7;margin:1.25rem 0">
     <p style="color:var(--texto-suave);font-size:0.88rem;margin-bottom:1.35rem">
-      Puede modificar o cancelar la reserva mientras no haya iniciado.
+      {% if gestionable %}Puede modificar o cancelar la reserva mientras no haya iniciado.{% if reserva.estado_id == 'PENDIENTE' %} Está pendiente de confirmación por administración.{% endif %}
+      {% elif reserva.estado_id == 'CANCELADA' %}Reserva cancelada el {{ reserva.fecha_cancelacion|date:"d/m/Y H:i" }}.
+      {% else %}Esta reserva ya no se puede modificar.{% endif %}
     </p>
 
     <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem">
-      <a href="/reservas/" class="boton boton--contorno" style="min-width:120px">Volver</a>
+      <a href="{% url 'reservas:mis_reservas' %}" class="boton boton--contorno" style="min-width:120px">Volver</a>
+      {% if gestionable %}
       <div style="display:flex;gap:0.75rem">
         <button type="button" class="boton boton--contorno" data-abrir-modal="modal-cancelar-reserva">Cancelar reserva</button>
-        <a href="/reservas/nueva/" class="boton" style="min-width:140px">Modificar</a>
+        <a href="{% url 'reservas:modificar' reserva.pk %}" class="boton" style="min-width:140px">Modificar</a>
       </div>
+      {% endif %}
     </div>
   </div>
 
   <div class="tarjeta">
     <h2 class="tarjeta__titulo" style="margin-bottom:1rem">Invitados asociados</h2>
+    {% for i in invitados %}
     <div style="margin-bottom:1.25rem">
-      <div style="font-weight:600;font-size:0.96rem">Carlos Rojas Vega</div>
-      <div style="color:var(--texto-suave);font-size:0.86rem">Cédula 2-0456-0789</div>
+      <div style="font-weight:600;font-size:0.96rem">{{ i.invitado.nombre_completo }}</div>
+      <div style="color:var(--texto-suave);font-size:0.86rem">Cédula {{ i.invitado_id }} · {{ i.relacion }}</div>
     </div>
-    <p style="color:var(--texto-suave);font-size:0.86rem;margin:0">Sin más invitados registrados.</p>
+    {% empty %}
+    <p style="color:var(--texto-suave);font-size:0.86rem;margin:0">No hay invitados registrados para esta fecha e instalación.</p>
+    {% endfor %}
+    {% if gestionable %}<p style="margin-top:1rem;font-size:0.86rem"><a href="{% url 'invitados:mis_invitados' %}">Registrar invitados</a></p>{% endif %}
   </div>
 </div>
 
-<!-- Modal ¿Cancelar esta reserva? (abierto por defecto como en el prototipo) -->
-<div class="modal-fondo abierto" id="modal-cancelar-reserva" role="dialog" aria-modal="true" aria-labelledby="titulo-cancelar">
+{% if gestionable %}
+<div class="modal-fondo" id="modal-cancelar-reserva" role="dialog" aria-modal="true" aria-labelledby="titulo-cancelar">
   <div class="modal modal--confirmacion">
     <h2 class="modal__titulo" id="titulo-cancelar" style="margin-bottom:0.75rem">¿Cancelar esta reserva?</h2>
     <p style="color:var(--texto-suave);font-size:0.94rem;line-height:1.55">
-      Se liberará el horario de la Cancha de tenis el<br>
-      18/10/2026 de 08:00 a 10:00.
+      Se liberará el horario de {{ reserva.instalacion.nombre }} el<br>
+      {{ reserva.fecha|date:"d/m/Y" }} de {{ reserva.hora_inicio|time:"H:i" }} a {{ reserva.hora_fin|time:"H:i" }}.
+      {% if total_servicios %}<br>Se eliminará el cargo pendiente de los servicios adicionales.{% endif %}
     </p>
-    <div class="modal__acciones" style="margin-top:1.75rem">
+    <form method="post" action="{% url 'reservas:cancelar' reserva.pk %}" class="modal__acciones" style="margin-top:1.75rem">
+      {% csrf_token %}
       <button type="button" class="boton boton--contorno" data-cerrar-modal style="min-width:140px">No, volver</button>
-      <a href="/reservas/" class="boton boton--peligro" style="min-width:150px">Sí, cancelar</a>
-    </div>
+      <button type="submit" class="boton boton--peligro" style="min-width:150px">Sí, cancelar</button>
+    </form>
   </div>
 </div>
+{% endif %}
 {% endblock %}
