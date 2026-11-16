@@ -1,117 +1,104 @@
 {% extends 'base_admin.html' %}
+{% load cobros %}
 {% block titulo %}Pagos y morosidad{% endblock %}
 {% block categoria %}COBROS / PAGOS{% endblock %}
 {% block encabezado %}Pagos y morosidad{% endblock %}
 {% block contenido %}
-<div class="subnav-admin">
-  <a href="/estado-cuenta/gestion/">Estados de cuenta por socio</a>
-  <a href="/estado-cuenta/pagos/" class="activo">Pagos y morosidad</a>
-</div>
+{% include 'estado_cuenta/_subnav.html' with activo='pagos' %}
 
 <div class="grid-principal-lateral">
-  <div class="tarjeta">
-    <div style="margin-bottom:1.35rem">
-      <h2 class="tarjeta__titulo">Registrar pago manual</h2>
-      <p class="tarjeta__subtitulo">Actualiza el estado de una cuota o cargo</p>
+  <div style="display:grid;gap:1.5rem;align-content:start">
+    <div class="tarjeta">
+      <div style="margin-bottom:1.35rem">
+        <h2 class="tarjeta__titulo">Registrar pago manual</h2>
+        <p class="tarjeta__subtitulo">Marca como pagados los cargos que cubre el pago recibido</p>
+      </div>
+
+      <form method="get" class="formulario" style="margin-bottom:1rem">
+        <div class="campo">
+          <label for="id_elegir_socio">Socio</label>
+          <select id="id_elegir_socio" name="socio" onchange="this.form.submit()">
+            <option value="">Seleccione un socio con saldo pendiente</option>
+            {% for s in form.fields.socio.queryset %}<option value="{{ s.cedula }}"{% if socio and s.cedula == socio.cedula %} selected{% endif %}>{{ s.nombre_completo }} · {{ s.cedula }}</option>{% endfor %}
+          </select>
+          <noscript><button type="submit" class="boton boton--suave" style="margin-top:0.5rem">Ver cargos</button></noscript>
+        </div>
+      </form>
+
+      {% if socio %}
+      <form class="formulario" method="post" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="socio" value="{{ socio.cedula }}">
+        {% if form.errors %}<div class="alerta alerta--error" role="alert">{% if form.non_field_errors %}{{ form.non_field_errors|join:" " }}{% else %}Revise los campos indicados.{% endif %}</div>{% endif %}
+
+        <fieldset class="campo" style="border:0;padding:0">
+          <legend style="font-size:0.84rem;font-weight:700;margin-bottom:0.65rem">{{ form.cargos.label }} *</legend>
+          <div style="display:grid;gap:0.55rem">
+            {% for casilla in form.cargos %}
+            <label style="display:flex;align-items:center;gap:0.55rem;cursor:pointer;font-size:0.92rem">{{ casilla.tag }}<span>{{ casilla.choice_label }}</span></label>
+            {% empty %}
+            <p style="color:var(--texto-suave)">El socio no tiene cargos pendientes.</p>
+            {% endfor %}
+          </div>
+          {% for error in form.cargos.errors %}<p class="error-campo" role="alert">{{ error }}</p>{% endfor %}
+        </fieldset>
+
+        <div class="fila-campos">
+          {% include 'instalaciones/_campo.html' with field=form.fecha_pago %}
+          {% include 'instalaciones/_campo.html' with field=form.referencia %}
+        </div>
+
+        <div class="tarjeta--suave" style="margin-top:0.35rem">
+          <strong style="color:var(--verde-medio);font-size:0.82rem">No se procesan pagos en línea: únicamente se registra su recepción. El monto registrado es la suma de los cargos seleccionados.</strong>
+        </div>
+        <div style="display:flex;justify-content:flex-end;margin-top:0.75rem">
+          <button type="submit" class="boton" style="min-width:190px">Registrar pago</button>
+        </div>
+      </form>
+      {% endif %}
     </div>
 
-    <form class="formulario" method="post" action="/estado-cuenta/pagos/" novalidate>
-      {% csrf_token %}
-      <div class="campo">
-        <label for="id_pago_socio">Socio</label>
-        <select id="id_pago_socio" name="socio">
-          <option selected>Ana Vargas</option>
-          <option>Diego Castro</option>
-          <option>Laura Salas</option>
-          <option>José Jiménez</option>
-        </select>
+    <div class="tarjeta">
+      <h2 class="tarjeta__titulo">Pagos recientes</h2>
+      <div class="tabla-contenedor" style="margin-top:1rem">
+        <table class="tabla">
+          <thead><tr><th>#</th><th>Socio</th><th>Fecha</th><th>Monto</th><th>Cargos</th><th>Referencia</th></tr></thead>
+          <tbody>
+            {% for p in pagos %}
+            <tr>
+              <td>{{ p.pk }}</td>
+              <td>{{ p.socio.nombre_completo }}</td>
+              <td>{{ p.fecha_pago|date:"d/m/Y" }}</td>
+              <td>{{ p.monto|colones }}</td>
+              <td style="font-size:0.82rem">{% for d in p.detalles.all %}{{ d.cargo.descripcion }}{% if not forloop.last %}; {% endif %}{% endfor %}</td>
+              <td style="font-size:0.82rem">{{ p.referencia|default:"—" }}<div style="color:var(--texto-suave)">Registró: {{ p.admin.nombre_completo }}</div></td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6">Aún no se han registrado pagos.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
-
-      <div class="fila-campos">
-        <div class="campo">
-          <label for="id_pago_concepto">Concepto</label>
-          <select id="id_pago_concepto" name="concepto">
-            <option selected>Cuota de membresía</option>
-            <option>Servicio adicional de reserva</option>
-          </select>
-        </div>
-        <div class="campo">
-          <label for="id_pago_periodo">Periodo</label>
-          <select id="id_pago_periodo" name="periodo">
-            <option selected>Octubre 2026</option>
-            <option>Septiembre 2026</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="fila-campos">
-        <div class="campo">
-          <label for="id_pago_monto">Monto registrado</label>
-          <input id="id_pago_monto" type="text" value="₡72 000">
-        </div>
-        <div class="campo">
-          <label for="id_pago_fecha">Fecha de pago</label>
-          <input id="id_pago_fecha" type="text" value="16/10/2026">
-        </div>
-      </div>
-
-      <div class="campo">
-        <label for="id_pago_ref">Referencia u observación</label>
-        <input id="id_pago_ref" type="text" value="Pago recibido por transferencia">
-      </div>
-
-      <div class="tarjeta--suave" style="margin-top:0.35rem">
-        <strong style="color:var(--verde-medio);font-size:0.82rem">
-          No se procesan pagos en línea: únicamente se registra su recepción.
-        </strong>
-      </div>
-
-      <div style="display:flex;justify-content:flex-end;margin-top:0.75rem">
-        <button type="submit" class="boton" style="min-width:190px">Registrar pago</button>
-      </div>
-    </form>
+    </div>
   </div>
 
-  <div class="tarjeta">
+  <div class="tarjeta" style="align-self:start">
     <h2 class="tarjeta__titulo">Socios morosos</h2>
     <p class="tarjeta__subtitulo" style="margin-bottom:1.15rem">Ordenados por tiempo de atraso</p>
-
     <div style="display:grid;gap:0.85rem">
+      {% for m in morosos %}
       <div class="tarjeta--suave">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.25rem">
-          <strong style="font-size:0.9rem">Ana Vargas</strong>
-          <span class="badge badge--error" style="font-size:0.75rem">36 días</span>
+          <strong style="font-size:0.9rem">{{ m.nombre_completo }}</strong>
+          <span class="badge badge--error" style="font-size:0.75rem">{{ m.dias_atraso_max }} día{{ m.dias_atraso_max|pluralize }}</span>
         </div>
-        <div style="color:var(--texto-suave);font-size:0.82rem;margin-bottom:0.35rem">Saldo: ₡87 000</div>
-        <a href="/estado-cuenta/gestion/" style="color:var(--verde-medio);font-size:0.8rem;font-weight:700">Ver estado de cuenta →</a>
+        <div style="color:var(--texto-suave);font-size:0.82rem;margin-bottom:0.35rem">Saldo: {{ m.monto_adeudado|colones }} · {{ m.cargos_atrasados }} cargo{{ m.cargos_atrasados|pluralize }}</div>
+        <a href="{% url 'estado_cuenta:admin_detalle' m.cedula %}" style="color:var(--verde-medio);font-size:0.8rem;font-weight:700;margin-right:1rem">Ver estado de cuenta →</a>
+        <a href="?socio={{ m.cedula|urlencode }}" style="color:var(--verde-medio);font-size:0.8rem;font-weight:700">Registrar pago</a>
       </div>
-
-      <div class="tarjeta--suave">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.25rem">
-          <strong style="font-size:0.9rem">Diego Castro</strong>
-          <span class="badge badge--error" style="font-size:0.75rem">21 días</span>
-        </div>
-        <div style="color:var(--texto-suave);font-size:0.82rem;margin-bottom:0.35rem">Saldo: ₡48 000</div>
-        <a href="/estado-cuenta/gestion/" style="color:var(--verde-medio);font-size:0.8rem;font-weight:700">Ver estado de cuenta →</a>
-      </div>
-
-      <div class="tarjeta--suave">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.25rem">
-          <strong style="font-size:0.9rem">Laura Salas</strong>
-          <span class="badge badge--error" style="font-size:0.75rem">13 días</span>
-        </div>
-        <div style="color:var(--texto-suave);font-size:0.82rem;margin-bottom:0.35rem">Saldo: ₡30 000</div>
-        <a href="/estado-cuenta/gestion/" style="color:var(--verde-medio);font-size:0.8rem;font-weight:700">Ver estado de cuenta →</a>
-      </div>
-
-      <div class="tarjeta--suave">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.25rem">
-          <strong style="font-size:0.9rem">José Jiménez</strong>
-          <span class="badge badge--error" style="font-size:0.75rem">6 días</span>
-        </div>
-        <div style="color:var(--texto-suave);font-size:0.82rem;margin-bottom:0.35rem">Saldo: ₡30 000</div>
-        <a href="/estado-cuenta/gestion/" style="color:var(--verde-medio);font-size:0.8rem;font-weight:700">Ver estado de cuenta →</a>
-      </div>
+      {% empty %}
+      <p style="color:var(--texto-suave);font-size:0.86rem">No hay socios morosos.</p>
+      {% endfor %}
     </div>
   </div>
 </div>

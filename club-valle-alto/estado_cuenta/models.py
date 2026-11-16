@@ -114,3 +114,49 @@ class VSocioMoroso(models.Model):
     class Meta:
         managed = False
         db_table = 'v_socios_morosos'
+
+
+# ---------------------------------------------------------------------
+# Pagos manuales (extensión propia: migración estado_cuenta/0002)
+# ---------------------------------------------------------------------
+
+class Pago(models.Model):
+    """
+    Recepción de un pago registrada por administración. Cada pago salda uno
+    o varios cargos completos (ver PagoCargo). No se procesan pagos en línea.
+    """
+    id_pago = models.BigAutoField(primary_key=True)
+    socio = models.ForeignKey(
+        Socio, on_delete=models.PROTECT,
+        db_column='cedula_socio', related_name='pagos')
+    fecha_pago = models.DateField()
+    monto = models.DecimalField(max_digits=12, decimal_places=2)
+    referencia = models.CharField(max_length=200, blank=True)
+    admin = models.ForeignKey(
+        Administrador, on_delete=models.PROTECT,
+        db_column='cedula_admin', related_name='+')
+    fecha_registro = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        db_table = 'pago'
+        ordering = ['-fecha_registro', '-id_pago']
+
+    def __str__(self):
+        return f'Pago #{self.id_pago} de {self.socio_id} ({self.monto})'
+
+
+class PagoCargo(models.Model):
+    """Cargo saldado por un pago. Un cargo solo puede pagarse una vez."""
+    pago = models.ForeignKey(
+        Pago, on_delete=models.PROTECT,
+        db_column='id_pago', related_name='detalles')
+    cargo = models.OneToOneField(
+        Cargo, on_delete=models.PROTECT,
+        db_column='id_cargo', related_name='pago_detalle')
+    monto = models.DecimalField(max_digits=12, decimal_places=2)
+
+    class Meta:
+        db_table = 'pago_cargo'
+
+    def __str__(self):
+        return f'Pago #{self.pago_id} -> cargo #{self.cargo_id}'

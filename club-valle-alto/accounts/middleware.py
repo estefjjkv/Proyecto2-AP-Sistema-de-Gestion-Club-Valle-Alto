@@ -6,7 +6,7 @@ from django.shortcuts import render
 
 # Módulos que todavía son prototipos estáticos. Al implementar uno, se quita de
 # aquí y sus vistas se protegen con accounts.permissions (permitted/member_only).
-MODULOS_PENDIENTES = {"estado_cuenta", "notificaciones"}
+MODULOS_PENDIENTES = {"notificaciones"}
 
 
 class AccessMiddleware:

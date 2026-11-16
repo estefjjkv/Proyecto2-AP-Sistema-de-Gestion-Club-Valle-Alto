@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load cobros %}
 {% block titulo %}Historial de estados de cuenta{% endblock %}
 {% block contenido %}
 <div class="encabezado-pagina">
@@ -9,61 +10,27 @@
 <div class="tarjeta">
   <div class="tarjeta__cabecera">
     <h2 class="tarjeta__titulo">Periodos</h2>
-    <a href="/estado-cuenta/" style="font-size:0.9rem;font-weight:600">Volver al estado actual</a>
+    <a href="{% url 'estado_cuenta:mi_estado' %}" style="font-weight:600;font-size:0.92rem">Volver al estado actual</a>
   </div>
-
   <div class="tabla-contenedor">
     <table class="tabla">
-      <thead>
-        <tr>
-          <th>Periodo</th>
-          <th>Fecha de emisión</th>
-          <th>Total</th>
-          <th>Estado</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
+      <thead><tr><th>Periodo</th><th>Fecha límite</th><th>Total</th><th>Pendiente</th><th>Estado</th><th>Acciones</th></tr></thead>
       <tbody>
+        {% for r in resumenes %}
         <tr>
-          <td>Octubre 2026</td>
-          <td>01/10/2026</td>
-          <td>₡93 000</td>
-          <td><span class="badge badge--aviso">Pendiente</span></td>
-          <td>
-            <a href="/estado-cuenta/" style="margin-right:1.25rem;font-weight:600">Ver</a>
-            <a href="/estado-cuenta/?descargar=pdf" style="font-weight:600">Descargar PDF</a>
+          <td>{{ r.periodo|periodo }}</td>
+          <td>{{ r.fecha_limite_pago|date:"d/m/Y" }}</td>
+          <td>{{ r.total|colones }}</td>
+          <td>{{ r.saldo|colones }}</td>
+          <td>{% estado_badge r.estado %}</td>
+          <td style="white-space:nowrap">
+            <a href="{% url 'estado_cuenta:mi_estado' %}?periodo={{ r.periodo|date:'Y-m-d' }}" style="color:var(--verde-medio);font-weight:700;margin-right:1rem">Ver</a>
+            <a href="{% url 'estado_cuenta:imprimir' r.periodo|date:'Y-m' %}" target="_blank" rel="noopener" style="color:var(--verde-medio);font-weight:700">Descargar PDF</a>
           </td>
         </tr>
-        <tr>
-          <td>Septiembre 2026</td>
-          <td>01/09/2026</td>
-          <td>₡52 000</td>
-          <td><span class="badge badge--exito">Pagado</span></td>
-          <td>
-            <a href="/estado-cuenta/" style="margin-right:1.25rem;font-weight:600">Ver</a>
-            <a href="/estado-cuenta/?descargar=pdf" style="font-weight:600">Descargar PDF</a>
-          </td>
-        </tr>
-        <tr>
-          <td>Agosto 2026</td>
-          <td>01/08/2026</td>
-          <td>₡45 000</td>
-          <td><span class="badge badge--exito">Pagado</span></td>
-          <td>
-            <a href="/estado-cuenta/" style="margin-right:1.25rem;font-weight:600">Ver</a>
-            <a href="/estado-cuenta/?descargar=pdf" style="font-weight:600">Descargar PDF</a>
-          </td>
-        </tr>
-        <tr>
-          <td>Julio 2026</td>
-          <td>01/07/2026</td>
-          <td>₡61 000</td>
-          <td><span class="badge badge--exito">Pagado</span></td>
-          <td>
-            <a href="/estado-cuenta/" style="margin-right:1.25rem;font-weight:600">Ver</a>
-            <a href="/estado-cuenta/?descargar=pdf" style="font-weight:600">Descargar PDF</a>
-          </td>
-        </tr>
+        {% empty %}
+        <tr><td colspan="6">No hay estados de cuenta.</td></tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>
