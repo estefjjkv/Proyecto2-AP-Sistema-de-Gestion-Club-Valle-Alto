@@ -1,9 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'base_admin.html' %}
 {% block titulo %}Invitados esperados{% endblock %}
+{% block categoria %}RECEPCIÓN{% endblock %}
 {% block encabezado %}Invitados esperados{% endblock %}
 {% block contenido %}
 
-<div class="encabezado-pagina"><h1>Invitados esperados</h1><p>Consulte las visitas por fecha y registre los ingresos de hoy.</p></div>
+<p class="tarjeta__subtitulo" style="margin-bottom:1rem">Consulte las visitas por fecha y registre los ingresos de hoy.</p>
 <div class="tarjeta"><form method="get" class="formulario">{% include 'includes/form_fields.html' %}<button class="boton">Consultar</button></form></div>
 <div class="tarjeta seccion tabla-contenedor"><table class="tabla"><thead><tr><th>Invitado</th><th>Cédula</th><th>Socio responsable</th><th>Instalación</th><th>Membresía</th><th>Ingreso</th></tr></thead><tbody>{% for visita in visitas %}<tr><td>{{ visita.nombre_completo }}</td><td>{{ visita.cedula }}</td><td>{{ visita.membresia.socio }}</td><td>{{ visita.instalacion }}</td><td>{{ visita.membresia.estado_efectivo }}</td><td>{% if visita.ingreso %}{{ visita.ingreso }}{% elif visita.fecha_visita == hoy %}<form method="post" action="{% url 'invitados:ingreso' visita.referencia %}">{% csrf_token %}<button class="boton boton--pequeno">Registrar ingreso</button></form>{% else %}Pendiente{% endif %}</td></tr>{% empty %}<tr><td colspan="6">No hay invitados para la fecha seleccionada.</td></tr>{% endfor %}</tbody></table></div>
 
